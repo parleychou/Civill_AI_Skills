@@ -1,0 +1,75 @@
+{
+  "note": "Observations only. Each case records what was measured or read, never a conclusion about whether a translation exists. Contexts that state 'confirmed', 'corresponds to' or 'semantically matching' hand the answer to the model and cannot discriminate.",
+  "cases": [
+    {
+      "id": "title_with_shorter_english",
+      "source": "檩托详图",
+      "source_path": "Model/6E4",
+      "property": "TextString",
+      "observed": "An English MTEXT reading 'Purlin Bracket' sits 417 units below this title, same detail region, same leader group. No other English lies within 6000 units."
+    },
+    {
+      "id": "callout_far_from_that_title",
+      "source": "檩托",
+      "source_path": "Model/769",
+      "property": "TextString",
+      "observed": "The nearest English string in the drawing is the 'Purlin Bracket' MTEXT at Model/916/91E, 8140 units away in a different detail region. Nothing English lies within 3000 units."
+    },
+    {
+      "id": "sibling_instance_of_same_block",
+      "source": "钢梁",
+      "source_path": "Model/2AC/1E3",
+      "property": "TextString",
+      "observed": "Block definition B is inserted twice: at Model/1DD and at Model/2AC. An English MTEXT overlays the Model/1DD occurrence. A search of the region around Model/2AC returned no English text."
+    },
+    {
+      "id": "latin_strings_nearby",
+      "source": "详平面",
+      "source_path": "Model/8E2",
+      "property": "TextString",
+      "observed": "Latin-character strings within 2000 units: 'WL', 'M12(4.6s)', '1:10'. A text-bearing-object search of the surrounding detail returned no other Latin strings."
+    },
+    {
+      "id": "english_on_frozen_layer",
+      "source": "钢梁",
+      "source_path": "Model/801",
+      "property": "TextString",
+      "observed": "An MTEXT reading 'Steel Beam' sits 300 units away. It is on layer DEFPOINTS_OLD, which is frozen, inside an insert whose Visible property is False. The Chinese source is on a thawed layer and plots."
+    },
+    {
+      "id": "dimension_override_with_nearby_english",
+      "source": "外挑尺寸",
+      "source_path": "Model/8D5",
+      "property": "TextOverride",
+      "observed": "This is an associative rotated dimension; Measurement reads 1200.0 and TextOverride carries the Chinese. An MTEXT reading 'Overhang Dimension' sits 380 units above, inside nested block Model/916, aligned to the same dimension line."
+    },
+    {
+      "id": "override_with_live_codes",
+      "source": "间距<>，共4处，详图%<FIELD_CODE>%",
+      "source_path": "Model/9A1",
+      "property": "TextOverride",
+      "observed": "No Latin prose within 5000 units. The field expression has not been evaluated. Measurement reads 600.0."
+    },
+    {
+      "id": "proxy_read_failure",
+      "source": null,
+      "source_path": "Model/A34",
+      "property": null,
+      "observed": "An AEC proxy object renders glyphs that look like Chinese. Reading TextString raises; no text adapter for this class has been verified. The scan otherwise completed with zero errors."
+    },
+    {
+      "id": "two_plausible_labels",
+      "source": "连接板",
+      "source_path": "Model/7C1",
+      "property": "TextString",
+      "observed": "Two English MTEXTs lie within 900 units: 'End Plate' and 'Gusset Plate'. Both are linked by leaders whose endpoints fall inside the same connection detail. The observed glossary contains neither phrase."
+    },
+    {
+      "id": "overlap_at_different_z",
+      "source": "钢梁",
+      "source_path": "Model/33C",
+      "property": "TextString",
+      "observed": "No English within 4000 units. A proposed English box at the preferred anchor overlaps a beam outline polyline in XY. The polyline sits at Z=500; the text would sit at Z=0. A second anchor 900 units away overlaps nothing."
+    }
+  ]
+}

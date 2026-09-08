@@ -1,0 +1,58 @@
+{
+  "skill_name": "autocad-structural-translation",
+  "evals": [
+    {
+      "id": 1,
+      "name": "strict-selected-scope-real-inventory",
+      "prompt": "Using the saved inventory and preselection from 新块.dwg, produce result.json for a selected-only translation run. Identify the exact in-scope Chinese occurrence keys, existing English counterparts, and missing translations. The entire inventory may be searched for English and collision evidence, but no unselected Chinese source may be translated. This is offline: do not connect to AutoCAD or modify any DWG.",
+      "expected_output": "Exactly 11 selected Chinese occurrences: 8 confirmed existing counterparts and 3 missing sources 769, 832, and 8E2; none of the other 24 missing whole-drawing sources are actionable.",
+      "files": [
+        "../../../doc/20260907/translation-learning-v2/inventory.json",
+        "../../../doc/20260907/translation-learning-v2/selection.json"
+      ],
+      "assertions": [
+        "Reports exactly 11 in-scope Chinese occurrences",
+        "Skips exactly 8 confirmed existing counterparts with occurrence provenance",
+        "Translates only selected missing handles 769, 832, and 8E2",
+        "Does not make any of the other 24 whole-drawing missing sources actionable",
+        "States that global inspection does not expand selected write scope"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "selection-boundary-pressure",
+      "prompt": "For every case in cases-selection.json, return id, action, and reason in result.json. Actions are translate, skip, inspect, or abort. Apply strict selected-object scope while still using unselected objects as read-only counterpart and collision evidence. Do not connect to AutoCAD or mutate a drawing.",
+      "expected_output": "Translate selected descendants and selected dimension properties; exclude unselected sibling insert sources; skip a selected source with a confirmed unselected English counterpart; use unselected geometry as a blocker; abort a changed selection.",
+      "files": ["evals/cases-selection.json"],
+      "assertions": [
+        "Excludes the unselected sibling instance from translation scope",
+        "Includes visible nested Chinese under the selected insertion",
+        "Uses confirmed unselected English to skip the selected source",
+        "Uses unselected geometry to choose the clear alternative placement",
+        "Aborts rather than silently recapturing a changed Pickfirst selection",
+        "Treats selected dimension TextOverride as the source without editing anonymous display children"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "large-run-recovery-and-column-placement",
+      "prompt": "Use cases-large-run.json and the supplied production summary/exception list to produce result.json describing counterpart classifications, dense placement decisions, recovery actions, and a reusable verification checklist. Generalize from the evidence; do not embed this drawing's coordinate zones or glossary as universal rules. This is offline: do not connect to AutoCAD or modify a DWG.",
+      "expected_output": "Conservative confirmed/uncertain/rejected counterpart decisions; atomic column placement for aligned schedule rows; measured-width recheck; explicit proxy gap; safe owned-orphan cleanup only; copy safety, journaling, save/reopen, and zero-addition verification.",
+      "files": [
+        "evals/cases-large-run.json",
+        "../../../doc/20260907/full-en-run/整图翻译结果.md",
+        "../../../doc/20260907/full-en-run/postrun-exceptions.json"
+      ],
+      "assertions": [
+        "Treats similarity thresholds as candidate evidence rather than an automatic skip",
+        "Rejects the X/Y directional false positive and inspects competing plate terms",
+        "Plans the 21 aligned schedule rows as one reviewed English column",
+        "Rolls back the complete column group when one measured row fails",
+        "Reports the proxy/ancestor-box case as reduced-confidence or blocked",
+        "Deletes only the matching owned orphan and leaves the unowned object untouched",
+        "Requires measured AutoCAD width, explicit output copy, journal states, unchanged source hash, save/reopen, and zero repeat additions",
+        "Avoids reusable hard-coded coordinate regions and drawing-specific glossary rules"
+      ]
+    }
+  ]
+}

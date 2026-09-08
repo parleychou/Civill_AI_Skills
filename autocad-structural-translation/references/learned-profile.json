@@ -1,0 +1,2282 @@
+{
+  "drawing": "E:\\2026\\20260907_图纸翻译\\新块.dwg",
+  "captured_at": "2026-09-07T09:30:38.524855+00:00",
+  "inventory_sha256": "0b616caf2980a68c63752f3675b28f548f050e48656a2dfb0020a7edaccc363c",
+  "application_version": "24.3s (LMS Tech)",
+  "pairs": [
+    {
+      "source_id": "Model/8E5",
+      "source_property": "TextString",
+      "source_raw": "WL与钢梁搭接详图",
+      "english_id": "Model/916/91B",
+      "english_raw": "Detailed Drawing of WL and Steel Beam Lapping",
+      "status": "already_translated",
+      "quality_note": "full",
+      "association_basis": "Reviewed semantic match and spatial position within the selected detail; individual repeated occurrences paired separately.",
+      "offset": {
+        "dx": 675.5178418155556,
+        "dy": -522.5230141285574,
+        "along_h": 0.7505753797950694,
+        "above_h": -0.5805811268095141,
+        "english_height_ratio": 0.38888888888889284,
+        "rotation_delta_deg": 0.0
+      },
+      "source": {
+        "Handle": "8E5",
+        "ObjectName": "AcDbText",
+        "ObjectID": 2641458554704,
+        "OwnerID": 2641407670304,
+        "Layer": "TEXT",
+        "Color": 7,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "layout:Model",
+        "selected": true,
+        "bbox": [
+          [
+            92051.7756887212,
+            -294636.56435051817,
+            280.6835426134676
+          ],
+          [
+            97983.01865834995,
+            -293736.56435051817,
+            280.6835426134676
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 195,
+          "ColorIndex": 7,
+          "Red": 255,
+          "Green": 255,
+          "Blue": 255,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "WL与钢梁搭接详图"
+        },
+        "StyleName": "###HGV",
+        "Height": 899.9999999999909,
+        "ScaleFactor": 0.75,
+        "Rotation": 0.0,
+        "ObliqueAngle": 0.0,
+        "Alignment": 0,
+        "InsertionPoint": [
+          92051.7756887212,
+          -294636.56435051817,
+          280.6835426134676
+        ],
+        "TextAlignmentPoint": [
+          0.0,
+          0.0,
+          280.6835426134676
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Backward": false,
+        "UpsideDown": false,
+        "TextGenerationFlag": 0,
+        "hyperlinks": [],
+        "instance_id": "Model/8E5",
+        "occurrence_path": [
+          "8E5"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "TEXT",
+        "effective_aci": 7,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          92051.7756887212,
+          -294636.56435051817,
+          97983.01865834995,
+          -293736.56435051817
+        ],
+        "anchor_xy": [
+          92051.7756887212,
+          -294636.56435051817
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 899.9999999999909
+      },
+      "english": {
+        "Handle": "91B",
+        "ObjectName": "AcDbMText",
+        "ObjectID": 2641458545456,
+        "OwnerID": 2641458545392,
+        "Layer": "0",
+        "Color": 6,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "block:A$C9c9f536b",
+        "selected": false,
+        "bbox": [
+          [
+            -413.43640069128014,
+            -836.948277258959,
+            0.0
+          ],
+          [
+            8854.287429470383,
+            -419.64058495126665,
+            0.0
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 195,
+          "ColorIndex": 6,
+          "Red": 255,
+          "Green": 0,
+          "Blue": 255,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "Detailed Drawing of WL and Steel Beam Lapping"
+        },
+        "StyleName": "TSSD_Rein",
+        "Height": 350.0,
+        "Width": 9267.723830161663,
+        "Rotation": 0.0,
+        "AttachmentPoint": 1,
+        "InsertionPoint": [
+          -413.43640069128014,
+          -419.64058495126665,
+          0.0
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "DrawingDirection": 1,
+        "LineSpacingFactor": 1.0,
+        "LineSpacingStyle": 1,
+        "BackgroundFill": false,
+        "hyperlinks": [],
+        "instance_id": "Model/916/91B",
+        "occurrence_path": [
+          "916",
+          "91B"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "S-BEAM_CON",
+        "effective_aci": 6,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          93140.72993122804,
+          -294739.44677969546
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          92727.29353053676,
+          -295576.3950569544,
+          101995.01736069842,
+          -295159.0873646467
+        ],
+        "anchor_xy": [
+          92727.29353053676,
+          -295159.0873646467
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 350.0
+      }
+    },
+    {
+      "source_id": "Model/75A",
+      "source_property": "TextString",
+      "source_raw": "中间跨",
+      "english_id": "Model/916/91C",
+      "english_raw": "Middle Span",
+      "status": "already_translated",
+      "quality_note": "full",
+      "association_basis": "Reviewed semantic match and spatial position within the selected detail; individual repeated occurrences paired separately.",
+      "offset": {
+        "dx": 38.1633943276247,
+        "dy": -738.2256901614601,
+        "along_h": 0.056538361966864334,
+        "above_h": -1.093667689128339,
+        "english_height_ratio": 0.5185185185186371,
+        "rotation_delta_deg": 0.0
+      },
+      "source": {
+        "Handle": "75A",
+        "ObjectName": "AcDbText",
+        "ObjectID": 2641458537760,
+        "OwnerID": 2641407670304,
+        "Layer": "TEXT",
+        "Color": 256,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "layout:Model",
+        "selected": true,
+        "bbox": [
+          [
+            81984.66386790811,
+            -293242.1653296456,
+            871.3713547579638
+          ],
+          [
+            83395.78591515188,
+            -292567.1653296458,
+            871.3713547579638
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 192,
+          "ColorIndex": 256,
+          "Red": 0,
+          "Green": 0,
+          "Blue": 0,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "中间跨"
+        },
+        "StyleName": "###HGV",
+        "Height": 674.9999999998457,
+        "ScaleFactor": 0.75,
+        "Rotation": 0.0,
+        "ObliqueAngle": 0.0,
+        "Alignment": 0,
+        "InsertionPoint": [
+          81912.9118994042,
+          -293242.1653296456,
+          871.3713547579638
+        ],
+        "TextAlignmentPoint": [
+          0.0,
+          0.0,
+          871.3713547579638
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Backward": false,
+        "UpsideDown": false,
+        "TextGenerationFlag": 0,
+        "hyperlinks": [],
+        "instance_id": "Model/75A",
+        "occurrence_path": [
+          "75A"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "TEXT",
+        "effective_aci": 7,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          81984.66386790811,
+          -293242.1653296456,
+          83395.78591515188,
+          -292567.1653296458
+        ],
+        "anchor_xy": [
+          81912.9118994042,
+          -293242.1653296456
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 674.9999999998457
+      },
+      "english": {
+        "Handle": "91C",
+        "ObjectName": "AcDbMText",
+        "ObjectID": 2641458545472,
+        "OwnerID": 2641458545392,
+        "Layer": "0",
+        "Color": 6,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "block:A$C9c9f536b",
+        "selected": false,
+        "bbox": [
+          [
+            -11189.65463749622,
+            341.7480675806828,
+            0.0
+          ],
+          [
+            -1921.9308073345564,
+            759.0557598883752,
+            0.0
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 195,
+          "ColorIndex": 6,
+          "Red": 255,
+          "Green": 0,
+          "Blue": 255,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "Middle Span"
+        },
+        "StyleName": "TSSD_Rein",
+        "Height": 350.0,
+        "Width": 9267.723830161663,
+        "Rotation": 0.0,
+        "AttachmentPoint": 1,
+        "InsertionPoint": [
+          -11189.65463749622,
+          759.0557598883752,
+          0.0
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "DrawingDirection": 1,
+        "LineSpacingFactor": 1.0,
+        "LineSpacingStyle": 1,
+        "BackgroundFill": false,
+        "hyperlinks": [],
+        "instance_id": "Model/916/91C",
+        "occurrence_path": [
+          "916",
+          "91C"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "S-BEAM_CON",
+        "effective_aci": 6,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          93140.72993122804,
+          -294739.44677969546
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          81951.07529373182,
+          -294397.69871211477,
+          91218.79912389348,
+          -293980.3910198071
+        ],
+        "anchor_xy": [
+          81951.07529373182,
+          -293980.3910198071
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 350.0
+      }
+    },
+    {
+      "source_id": "Model/801",
+      "source_property": "TextString",
+      "source_raw": "钢梁",
+      "english_id": "Model/916/91D",
+      "english_raw": "Steel Beam",
+      "status": "already_translated",
+      "quality_note": "full",
+      "association_basis": "Reviewed semantic match and spatial position within the selected detail; individual repeated occurrences paired separately.",
+      "offset": {
+        "dx": -1076.8358547752723,
+        "dy": -117.95419690653216,
+        "along_h": -2.3929685661678186,
+        "above_h": -0.26212043757013137,
+        "english_height_ratio": 0.7777777777779555,
+        "rotation_delta_deg": 0.0
+      },
+      "source": {
+        "Handle": "801",
+        "ObjectName": "AcDbText",
+        "ObjectID": 2641458557072,
+        "OwnerID": 2641407670304,
+        "Layer": "TEXT",
+        "Color": 256,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "layout:Model",
+        "selected": true,
+        "bbox": [
+          [
+            84728.37981856008,
+            -291960.78236199834,
+            454.3549005678108
+          ],
+          [
+            85350.23021226072,
+            -291542.672125778,
+            454.3549005678108
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 192,
+          "ColorIndex": 256,
+          "Red": 0,
+          "Green": 0,
+          "Blue": 0,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "钢梁"
+        },
+        "StyleName": "###HGV",
+        "Height": 449.99999999989717,
+        "ScaleFactor": 0.75,
+        "Rotation": 0.0,
+        "ObliqueAngle": 0.0,
+        "Alignment": 0,
+        "InsertionPoint": [
+          84696.49005478056,
+          -291978.4988974314,
+          454.3549005678108
+        ],
+        "TextAlignmentPoint": [
+          0.0,
+          0.0,
+          454.3549005678108
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Backward": false,
+        "UpsideDown": false,
+        "TextGenerationFlag": 0,
+        "hyperlinks": [],
+        "instance_id": "Model/801",
+        "occurrence_path": [
+          "801"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "TEXT",
+        "effective_aci": 7,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          84728.37981856008,
+          -291960.78236199834,
+          85350.23021226072,
+          -291542.672125778
+        ],
+        "anchor_xy": [
+          84696.49005478056,
+          -291978.4988974314
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 449.99999999989717
+      },
+      "english": {
+        "Handle": "91D",
+        "ObjectName": "AcDbMText",
+        "ObjectID": 2641458545488,
+        "OwnerID": 2641458545392,
+        "Layer": "0",
+        "Color": 6,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "block:A$C9c9f536b",
+        "selected": false,
+        "bbox": [
+          [
+            -9521.07573122275,
+            2292.9936853575055,
+            0.0
+          ],
+          [
+            -253.35190106108712,
+            2642.9936853575055,
+            0.0
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 195,
+          "ColorIndex": 6,
+          "Red": 255,
+          "Green": 0,
+          "Blue": 255,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "Steel Beam"
+        },
+        "StyleName": "TSSD_Rein",
+        "Height": 350.0,
+        "Width": 9267.723830161663,
+        "Rotation": 0.0,
+        "AttachmentPoint": 1,
+        "InsertionPoint": [
+          -9521.07573122275,
+          2642.9936853575055,
+          0.0
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "DrawingDirection": 1,
+        "LineSpacingFactor": 1.0,
+        "LineSpacingStyle": 1,
+        "BackgroundFill": false,
+        "hyperlinks": [],
+        "instance_id": "Model/916/91D",
+        "occurrence_path": [
+          "916",
+          "91D"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "S-BEAM_CON",
+        "effective_aci": 6,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          93140.72993122804,
+          -294739.44677969546
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          83619.65420000529,
+          -292446.45309433795,
+          92887.37803016695,
+          -292096.45309433795
+        ],
+        "anchor_xy": [
+          83619.65420000529,
+          -292096.45309433795
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 350.0
+      }
+    },
+    {
+      "source_id": "Model/6E4",
+      "source_property": "TextString",
+      "source_raw": "檩托详图",
+      "english_id": "Model/916/91E",
+      "english_raw": "Purlin Bracket",
+      "status": "already_translated",
+      "quality_note": "abbreviated title; retains component but omits 'detail'",
+      "association_basis": "Reviewed semantic match and spatial position within the selected detail; individual repeated occurrences paired separately.",
+      "offset": {
+        "dx": 183.65315906252363,
+        "dy": -341.722537092166,
+        "along_h": 0.30608859843754244,
+        "above_h": -0.5695375618202824,
+        "english_height_ratio": 0.5833333333333391,
+        "rotation_delta_deg": 0.0
+      },
+      "source": {
+        "Handle": "6E4",
+        "ObjectName": "AcDbText",
+        "ObjectID": 2641458521408,
+        "OwnerID": 2641407670304,
+        "Layer": "TEXT",
+        "Color": 256,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "layout:Model",
+        "selected": true,
+        "bbox": [
+          [
+            97218.3105555993,
+            -291896.8282713936,
+            1009.3534605415513
+          ],
+          [
+            98926.18457134732,
+            -291311.00149974006,
+            1009.3534605415513
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 192,
+          "ColorIndex": 256,
+          "Red": 0,
+          "Green": 0,
+          "Blue": 0,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "檩托详图"
+        },
+        "StyleName": "###HGV",
+        "Height": 599.999999999994,
+        "ScaleFactor": 0.75,
+        "Rotation": 0.0,
+        "ObliqueAngle": 0.0,
+        "Alignment": 0,
+        "InsertionPoint": [
+          97200.59402016623,
+          -291906.27709029126,
+          1009.3534605415513
+        ],
+        "TextAlignmentPoint": [
+          0.0,
+          0.0,
+          1009.3534605415513
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Backward": false,
+        "UpsideDown": false,
+        "TextGenerationFlag": 0,
+        "hyperlinks": [],
+        "instance_id": "Model/6E4",
+        "occurrence_path": [
+          "6E4"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "TEXT",
+        "effective_aci": 7,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          97218.3105555993,
+          -291896.8282713936,
+          98926.18457134732,
+          -291311.00149974006
+        ],
+        "anchor_xy": [
+          97200.59402016623,
+          -291906.27709029126
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 599.999999999994
+      },
+      "english": {
+        "Handle": "91E",
+        "ObjectName": "AcDbMText",
+        "ObjectID": 2641458545504,
+        "OwnerID": 2641458545392,
+        "Layer": "0",
+        "Color": 6,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "block:A$C9c9f536b",
+        "selected": false,
+        "bbox": [
+          [
+            4243.517248000717,
+            2141.44715231203,
+            0.0
+          ],
+          [
+            13511.24107816238,
+            2491.44715231203,
+            0.0
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 195,
+          "ColorIndex": 6,
+          "Red": 255,
+          "Green": 0,
+          "Blue": 255,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "Purlin Bracket"
+        },
+        "StyleName": "TSSD_Rein",
+        "Height": 350.0,
+        "Width": 9267.723830161663,
+        "Rotation": 0.0,
+        "AttachmentPoint": 1,
+        "InsertionPoint": [
+          4243.517248000717,
+          2491.44715231203,
+          0.0
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "DrawingDirection": 1,
+        "LineSpacingFactor": 1.0,
+        "LineSpacingStyle": 1,
+        "BackgroundFill": false,
+        "hyperlinks": [],
+        "instance_id": "Model/916/91E",
+        "occurrence_path": [
+          "916",
+          "91E"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "S-BEAM_CON",
+        "effective_aci": 6,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          93140.72993122804,
+          -294739.44677969546
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          97384.24717922875,
+          -292597.9996273834,
+          106651.97100939041,
+          -292247.9996273834
+        ],
+        "anchor_xy": [
+          97384.24717922875,
+          -292247.9996273834
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 350.0
+      }
+    },
+    {
+      "source_id": "Model/75B",
+      "source_property": "TextString",
+      "source_raw": "边跨",
+      "english_id": "Model/916/91F",
+      "english_raw": "Side Span",
+      "status": "already_translated",
+      "quality_note": "full",
+      "association_basis": "Reviewed semantic match and spatial position within the selected detail; individual repeated occurrences paired separately.",
+      "offset": {
+        "dx": 401.04694332787767,
+        "dy": -566.4009522073902,
+        "along_h": 0.5941436197451397,
+        "above_h": -0.839112521788918,
+        "english_height_ratio": 0.5185185185186371,
+        "rotation_delta_deg": 0.0
+      },
+      "source": {
+        "Handle": "75B",
+        "ObjectName": "AcDbText",
+        "ObjectID": 2641458537776,
+        "OwnerID": 2641407670304,
+        "Layer": "TEXT",
+        "Color": 256,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "layout:Model",
+        "selected": true,
+        "bbox": [
+          [
+            90023.69303703772,
+            -293238.65541230125,
+            -75.93560156249882
+          ],
+          [
+            90968.42728900601,
+            -292595.54517608095,
+            -75.93560156249882
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 192,
+          "ColorIndex": 256,
+          "Red": 0,
+          "Green": 0,
+          "Blue": 0,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "边跨"
+        },
+        "StyleName": "###HGV",
+        "Height": 674.9999999998457,
+        "ScaleFactor": 0.75,
+        "Rotation": 0.0,
+        "ObliqueAngle": 0.0,
+        "Alignment": 0,
+        "InsertionPoint": [
+          89991.8032732582,
+          -293259.91525482095,
+          -75.93560156249882
+        ],
+        "TextAlignmentPoint": [
+          0.0,
+          0.0,
+          -75.93560156249882
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Backward": false,
+        "UpsideDown": false,
+        "TextGenerationFlag": 0,
+        "hyperlinks": [],
+        "instance_id": "Model/75B",
+        "occurrence_path": [
+          "75B"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "TEXT",
+        "effective_aci": 7,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          90023.69303703772,
+          -293238.65541230125,
+          90968.42728900601,
+          -292595.54517608095
+        ],
+        "anchor_xy": [
+          89991.8032732582,
+          -293259.91525482095
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 674.9999999998457
+      },
+      "english": {
+        "Handle": "91F",
+        "ObjectName": "AcDbMText",
+        "ObjectID": 2641458545520,
+        "OwnerID": 2641458545392,
+        "Layer": "0",
+        "Color": 6,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "block:A$C9c9f536b",
+        "selected": false,
+        "bbox": [
+          [
+            -2747.879714641953,
+            495.82288035942025,
+            0.0
+          ],
+          [
+            6519.844115519711,
+            913.1305726671126,
+            0.0
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 195,
+          "ColorIndex": 6,
+          "Red": 255,
+          "Green": 0,
+          "Blue": 255,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "Side Span"
+        },
+        "StyleName": "TSSD_Rein",
+        "Height": 350.0,
+        "Width": 9267.723830161663,
+        "Rotation": 0.0,
+        "AttachmentPoint": 1,
+        "InsertionPoint": [
+          -2747.879714641953,
+          913.1305726671126,
+          0.0
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "DrawingDirection": 1,
+        "LineSpacingFactor": 1.0,
+        "LineSpacingStyle": 1,
+        "BackgroundFill": false,
+        "hyperlinks": [],
+        "instance_id": "Model/916/91F",
+        "occurrence_path": [
+          "916",
+          "91F"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "S-BEAM_CON",
+        "effective_aci": 6,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          93140.72993122804,
+          -294739.44677969546
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          90392.85021658608,
+          -294243.62389933603,
+          99660.57404674774,
+          -293826.31620702834
+        ],
+        "anchor_xy": [
+          90392.85021658608,
+          -293826.31620702834
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 350.0
+      }
+    },
+    {
+      "source_id": "Model/8C5",
+      "source_property": "TextString",
+      "source_raw": "钢梁",
+      "english_id": "Model/916/920",
+      "english_raw": "Steel Beam",
+      "status": "already_translated",
+      "quality_note": "full",
+      "association_basis": "Reviewed semantic match and spatial position within the selected detail; individual repeated occurrences paired separately.",
+      "offset": {
+        "dx": 362.4736254988238,
+        "dy": -135.90788800211158,
+        "along_h": 0.8054969455531259,
+        "above_h": -0.3020175288936503,
+        "english_height_ratio": 0.7777777777779555,
+        "rotation_delta_deg": 0.0
+      },
+      "source": {
+        "Handle": "8C5",
+        "ObjectName": "AcDbText",
+        "ObjectID": 2641458554192,
+        "OwnerID": 2641407670304,
+        "Layer": "TEXT",
+        "Color": 256,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "layout:Model",
+        "selected": true,
+        "bbox": [
+          [
+            92510.3784212428,
+            -291960.78236199834,
+            454.3549005678108
+          ],
+          [
+            93132.22881494345,
+            -291542.672125778,
+            454.3549005678108
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 192,
+          "ColorIndex": 256,
+          "Red": 0,
+          "Green": 0,
+          "Blue": 0,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "钢梁"
+        },
+        "StyleName": "###HGV",
+        "Height": 449.99999999989717,
+        "ScaleFactor": 0.75,
+        "Rotation": 0.0,
+        "ObliqueAngle": 0.0,
+        "Alignment": 0,
+        "InsertionPoint": [
+          92478.48865746328,
+          -291978.4988974314,
+          454.3549005678108
+        ],
+        "TextAlignmentPoint": [
+          0.0,
+          0.0,
+          454.3549005678108
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Backward": false,
+        "UpsideDown": false,
+        "TextGenerationFlag": 0,
+        "hyperlinks": [],
+        "instance_id": "Model/8C5",
+        "occurrence_path": [
+          "8C5"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "TEXT",
+        "effective_aci": 7,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          92510.3784212428,
+          -291960.78236199834,
+          93132.22881494345,
+          -291542.672125778
+        ],
+        "anchor_xy": [
+          92478.48865746328,
+          -291978.4988974314
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 449.99999999989717
+      },
+      "english": {
+        "Handle": "920",
+        "ObjectName": "AcDbMText",
+        "ObjectID": 2641458545536,
+        "OwnerID": 2641458545392,
+        "Layer": "0",
+        "Color": 6,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "block:A$C9c9f536b",
+        "selected": false,
+        "bbox": [
+          [
+            -299.7676482659299,
+            2275.039994261926,
+            0.0
+          ],
+          [
+            8967.956181895734,
+            2625.039994261926,
+            0.0
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 195,
+          "ColorIndex": 6,
+          "Red": 255,
+          "Green": 0,
+          "Blue": 255,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "Steel Beam"
+        },
+        "StyleName": "TSSD_Rein",
+        "Height": 350.0,
+        "Width": 9267.723830161663,
+        "Rotation": 0.0,
+        "AttachmentPoint": 1,
+        "InsertionPoint": [
+          -299.7676482659299,
+          2625.039994261926,
+          0.0
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "DrawingDirection": 1,
+        "LineSpacingFactor": 1.0,
+        "LineSpacingStyle": 1,
+        "BackgroundFill": false,
+        "hyperlinks": [],
+        "instance_id": "Model/916/920",
+        "occurrence_path": [
+          "916",
+          "920"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "S-BEAM_CON",
+        "effective_aci": 6,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          93140.72993122804,
+          -294739.44677969546
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          92840.96228296211,
+          -292464.40678543353,
+          102108.68611312377,
+          -292114.40678543353
+        ],
+        "anchor_xy": [
+          92840.96228296211,
+          -292114.40678543353
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 350.0
+      }
+    },
+    {
+      "source_id": "Model/8D5",
+      "source_property": "TextOverride",
+      "source_raw": "外挑尺寸",
+      "english_id": "Model/916/921",
+      "english_raw": "Overhang Dimension",
+      "status": "already_translated",
+      "quality_note": "full; dimension override",
+      "association_basis": "Reviewed semantic match and spatial position within the selected detail; individual repeated occurrences paired separately.",
+      "offset": {
+        "dx": -53.66138993180357,
+        "dy": 912.0455602739239,
+        "along_h": -0.17887129977267857,
+        "above_h": 3.0401518675797465,
+        "english_height_ratio": 1.1666666666666667,
+        "rotation_delta_deg": 0.0
+      },
+      "source": {
+        "Handle": "8D5",
+        "ObjectName": "AcDbRotatedDimension",
+        "ObjectID": 2641458554448,
+        "OwnerID": 2641407670304,
+        "Layer": "DIM",
+        "Color": 256,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "layout:Model",
+        "selected": true,
+        "bbox": [
+          [
+            90366.69519648742,
+            -285063.4000337068,
+            -75.93560156249882
+          ],
+          [
+            93281.65101401781,
+            -283727.9727752255,
+            -75.93560156249882
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 192,
+          "ColorIndex": 256,
+          "Red": 0,
+          "Green": 0,
+          "Blue": 0,
+          "BookName": ""
+        },
+        "text": {
+          "TextOverride": "外挑尺寸",
+          "TextPrefix": "",
+          "TextSuffix": "",
+          "AltTextPrefix": "",
+          "AltTextSuffix": ""
+        },
+        "StyleName": "TSSD_10_100",
+        "TextStyle": "TSSD_Dimension",
+        "TextHeight": 300.0,
+        "ScaleFactor": 1.0,
+        "Rotation": 0.0,
+        "TextRotation": 0.0,
+        "TextPosition": [
+          91824.17310525262,
+          -283877.9727752255,
+          -75.93560156249882
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Measurement": 271.49558175303974,
+        "UnitsFormat": 2,
+        "PrimaryUnitsPrecision": 0,
+        "TextColor": 7,
+        "TextFill": false,
+        "TextFillColor": 0,
+        "TextGap": 100.0,
+        "TextMovement": 2,
+        "TextInside": true,
+        "TextInsideAlign": false,
+        "TextOutsideAlign": false,
+        "hyperlinks": [],
+        "instance_id": "Model/8D5",
+        "occurrence_path": [
+          "8D5"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "DIM",
+        "effective_aci": 3,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          90366.69519648742,
+          -285063.4000337068,
+          93281.65101401781,
+          -283727.9727752255
+        ],
+        "anchor_xy": [
+          91824.17310525262,
+          -283877.9727752255
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 300.0
+      },
+      "english": {
+        "Handle": "921",
+        "ObjectName": "AcDbMText",
+        "ObjectID": 2641458545552,
+        "OwnerID": 2641458545392,
+        "Layer": "0",
+        "Color": 6,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "block:A$C9c9f536b",
+        "selected": false,
+        "bbox": [
+          [
+            -1370.2182159072254,
+            11356.21187243616,
+            0.0
+          ],
+          [
+            7897.505614254438,
+            11773.519564743852,
+            0.0
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 195,
+          "ColorIndex": 6,
+          "Red": 255,
+          "Green": 0,
+          "Blue": 255,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "Overhang Dimension"
+        },
+        "StyleName": "TSSD_Rein",
+        "Height": 350.0,
+        "Width": 9267.723830161663,
+        "Rotation": 0.0,
+        "AttachmentPoint": 1,
+        "InsertionPoint": [
+          -1370.2182159072254,
+          11773.519564743852,
+          0.0
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "DrawingDirection": 1,
+        "LineSpacingFactor": 1.0,
+        "LineSpacingStyle": 1,
+        "BackgroundFill": false,
+        "hyperlinks": [],
+        "instance_id": "Model/916/921",
+        "occurrence_path": [
+          "916",
+          "921"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "S-BEAM_CON",
+        "effective_aci": 6,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          93140.72993122804,
+          -294739.44677969546
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          91770.51171532081,
+          -283383.2349072593,
+          101038.23554548247,
+          -282965.9272149516
+        ],
+        "anchor_xy": [
+          91770.51171532081,
+          -282965.9272149516
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 350.0
+      }
+    },
+    {
+      "source_id": "Model/824",
+      "source_property": "TextString",
+      "source_raw": "钢梁",
+      "english_id": "Model/916/922",
+      "english_raw": "Steel Beam",
+      "status": "already_translated",
+      "quality_note": "full; English horizontal beside 5-degree Chinese",
+      "association_basis": "Reviewed semantic match and spatial position within the selected detail; individual repeated occurrences paired separately.",
+      "offset": {
+        "dx": 796.776182315094,
+        "dy": 912.5002418861841,
+        "along_h": 1.4554564078779288,
+        "above_h": 1.399307138335828,
+        "english_height_ratio": 0.5833333333333391,
+        "rotation_delta_deg": -4.99999999997691
+      },
+      "source": {
+        "Handle": "824",
+        "ObjectName": "AcDbText",
+        "ObjectID": 2641458557632,
+        "OwnerID": 2641407670304,
+        "Layer": "TEXT",
+        "Color": 256,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "layout:Model",
+        "selected": true,
+        "bbox": [
+          [
+            97757.5885721776,
+            -289203.33193343604,
+            454.3549005678108
+          ],
+          [
+            98632.15493670964,
+            -288575.7092221275,
+            454.3549005678108
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 192,
+          "ColorIndex": 256,
+          "Red": 0,
+          "Green": 0,
+          "Blue": 0,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "钢梁"
+        },
+        "StyleName": "###HGV",
+        "Height": 599.999999999994,
+        "ScaleFactor": 0.75,
+        "Rotation": 0.08726646259931348,
+        "ObliqueAngle": 0.0,
+        "Alignment": 0,
+        "InsertionPoint": [
+          97765.87709536699,
+          -289230.56992638967,
+          454.3549005678108
+        ],
+        "TextAlignmentPoint": [
+          0.0,
+          0.0,
+          454.3549005678108
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "Backward": false,
+        "UpsideDown": false,
+        "TextGenerationFlag": 0,
+        "hyperlinks": [],
+        "instance_id": "Model/824",
+        "occurrence_path": [
+          "824"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "TEXT",
+        "effective_aci": 7,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          97757.5885721776,
+          -289203.33193343604,
+          98632.15493670964,
+          -288575.7092221275
+        ],
+        "anchor_xy": [
+          97765.87709536699,
+          -289230.56992638967
+        ],
+        "rotation_xy": 0.08726646259931348,
+        "height_xy": 599.999999999994
+      },
+      "english": {
+        "Handle": "922",
+        "ObjectName": "AcDbMText",
+        "ObjectID": 2641458545568,
+        "OwnerID": 2641458545392,
+        "Layer": "0",
+        "Color": 6,
+        "Visible": true,
+        "Linetype": "ByLayer",
+        "Lineweight": -1,
+        "EntityTransparency": "ByLayer",
+        "container": "block:A$C9c9f536b",
+        "selected": false,
+        "bbox": [
+          [
+            5421.923346454045,
+            6071.377095191972,
+            0.0
+          ],
+          [
+            14689.647176615708,
+            6421.377095191972,
+            0.0
+          ]
+        ],
+        "true_color": {
+          "ColorMethod": 195,
+          "ColorIndex": 6,
+          "Red": 255,
+          "Green": 0,
+          "Blue": 255,
+          "BookName": ""
+        },
+        "text": {
+          "TextString": "Steel Beam"
+        },
+        "StyleName": "TSSD_Rein",
+        "Height": 350.0,
+        "Width": 9267.723830161663,
+        "Rotation": 0.0,
+        "AttachmentPoint": 1,
+        "InsertionPoint": [
+          5421.923346454045,
+          6421.377095191972,
+          0.0
+        ],
+        "Normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "DrawingDirection": 1,
+        "LineSpacingFactor": 1.0,
+        "LineSpacingStyle": 1,
+        "BackgroundFill": false,
+        "hyperlinks": [],
+        "instance_id": "Model/916/922",
+        "occurrence_path": [
+          "916",
+          "922"
+        ],
+        "layout": "Model",
+        "selected_occurrence": true,
+        "effective_layer": "S-BEAM_CON",
+        "effective_aci": 6,
+        "matrix_xy": [
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          93140.72993122804,
+          -294739.44677969546
+        ],
+        "effective_visible": true,
+        "bbox_xy": [
+          98562.65327768208,
+          -288668.0696845035,
+          107830.37710784374,
+          -288318.0696845035
+        ],
+        "anchor_xy": [
+          98562.65327768208,
+          -288318.0696845035
+        ],
+        "rotation_xy": 0.0,
+        "height_xy": 350.0
+      }
+    }
+  ],
+  "remaining_chinese_fields": [
+    {
+      "instance_id": "Model/147",
+      "handle": "147",
+      "property": "TextString",
+      "raw": "檩托详图",
+      "plain": "檩托详图",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        98593.1670235142,
+        -325427.87128131953
+      ],
+      "height": 599.999999999994,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/1C0",
+      "handle": "1C0",
+      "property": "TextString",
+      "raw": "中间跨",
+      "plain": "中间跨",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        81882.14533884596,
+        -326763.7595206739
+      ],
+      "height": 674.9999999998457,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/1C1",
+      "handle": "1C1",
+      "property": "TextString",
+      "raw": "边跨",
+      "plain": "边跨",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        89961.03671269998,
+        -326781.5094458492
+      ],
+      "height": 674.9999999998457,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/1D8",
+      "handle": "1D8",
+      "property": "TextString",
+      "raw": "檩托",
+      "plain": "檩托",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        80323.22664278833,
+        -316535.12284992216
+      ],
+      "height": 299.99999999992843,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/278",
+      "handle": "278",
+      "property": "TextString",
+      "raw": "钢梁",
+      "plain": "钢梁",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        84665.72349422233,
+        -325500.0930884597
+      ],
+      "height": 449.99999999989717,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/29D",
+      "handle": "29D",
+      "property": "TextString",
+      "raw": "钢梁",
+      "plain": "钢梁",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        98771.0230732898,
+        -321715.89978175657
+      ],
+      "height": 599.999999999994,
+      "rotation": 0.08726646259931348
+    },
+    {
+      "instance_id": "Model/2AB",
+      "handle": "2AB",
+      "property": "TextString",
+      "raw": "檩托",
+      "plain": "檩托",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        88115.19197240187,
+        -316535.12284992216
+      ],
+      "height": 299.99999999992843,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/33C",
+      "handle": "33C",
+      "property": "TextString",
+      "raw": "钢梁",
+      "plain": "钢梁",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        92447.72209690505,
+        -325500.0930884597
+      ],
+      "height": 449.99999999989717,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/34C",
+      "handle": "34C",
+      "property": "TextOverride",
+      "raw": "外挑尺寸",
+      "plain": "外挑尺寸",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "DIM",
+      "visible": true,
+      "anchor": [
+        91793.40654469439,
+        -316499.5669662538
+      ],
+      "height": 300.0,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/359",
+      "handle": "359",
+      "property": "TextString",
+      "raw": "详平面",
+      "plain": "详平面",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        91456.80813405929,
+        -317157.1288708041
+      ],
+      "height": 299.99999999992843,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/35C",
+      "handle": "35C",
+      "property": "TextString",
+      "raw": "WL与钢梁搭接详图",
+      "plain": "WL与钢梁搭接详图",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        92021.00912816297,
+        -328158.15854154644
+      ],
+      "height": 899.9999999999909,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/41D",
+      "handle": "41D",
+      "property": "TextString",
+      "raw": "檩托详图",
+      "plain": "檩托详图",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        97768.88093331622,
+        -309456.3878078733
+      ],
+      "height": 599.999999999994,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/493",
+      "handle": "493",
+      "property": "TextString",
+      "raw": "中间跨",
+      "plain": "中间跨",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        81912.9118994042,
+        -310792.2760472277
+      ],
+      "height": 674.9999999998457,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/494",
+      "handle": "494",
+      "property": "TextString",
+      "raw": "边跨",
+      "plain": "边跨",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        89991.8032732582,
+        -310810.025972403
+      ],
+      "height": 674.9999999998457,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/4A2",
+      "handle": "4A2",
+      "property": "TextString",
+      "raw": "檩托",
+      "plain": "檩托",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        80353.99320334656,
+        -301063.63937647594
+      ],
+      "height": 299.99999999992843,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/538",
+      "handle": "538",
+      "property": "TextString",
+      "raw": "钢梁",
+      "plain": "钢梁",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        84696.49005478056,
+        -309528.60961501347
+      ],
+      "height": 449.99999999989717,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/55F",
+      "handle": "55F",
+      "property": "TextString",
+      "raw": "钢梁",
+      "plain": "钢梁",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        97977.30247355181,
+        -305772.2303052621
+      ],
+      "height": 599.999999999994,
+      "rotation": 0.08726646259931348
+    },
+    {
+      "instance_id": "Model/38F/56D",
+      "handle": "56D",
+      "property": "TextString",
+      "raw": "檩托",
+      "plain": "檩托",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        88145.9585329601,
+        -301063.63937647594
+      ],
+      "height": 299.99999999992843,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/5FE",
+      "handle": "5FE",
+      "property": "TextString",
+      "raw": "钢梁",
+      "plain": "钢梁",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        92478.48865746328,
+        -309528.60961501347
+      ],
+      "height": 449.99999999989717,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/60E",
+      "handle": "60E",
+      "property": "TextOverride",
+      "raw": "外挑尺寸",
+      "plain": "外挑尺寸",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "DIM",
+      "visible": true,
+      "anchor": [
+        91824.17310525262,
+        -301028.0834928076
+      ],
+      "height": 300.0,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/61B",
+      "handle": "61B",
+      "property": "TextString",
+      "raw": "详平面",
+      "plain": "详平面",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        91487.57469461752,
+        -301685.6453973579
+      ],
+      "height": 299.99999999992843,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/38F/61E",
+      "handle": "61E",
+      "property": "TextString",
+      "raw": "WL与钢梁搭接详图",
+      "plain": "WL与钢梁搭接详图",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        92051.7756887212,
+        -312186.6750681002
+      ],
+      "height": 899.9999999999909,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/651",
+      "handle": "651",
+      "property": "TextString",
+      "raw": "本大样适用于250mm高檩条安装",
+      "plain": "本大样适用于250mm高檩条安装",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "文字",
+      "visible": true,
+      "anchor": [
+        91959.26242890052,
+        -328897.88373240014
+      ],
+      "height": 450.0,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/653",
+      "handle": "653",
+      "property": "TextString",
+      "raw": "本大样适用于180/200/220mm高檩条安装",
+      "plain": "本大样适用于180/200/220mm高檩条安装",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": false,
+      "layout": "Model",
+      "layer": "文字",
+      "visible": true,
+      "anchor": [
+        91959.26242890052,
+        -312894.6686763271
+      ],
+      "height": 450.0,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/769",
+      "handle": "769",
+      "property": "TextString",
+      "raw": "檩托",
+      "plain": "檩托",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": true,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        80353.99320334656,
+        -284296.7544033587
+      ],
+      "height": 299.99999999992843,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/832",
+      "handle": "832",
+      "property": "TextString",
+      "raw": "檩托",
+      "plain": "檩托",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": true,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        88145.9585329601,
+        -284466.3875397636
+      ],
+      "height": 299.99999999992843,
+      "rotation": 0.0
+    },
+    {
+      "instance_id": "Model/8E2",
+      "handle": "8E2",
+      "property": "TextString",
+      "raw": "详平面",
+      "plain": "详平面",
+      "chinese": true,
+      "display_candidate": true,
+      "selected": true,
+      "layout": "Model",
+      "layer": "TEXT",
+      "visible": true,
+      "anchor": [
+        91487.57469461752,
+        -284535.5346797758
+      ],
+      "height": 299.99999999992843,
+      "rotation": 0.0
+    }
+  ],
+  "scope_note": "Only existing English examples are learned; candidate future wording is not drawing evidence.",
+  "summary": {
+    "confirmed_existing_pairs": 8,
+    "unique_observed_english": 6,
+    "chinese_fields": 35,
+    "remaining_chinese_fields": 27,
+    "remaining_selected_chinese_fields": 3,
+    "flattening_gaps": 0
+  },
+  "text_styles": [
+    {
+      "Name": "Standard",
+      "FontFile": "arial.ttf",
+      "BigFontFile": "",
+      "Height": 0.0,
+      "Width": 1.0,
+      "ObliqueAngle": 0.0,
+      "TextGenerationFlag": 0,
+      "font": [
+        "Arial",
+        false,
+        false,
+        0,
+        34
+      ]
+    },
+    {
+      "Name": "TSSD_Rein",
+      "FontFile": "Tssdeng.shx",
+      "BigFontFile": "Tssdchn.shx",
+      "Height": 0.0,
+      "Width": 0.7,
+      "ObliqueAngle": 0.0,
+      "TextGenerationFlag": 0,
+      "font": [
+        "",
+        false,
+        false,
+        1,
+        0
+      ]
+    },
+    {
+      "Name": "TSSD_Dimension",
+      "FontFile": "tssdeng.shx",
+      "BigFontFile": "hztxt.shx",
+      "Height": 0.0,
+      "Width": 0.7,
+      "ObliqueAngle": 0.0,
+      "TextGenerationFlag": 0,
+      "font": [
+        "",
+        false,
+        false,
+        1,
+        0
+      ]
+    },
+    {
+      "Name": "###HGV",
+      "FontFile": "###hgv.shx",
+      "BigFontFile": "##hgv.shx",
+      "Height": 0.0,
+      "Width": 0.75,
+      "ObliqueAngle": 0.0,
+      "TextGenerationFlag": 0,
+      "font": [
+        "",
+        false,
+        false,
+        1,
+        0
+      ]
+    },
+    {
+      "Name": "TSSD_Axis",
+      "FontFile": "complex.shx",
+      "BigFontFile": "hztxt.shx",
+      "Height": 0.0,
+      "Width": 0.7,
+      "ObliqueAngle": 0.0,
+      "TextGenerationFlag": 0,
+      "font": [
+        "",
+        false,
+        false,
+        1,
+        0
+      ]
+    }
+  ],
+  "layer_facts": [
+    {
+      "Name": "0",
+      "Color": 7,
+      "LayerOn": true,
+      "Freeze": false,
+      "Lock": false,
+      "Linetype": "Continuous",
+      "Lineweight": -3,
+      "Plottable": true,
+      "true_color": {
+        "ColorMethod": 195,
+        "ColorIndex": 7,
+        "Red": 255,
+        "Green": 255,
+        "Blue": 255
+      }
+    },
+    {
+      "Name": "DIM",
+      "Color": 3,
+      "LayerOn": true,
+      "Freeze": false,
+      "Lock": false,
+      "Linetype": "Continuous",
+      "Lineweight": -3,
+      "Plottable": true,
+      "true_color": {
+        "ColorMethod": 195,
+        "ColorIndex": 3,
+        "Red": 0,
+        "Green": 255,
+        "Blue": 0
+      }
+    },
+    {
+      "Name": "S-BEAM_CON",
+      "Color": 40,
+      "LayerOn": true,
+      "Freeze": false,
+      "Lock": false,
+      "Linetype": "Continuous",
+      "Lineweight": -3,
+      "Plottable": true,
+      "true_color": {
+        "ColorMethod": 195,
+        "ColorIndex": 40,
+        "Red": 255,
+        "Green": 191,
+        "Blue": 0
+      }
+    },
+    {
+      "Name": "TEXT",
+      "Color": 7,
+      "LayerOn": true,
+      "Freeze": false,
+      "Lock": false,
+      "Linetype": "Continuous",
+      "Lineweight": -3,
+      "Plottable": true,
+      "true_color": {
+        "ColorMethod": 195,
+        "ColorIndex": 7,
+        "Red": 255,
+        "Green": 255,
+        "Blue": 255
+      }
+    },
+    {
+      "Name": "EN",
+      "Color": 6,
+      "LayerOn": true,
+      "Freeze": false,
+      "Lock": false,
+      "Linetype": "Continuous",
+      "Lineweight": -3,
+      "Plottable": true,
+      "true_color": {
+        "ColorMethod": 195,
+        "ColorIndex": 6,
+        "Red": 255,
+        "Green": 0,
+        "Blue": 255
+      }
+    }
+  ],
+  "integrity": {
+    "selection_preserved": true,
+    "dbmod_before": 17,
+    "dbmod_after": 17,
+    "extraction_errors": []
+  }
+}

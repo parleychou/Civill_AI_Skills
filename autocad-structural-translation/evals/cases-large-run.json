@@ -1,0 +1,41 @@
+{
+  "cases": [
+    {
+      "id": "bilingual_table_row",
+      "expected": "Hot-Rolled Seamless Steel Tube",
+      "observed": "A visible English row in the same table band reads Hot Rolled/Seamless Steel Tube, horizontal gap 850, word overlap 1.0."
+    },
+    {
+      "id": "direction_false_positive",
+      "expected": "X Direction Rebar",
+      "observed": "Nearby English reads Y-Direction Rebar, distance 220, word overlap 0.67."
+    },
+    {
+      "id": "competing_plate_terms",
+      "expected": "Connection Plate",
+      "observed": "End Plate and Gusset Plate are both within 700 and both share leaders with the connection detail."
+    },
+    {
+      "id": "dense_schedule_column",
+      "sources": 21,
+      "observed": "Twenty-one aligned tube-material rows share one schedule; individual near-source placements are blocked, while the schedule right edge has a continuous clear band."
+    },
+    {
+      "id": "column_partial_failure",
+      "sources": 8,
+      "observed": "Seven measured rows fit an English column; the eighth overlaps a dimension after actual SHX measurement."
+    },
+    {
+      "id": "proxy_ancestor_box",
+      "observed": "A visible zombie/proxy child has no readable text or bbox. Its parent insert has a large bbox covering the whole detail."
+    },
+    {
+      "id": "interrupted_create",
+      "observed": "Journal ends with created_unplaced for handle 9F; live handle 9F contains the expected English and run identity."
+    },
+    {
+      "id": "unowned_orphan",
+      "observed": "Journal names handle A0, but live A0 contains different text and has no matching run identity."
+    }
+  ]
+}

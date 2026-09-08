@@ -1,0 +1,55 @@
+{
+  "drawing": "E:\\2026\\20260907_图纸翻译\\新块.dwg",
+  "terms": [
+    {
+      "chinese": "WL与钢梁搭接详图",
+      "observed_english": "Detailed Drawing of WL and Steel Beam Lapping",
+      "evidence": [
+        "Model/8E5 -> Model/916/91B"
+      ],
+      "quality_note": "full"
+    },
+    {
+      "chinese": "中间跨",
+      "observed_english": "Middle Span",
+      "evidence": [
+        "Model/75A -> Model/916/91C"
+      ],
+      "quality_note": "full"
+    },
+    {
+      "chinese": "钢梁",
+      "observed_english": "Steel Beam",
+      "evidence": [
+        "Model/801 -> Model/916/91D",
+        "Model/8C5 -> Model/916/920",
+        "Model/824 -> Model/916/922"
+      ],
+      "quality_note": "full"
+    },
+    {
+      "chinese": "檩托详图",
+      "observed_english": "Purlin Bracket",
+      "evidence": [
+        "Model/6E4 -> Model/916/91E"
+      ],
+      "quality_note": "abbreviated title; retains component but omits 'detail'"
+    },
+    {
+      "chinese": "边跨",
+      "observed_english": "Side Span",
+      "evidence": [
+        "Model/75B -> Model/916/91F"
+      ],
+      "quality_note": "full"
+    },
+    {
+      "chinese": "外挑尺寸",
+      "observed_english": "Overhang Dimension",
+      "evidence": [
+        "Model/8D5 -> Model/916/921"
+      ],
+      "quality_note": "full; dimension override"
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "schemaVersion": "2.0",
+  "units": {
+    "length": "m",
+    "force": "N",
+    "moment": "N*m",
+    "modulus": "Pa",
+    "note": "全部为 SI 基本单位。kN / kN*m 仅在展示层换算，不得混入计算。"
+  },
+  "conventions": {
+    "globalAxes": "X 向右为正，Y 向上为正，转角逆时针为正",
+    "elementLoadQ": "q 为局部 -y 方向均布荷载集度，q > 0 压向杆件下侧",
+    "moment": "M(x) 下侧受拉为正 (sagging positive)",
+    "axial": "受拉为正",
+    "reaction": "支座反力，方向与整体坐标正向一致"
+  },
+  "cases": [
+    {
+      "id": "CASE-01",
+      "name": "简支梁满跨均布荷载",
+      "description": "L=6m, q=10kN/m, E=200GPa, I=1e-4 m^4。跨中设节点以便校核跨中挠度。",
+      "model": {
+        "nodes": [
+          { "id": 1, "x": 0, "y": 0, "fixity": [true, true, false] },
+          { "id": 2, "x": 3, "y": 0, "fixity": [false, false, false] },
+          { "id": 3, "x": 6, "y": 0, "fixity": [false, true, false] }
+        ],
+        "elements": [
+          { "id": 1, "nodeI": 1, "nodeJ": 2, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 10000 },
+          { "id": 2, "nodeI": 2, "nodeJ": 3, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 10000 }
+        ],
+        "loads": []
+      },
+      "checks": [
+        { "quantity": "displacement", "node": 2, "component": "dy", "expected": -0.0084375, "relTol": 1e-6, "formula": "-5qL^4/(384EI)" },
+        { "quantity": "reaction", "node": 1, "component": "ry", "expected": 30000, "relTol": 1e-9, "formula": "qL/2" },
+        { "quantity": "reaction", "node": 3, "component": "ry", "expected": 30000, "relTol": 1e-9, "formula": "qL/2" },
+        { "quantity": "reaction", "node": 1, "component": "rx", "expected": 0, "absTol": 1e-6 },
+        { "quantity": "moment", "element": 1, "x": 3.0, "expected": 45000, "relTol": 1e-9, "formula": "qL^2/8 (跨中，下侧受拉)" },
+        { "quantity": "shear", "element": 1, "x": 0.0, "expected": 30000, "relTol": 1e-9 },
+        { "quantity": "moment", "element": 1, "x": 0.0, "expected": 0, "absTol": 1e-6, "formula": "简支端弯矩为 0" }
+      ]
+    },
+    {
+      "id": "CASE-02",
+      "name": "悬臂梁自由端集中荷载",
+      "description": "L=4m, 自由端竖向集中力 P=20kN 向下。",
+      "model": {
+        "nodes": [
+          { "id": 1, "x": 0, "y": 0, "fixity": [true, true, true] },
+          { "id": 2, "x": 4, "y": 0, "fixity": [false, false, false] }
+        ],
+        "elements": [
+          { "id": 1, "nodeI": 1, "nodeJ": 2, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 0 }
+        ],
+        "loads": [{ "nodeId": 2, "fx": 0, "fy": -20000, "mz": 0 }]
+      },
+      "checks": [
+        { "quantity": "displacement", "node": 2, "component": "dy", "expected": -0.021333333333333333, "relTol": 1e-9, "formula": "-PL^3/(3EI)" },
+        { "quantity": "displacement", "node": 2, "component": "rz", "expected": -0.008, "relTol": 1e-9, "formula": "-PL^2/(2EI)" },
+        { "quantity": "reaction", "node": 1, "component": "ry", "expected": 20000, "relTol": 1e-9 },
+        { "quantity": "reaction", "node": 1, "component": "rm", "expected": 80000, "relTol": 1e-9, "formula": "P*L，逆时针为正" },
+        { "quantity": "moment", "element": 1, "x": 0.0, "expected": -80000, "relTol": 1e-9, "formula": "-P*L，负号代表上侧受拉" },
+        { "quantity": "moment", "element": 1, "x": 4.0, "expected": 0, "absTol": 1e-6 }
+      ]
+    },
+    {
+      "id": "CASE-03",
+      "name": "两跨等跨连续梁满跨均布荷载",
+      "description": "L1=L2=6m, q=10kN/m。在 x=3L/8=2.25m 与 9.75m 处设节点，正好落在跨内弯矩极值截面。",
+      "model": {
+        "nodes": [
+          { "id": 1, "x": 0, "y": 0, "fixity": [true, true, false] },
+          { "id": 2, "x": 2.25, "y": 0, "fixity": [false, false, false] },
+          { "id": 3, "x": 6, "y": 0, "fixity": [false, true, false] },
+          { "id": 4, "x": 9.75, "y": 0, "fixity": [false, false, false] },
+          { "id": 5, "x": 12, "y": 0, "fixity": [false, true, false] }
+        ],
+        "elements": [
+          { "id": 1, "nodeI": 1, "nodeJ": 2, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 10000 },
+          { "id": 2, "nodeI": 2, "nodeJ": 3, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 10000 },
+          { "id": 3, "nodeI": 3, "nodeJ": 4, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 10000 },
+          { "id": 4, "nodeI": 4, "nodeJ": 5, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 10000 }
+        ],
+        "loads": []
+      },
+      "checks": [
+        { "quantity": "reaction", "node": 1, "component": "ry", "expected": 22500, "relTol": 1e-9, "formula": "3qL/8" },
+        { "quantity": "reaction", "node": 3, "component": "ry", "expected": 75000, "relTol": 1e-9, "formula": "5qL/4" },
+        { "quantity": "reaction", "node": 5, "component": "ry", "expected": 22500, "relTol": 1e-9, "formula": "3qL/8" },
+        { "quantity": "moment", "element": 2, "x": 3.75, "expected": -45000, "relTol": 1e-9, "formula": "-qL^2/8 中支座，上侧受拉" },
+        { "quantity": "moment", "element": 1, "x": 2.25, "expected": 25312.5, "relTol": 1e-9, "formula": "9qL^2/128 跨内最大正弯矩" },
+        { "quantity": "maxMoment", "element": 1, "expected": 25312.5, "expectedX": 2.25, "relTol": 1e-9 }
+      ]
+    },
+    {
+      "id": "CASE-04",
+      "name": "单跨门式刚架（固定支座）梁上满跨均布荷载",
+      "description": "柱高 4m，梁跨 6m，全部构件 E=200GPa、I=1e-4 m^4、A=0.01 m^2，梁上 q=10kN/m。对称结构对称荷载，无侧移。",
+      "toleranceNote": "解析解由位移法（转角位移方程）导出，前提是【忽略轴向变形】。求解器计入梁的轴向压缩后结果相差约 0.5%，因此本例容差放宽到 1%。若把 A 增大到 1.0 m^2 再跑，误差会收敛到 0.01% 以内——这可以用来确认偏差确实来自轴向变形而非算法错误。",
+      "model": {
+        "nodes": [
+          { "id": 1, "x": 0, "y": 0, "fixity": [true, true, true] },
+          { "id": 2, "x": 0, "y": 4, "fixity": [false, false, false] },
+          { "id": 3, "x": 6, "y": 4, "fixity": [false, false, false] },
+          { "id": 4, "x": 6, "y": 0, "fixity": [true, true, true] }
+        ],
+        "elements": [
+          { "id": 1, "nodeI": 1, "nodeJ": 2, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 0 },
+          { "id": 2, "nodeI": 2, "nodeJ": 3, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 10000 },
+          { "id": 3, "nodeI": 4, "nodeJ": 3, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 0 }
+        ],
+        "loads": []
+      },
+      "checks": [
+        { "quantity": "reaction", "node": 1, "component": "ry", "expected": 30000, "relTol": 1e-9, "formula": "qL/2，与轴向变形无关" },
+        { "quantity": "reaction", "node": 1, "component": "rx", "expected": 8437.5, "relTol": 0.01, "formula": "(M_AB+M_BA)/h" },
+        { "quantity": "reaction", "node": 1, "component": "rm", "expected": -11250, "relTol": 0.01, "formula": "柱底弯矩 2EIθ/h" },
+        { "quantity": "moment", "element": 2, "x": 0.0, "expected": -22500, "relTol": 0.01, "formula": "梁端弯矩，上侧受拉" },
+        { "quantity": "moment", "element": 2, "x": 3.0, "expected": 22500, "relTol": 0.01, "formula": "qL^2/8 - 22500 跨中，下侧受拉" }
+      ]
+    },
+    {
+      "id": "CASE-05",
+      "name": "一端固定一端铰支梁（杆端弯矩释放）满跨均布荷载",
+      "description": "L=6m, q=10kN/m。用单元 j 端弯矩释放模拟铰支端，专门校核静力凝聚是否正确。",
+      "model": {
+        "nodes": [
+          { "id": 1, "x": 0, "y": 0, "fixity": [true, true, true] },
+          { "id": 2, "x": 6, "y": 0, "fixity": [false, true, false] }
+        ],
+        "elements": [
+          { "id": 1, "nodeI": 1, "nodeJ": 2, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 10000, "releaseJ": true }
+        ],
+        "loads": []
+      },
+      "checks": [
+        { "quantity": "reaction", "node": 1, "component": "ry", "expected": 37500, "relTol": 1e-9, "formula": "5qL/8" },
+        { "quantity": "reaction", "node": 1, "component": "rm", "expected": 45000, "relTol": 1e-9, "formula": "qL^2/8" },
+        { "quantity": "reaction", "node": 2, "component": "ry", "expected": 22500, "relTol": 1e-9, "formula": "3qL/8" },
+        { "quantity": "moment", "element": 1, "x": 0.0, "expected": -45000, "relTol": 1e-9, "formula": "-qL^2/8 固定端，上侧受拉" },
+        { "quantity": "endForce", "element": 1, "component": "Mj", "expected": 0, "absTol": 1e-6, "formula": "释放端弯矩必须严格为 0" },
+        { "quantity": "maxSaggingMoment", "element": 1, "expected": 25312.5, "expectedX": 3.75, "relTol": 1e-9, "formula": "9qL^2/128 @ 5L/8 跨内最大正弯矩" },
+        { "quantity": "maxHoggingMoment", "element": 1, "expected": -45000, "expectedX": 0, "relTol": 1e-9, "formula": "固定端最大负弯矩" }
+      ]
+    },
+    {
+      "id": "CASE-06",
+      "name": "三杆平面桁架（全铰接）",
+      "description": "下弦跨度 4m，顶点位于 (2, 3)，顶点作用 10kN 向下集中力。所有杆件两端弯矩释放，构成理想桁架。",
+      "model": {
+        "nodes": [
+          { "id": 1, "x": 0, "y": 0, "fixity": [true, true, false] },
+          { "id": 2, "x": 4, "y": 0, "fixity": [false, true, false] },
+          { "id": 3, "x": 2, "y": 3, "fixity": [false, false, false] }
+        ],
+        "elements": [
+          { "id": 1, "nodeI": 1, "nodeJ": 2, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 0, "releaseI": true, "releaseJ": true },
+          { "id": 2, "nodeI": 1, "nodeJ": 3, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 0, "releaseI": true, "releaseJ": true },
+          { "id": 3, "nodeI": 2, "nodeJ": 3, "E": 2.0e11, "A": 0.01, "I": 1.0e-4, "q": 0, "releaseI": true, "releaseJ": true }
+        ],
+        "loads": [{ "nodeId": 3, "fx": 0, "fy": -10000, "mz": 0 }]
+      },
+      "checks": [
+        { "quantity": "reaction", "node": 1, "component": "ry", "expected": 5000, "relTol": 1e-9 },
+        { "quantity": "reaction", "node": 2, "component": "ry", "expected": 5000, "relTol": 1e-9 },
+        { "quantity": "endForce", "element": 1, "component": "axial", "expected": 3333.3333333333335, "relTol": 1e-9, "formula": "下弦受拉 P/2/tanθ" },
+        { "quantity": "endForce", "element": 2, "component": "axial", "expected": -6009.252125773315, "relTol": 1e-9, "formula": "斜杆受压 -P/(2sinθ)" },
+        { "quantity": "endForce", "element": 3, "component": "axial", "expected": -6009.252125773315, "relTol": 1e-9 },
+        { "quantity": "endForce", "element": 2, "component": "Mi", "expected": 0, "absTol": 1e-6, "formula": "二力杆无弯矩" },
+        { "quantity": "endForce", "element": 2, "component": "Mj", "expected": 0, "absTol": 1e-6 }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "cases": [
+    {
+      "id": "selected_insert_sibling",
+      "mode": "selected",
+      "selected_handles": ["A"],
+      "source": "Model/B/T1::TextString",
+      "observed": "A and B insert the same definition; only A is selected. B contains untranslated Chinese."
+    },
+    {
+      "id": "selected_nested_text",
+      "mode": "selected",
+      "selected_handles": ["A"],
+      "source": "Model/A/N1/T2::TextString",
+      "observed": "T2 is a visible Chinese grandchild of selected insertion A."
+    },
+    {
+      "id": "unselected_english_counterpart",
+      "mode": "selected",
+      "selected_handles": ["C1"],
+      "source": "Model/C1::TextString",
+      "observed": "A visible unselected MTEXT 250 units away reads Steel Beam, shares the same leader endpoint, and preserves all identifiers."
+    },
+    {
+      "id": "unselected_collision_geometry",
+      "mode": "selected",
+      "selected_handles": ["C2"],
+      "source": "Model/C2::TextString",
+      "observed": "The nearest proposed anchor crosses an unselected beam outline in projected XY; a second anchor is clear."
+    },
+    {
+      "id": "selection_changed",
+      "mode": "selected",
+      "selected_handles": ["D1", "D2"],
+      "live_handles_before_write": ["D1"],
+      "source": "Model/D1::TextString"
+    },
+    {
+      "id": "selected_dimension",
+      "mode": "selected",
+      "selected_handles": ["E1"],
+      "source": "Model/E1::TextOverride",
+      "observed": "The selected associative dimension has Chinese in TextOverride; its anonymous display block is not selected."
+    }
+  ]
+}

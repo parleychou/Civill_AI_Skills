@@ -1,0 +1,16 @@
+{
+  "cases": [
+    {"id":"nested_existing","source":"钢梁","layout":"Model","source_path":"Model/I1/C1","context":"English Steel Beam in child Model/I1/E1, same leader/detail, semantically confirmed; I1 has a nonzero insertion and rotation.","expected_format":"id/action/reason"},
+    {"id":"other_instance","source":"钢梁","source_path":"Model/I2/C1","context":"Same block definition as I1 but a different instance and detail. Only I1 has an English overlay; an exhaustive local search found none around I2."},
+    {"id":"inline_bilingual","source":"檩托\\PPurlin Bracket","context":"One MTEXT object already contains both Chinese and the confirmed complete corresponding English, visible in the same note."},
+    {"id":"dimension_existing","source":"外挑尺寸","property":"TextOverride","context":"Nearby Overhang Dimension in a nested block is confirmed to refer to this exact dimension. The dimension is associative and has a numeric Measurement."},
+    {"id":"ambiguous_neighbour","source":"连接板","context":"Two nearby English labels, End Plate and Gusset Plate, have ambiguous leader links. No glossary or confirmed association resolves them."},
+    {"id":"abbreviated_title","source":"檩托详图","context":"The user explicitly confirmed nearby Purlin Bracket is the existing English title. It omits Detail. User requests adding missing translations, not editing existing ones."},
+    {"id":"identifier_not_english","source":"详平面","context":"The only nearby Latin strings are WL and M12(4.6s); an exhaustive text-bearing-object search found no English prose counterpart."},
+    {"id":"same_xy_different_z","source":"钢梁","context":"No English counterpart exists. A proposed new English box overlaps a beam outline in plan XY, but text has Z=0 and the beam has Z=500. Another clear nearby position is available."},
+    {"id":"unknown_proxy","source":"not yet readable","context":"An AEC proxy visually appears to contain Chinese. TextString access fails. No supported text adapter has yet been verified."},
+    {"id":"wide_mtext_box","source":"边跨","context":"A confirmed Side Span MTEXT already exists. Its container width is 9267.72, much wider than its glyphs. User only requested adding missing English."},
+    {"id":"invisible_english","source":"钢梁","context":"The only semantically matching English object is on a frozen layer inside an invisible parent insert. Chinese is visible; no visible counterpart has been established."},
+    {"id":"dimension_new","source":"间距<>，共4处，详图%<FIELD_CODE>%","context":"A dimension override includes live numeric <> and a field expression. No English counterpart exists. Evaluated field meaning has not been read, and replacement/flattening is not allowed."}
+  ]
+}
