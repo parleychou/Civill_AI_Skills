@@ -38,8 +38,9 @@
 * **`autocad-floor-layout-to-yjk`**: 建筑/结构 CAD 平面图智能识别并转换为 YJK 结构计算模型。
 * **`multi-floor-dwg-to-ydb-model`**: 多层施工图批量解析与上下层柱网轴网对齐合并。
 
-### 2. 三维参数化与几何建模
+### 2. 三维参数化与 BIM 轻量化浏览
 * **`rhinorouter`**: 面向 Rhino 8/7/6 的工业级 Python COM 自动化技能包，内置 29 个模块、1245 个官方 API 离线知识库，支持跨版本探测、VARIANT 数据类型转换与空间参数化曲面造型。
+* **`ifc-threejs-viewer.skill`**: IFC 一键转 Web 查看器（含公网部署）。输入单个 .ifc 模型，一键提取几何与楼层构件（柱/梁/板/墙），自动导出轻量化 GLB 与动态 Manifest，生成基于 Three.js 的 3D 浏览器，支持按层/构件类型动态开关与公网免装专业软件分享。
 
 ### 3. 结构数据库与模型接口
 * **`yjk-database`**: 盈建科 YJK (`.ydb`) SQLite 底层构件批量读写、几何截面查询与模型修改。
@@ -95,6 +96,7 @@
 | **`autocad-structural-translation`** | AutoCAD / 海外工程 | DWG 施工图纸智能汉译英 | 翻译引擎、词汇库、测试集 |
 | **`pyautocad`** | AutoCAD | AutoCAD Python 图元批量提取与绘制 | ActiveX 封装、出图脚本 |
 | **`rhinorouter`** | Rhino / Grasshopper | Rhino 8/7 参数化建模与 1245 个官方 API | SQLite API 库、连接器、算例 |
+| **`ifc-threejs-viewer.skill`** | BIM / WebGL / Three.js | IFC 一键转 Three.js 网页查看器（含分层/构件开关与公网发布） | `ifc_to_web.py`、`viewer.html`、`SKILL.md` |
 | **`yjk-database`** | 盈建科 YJK | YJK 结构数据库 SQLite 底层构件读写 | YDB 读取脚本、基准数据库 |
 | **`sap2000-python`** | SAP2000 | SAP2000 OAPI 建模与内力提取 | OAPI 文档、内力提取脚本 |
 | **`matrix-stiffness-2d`** | 结构力学 / 有限元 | 2D 直接刚度法平面有限元求解内核 | 刚度矩阵装配、求解器代码 |

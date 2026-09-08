@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="UaUGoujZAXRawiNFFzgyc8">
+<head data-page-node-id="JCmPBcKmNnnZJhTeCBIwsK">
+<meta charset="UTF-8" data-page-node-id="V18TTMC3HmOPcMDy438hS1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" data-page-node-id="vvqf2DRIu9vMA6ByHtyAqM" />
+<title>{{MODEL_NAME}} · 在线查看器</title>
+<style>
+  :root {
+    --bg: #14171c;
+    --panel: #1d2229;
+    --panel-2: #242b33;
+    --border: #323b46;
+    --text: #e8edf2;
+    --text-dim: #9aa7b4;
+    --accent: #4c9aff;
+    --red: #e53835;
+    --blue: #1e87e5;
+    --green: #42a047;
+    --orange: #f98c00;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif; }
+  #app { position: fixed; inset: 0; }
+  #canvas { position: absolute; inset: 0; touch-action: none; }
+
+  /* 顶栏 */
+  #topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: 52px;
+    display: flex; align-items: center; gap: 14px; padding: 0 16px;
+    background: linear-gradient(180deg, rgba(20,23,28,.92), rgba(20,23,28,.65));
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); z-index: 20;
+  }
+  #topbar .logo { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; font-weight: 700; font-size: 14px; color: #fff; background: linear-gradient(135deg, #4c9aff, #7a5cff); }
+  #topbar h1 { font-size: 16px; font-weight: 600; letter-spacing: .5px; }
+  #topbar .sub { font-size: 12px; color: var(--text-dim); }
+  #stats-bar { margin-left: auto; display: flex; gap: 18px; font-size: 12px; color: var(--text-dim); }
+  #stats-bar b { color: var(--text); font-weight: 600; }
+
+  /* 左侧面板 */
+  #panel {
+    position: absolute; top: 64px; left: 12px; bottom: 12px; width: 300px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+    display: flex; flex-direction: column; overflow: hidden; z-index: 15;
+    box-shadow: 0 10px 40px rgba(0,0,0,.45);
+  }
+  #panel.collapsed { width: 44px; }
+  #panel.collapsed .panel-body { display: none; }
+  #toggle-panel {
+    position: absolute; top: 64px; left: 12px; width: 44px; height: 44px; z-index: 16;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+    color: var(--text); font-size: 18px; cursor: pointer; display: none;
+  }
+  #panel.collapsed + #toggle-panel { display: block; }
+
+  .panel-head { padding: 14px 16px 10px; border-bottom: 1px solid var(--border); }
+  .panel-head .title { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .panel-head .collapse-btn { margin-left: auto; background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 16px; }
+  .panel-body { flex: 1; overflow-y: auto; padding: 4px 0 12px; }
+
+  .section { padding: 12px 16px 6px; }
+  .section-title { font-size: 12px; font-weight: 600; color: var(--text-dim); letter-spacing: .5px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .section-title .actions { margin-left: auto; display: flex; gap: 6px; }
+  .mini-btn { background: var(--panel-2); border: 1px solid var(--border); color: var(--text-dim); font-size: 11px; padding: 3px 8px; border-radius: 6px; cursor: pointer; }
+  .mini-btn:hover { color: var(--text); border-color: var(--accent); }
+
+  /* 类型开关 */
+  .type-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 9px; cursor: pointer; transition: background .15s; }
+  .type-row:hover { background: var(--panel-2); }
+  .swatch { width: 16px; height: 16px; border-radius: 4px; flex-shrink: 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+  .type-label { flex: 1; font-size: 13px; }
+  .type-count { font-size: 12px; color: var(--text-dim); }
+  .type-row input, .floor-row input { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+
+  /* 楼层开关 */
+  .floor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; padding: 0 12px; }
+  .floor-row { display: flex; align-items: center; gap: 6px; padding: 6px 7px; background: var(--panel-2); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all .12s; }
+  .floor-row:hover { border-color: var(--accent); }
+  .floor-row.off { opacity: .42; }
+  .floor-row .fname { font-size: 12px; font-weight: 600; line-height: 1; }
+  .floor-row .felev { font-size: 9px; color: var(--text-dim); }
+  .floor-row input { width: 13px; height: 13px; flex-shrink: 0; }
+  .floor-row .ftxt { display: flex; flex-direction: column; line-height: 1.15; }
+
+  /* 视图按钮 */
+  .view-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0 12px; }
+  .view-btn { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); font-size: 12px; padding: 8px 6px; border-radius: 8px; cursor: pointer; }
+  .view-btn:hover { border-color: var(--accent); }
+
+  /* 图例 */
+  .legend-row { display: flex; align-items: center; gap: 8px; padding: 3px 12px; font-size: 12px; color: var(--text-dim); }
+
+  /* 加载遮罩 */
+  #loader {
+    position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; z-index: 30;
+    background: var(--bg); transition: opacity .5s;
+  }
+  #loader.hide { opacity: 0; pointer-events: none; }
+  .spinner { width: 46px; height: 46px; border: 4px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #loader .msg { font-size: 14px; color: var(--text-dim); }
+  #loader .bar-wrap { width: 260px; height: 6px; background: var(--panel-2); border-radius: 3px; overflow: hidden; }
+  #loader .bar { height: 100%; width: 0%; background: linear-gradient(90deg, #4c9aff, #7a5cff); transition: width .2s; }
+
+  /* 底部提示 */
+  #hint { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--text-dim); background: rgba(29,34,41,.8); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; z-index: 12; pointer-events: none; }
+
+  /* 响应式 */
+  @media (max-width: 640px) {
+    #panel { width: 260px; }
+    #stats-bar { display: none; }
+  }
+</style>
+</head>
+<body data-page-node-id="LzqSlPruNzIU3AvPbzgAC7">
+<div id="app" data-page-node-id="w3dk5kvMDpoInWyUlwLnSj">
+  <div id="canvas" data-page-node-id="6bOCDCmrmVPIGdf3IxlT5J"></div>
+
+  <div id="topbar" data-page-node-id="DJ0tswHd7XqNOECNTdTvU7">
+    <div class="logo" data-page-node-id="wJYzpFGGgKiZeC7jF5vtdb">{{LOGO_SHORT}}</div>
+    <h1 data-page-node-id="0T5FVu6iVHlg2mHbkEohLS">结构模型查看器</h1>
+    <span class="sub" id="model-name" data-page-node-id="09Xht7QJtKmAf1IJNjDt8Y">加载中…</span>
+    <div id="stats-bar" data-page-node-id="B0OER7nFkgZoREhKIQeDve">
+      <span data-page-node-id="TXozVTc07OS9yX2awnEa96">构件 <b id="s-elem" data-page-node-id="6WuXFPXoft4xsppPQEWAgE">-</b></span>
+      <span data-page-node-id="9is1h8WDFsxIAQZTDgsZTm">三角面 <b id="s-tri" data-page-node-id="9LXIst5WtbDwevZDUwfKAV">-</b></span>
+      <span data-page-node-id="WHpBdNDLvEGGWrmsh2O1D4">楼层 <b id="s-floor" data-page-node-id="LbG8kwQxuG2wLq2IlQedmB">-</b></span>
+    </div>
+  </div>
+
+  <aside id="panel" data-page-node-id="JJcuVlWNGFKZO66cOz5NNU">
+    <div class="panel-head" data-page-node-id="MyRZNPo0i7f4kMhnYIq4fD">
+      <div class="title" data-page-node-id="Uq2NNQCKbeqz1TwmqBqdUp">控制面板
+        <button class="collapse-btn" id="btn-collapse" title="折叠" data-page-node-id="gvmnJ8c3tZKcCxybe15ZGH">▤</button>
+      </div>
+    </div>
+    <div class="panel-body" data-page-node-id="eF7vt0VW0rIhrJCM7RKpr8">
+      <div class="section" data-page-node-id="ZjmwANTm2jKY9Td2il7qmt">
+        <div class="section-title" data-page-node-id="qymRDEy9uttAkh4gtNpZwE">构件类型
+          <div class="actions" data-page-node-id="EuXJavExnmS0v4BPwEqJvT">
+            <button class="mini-btn" id="type-all" data-page-node-id="jeDZgH1f9SWgYLW1jE9Xxc">全选</button>
+            <button class="mini-btn" id="type-none" data-page-node-id="txRsqlzpg1NKTeknHyrCt6">全不选</button>
+          </div>
+        </div>
+        <div id="type-list" data-page-node-id="scLBK6Fz0CzgCETCxKXN1Y"></div>
+      </div>
+
+      <div class="section" data-page-node-id="0qtKGGOjSm8mBhxykKxtU3">
+        <div class="section-title" data-page-node-id="sultGpdhSs5nv8MpurSLkS">楼层
+          <div class="actions" data-page-node-id="CtiRz6Nba55Zbtzevl7pNJ">
+            <button class="mini-btn" id="floor-all" data-page-node-id="ib2JQFgAdh9w7AMuA3vwrC">全选</button>
+            <button class="mini-btn" id="floor-none" data-page-node-id="FeVXTIFBIzkpL3F4ZUPR8J">全不选</button>
+            <button class="mini-btn" id="floor-invert" data-page-node-id="IzaGA2ff6ULpOWciXTH3oP">反选</button>
+          </div>
+        </div>
+        <div class="floor-grid" id="floor-list" data-page-node-id="c33Fve4wo8PzpdW9lWk6qE"></div>
+      </div>
+
+      <div class="section" data-page-node-id="ZsFGN934VUXjxeXONRYUQu">
+        <div class="section-title" data-page-node-id="FTQl6fbxM9jGAGpsrhbMfP">视图</div>
+        <div class="view-grid" data-page-node-id="9T1Okqwbo4RMmochuwj9hf">
+          <button class="view-btn" id="v-reset" data-page-node-id="cXy3kra4SrRHBZwGQcdGfQ">重置视角</button>
+          <button class="view-btn" id="v-top" data-page-node-id="EaMGAe6ANBpZMmDhssM10B">俯视</button>
+          <button class="view-btn" id="v-front" data-page-node-id="wCdQIpGd5Tm33HsgjfBvIy">正视</button>
+          <button class="view-btn" id="v-side" data-page-node-id="kHmYI2xegfhbSAIdLIXa0L">侧视</button>
+          <button class="view-btn" id="v-wire" data-page-node-id="X2L9wcNguQu8RCIcL7aVQP">线框</button>
+          <button class="view-btn" id="v-mono" data-page-node-id="tSQLV7N9aIEReqVipLmERA">单色</button>
+        </div>
+      </div>
+
+      <div class="section" data-page-node-id="5VLP0A4BaYMof2D1uvENhG">
+        <div class="section-title" data-page-node-id="05rtgSUXS1UUcL9T1YMMYX">图例</div>
+        <div id="legend" data-page-node-id="8r5R0W64echznfjy2rVs1V"></div>
+      </div>
+    </div>
+  </aside>
+  <button id="toggle-panel" title="展开面板" data-page-node-id="fT2rBlh0KJQCmIEkOdbEAr">☰</button>
+
+  <div id="hint" data-page-node-id="IHX5B5bLLZgqdUDmgSpS0r">鼠标左键旋转 · 滚轮缩放 · 右键平移</div>
+
+  <div id="loader" data-page-node-id="HVctQapykFxi4RH5k1zUgL">
+    <div class="spinner" data-page-node-id="vOUNDiHmDZhlB6V5T8q4A4"></div>
+    <div class="msg" id="load-msg" data-page-node-id="RB0GDnPBJe0pFvc0rc69dW">正在解析模型…</div>
+    <div class="bar-wrap" data-page-node-id="cRMdMbyFNnUc0W4GPIxiNu"><div class="bar" id="load-bar" data-page-node-id="7UlxfLpO3K1gL4rMzFr2KQ"></div></div>
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+// ---------- 状态 ----------
+const state = {
+  floorVis: new Map(),   // floor name -> bool
+  typeVis: new Map(),    // type key -> bool
+  meshes: [],            // {name, mesh, floor, type}
+  typeColors: {},        // type key -> original color (hex)
+  materials: new Set(),  // shared materials
+  mono: false,
+  wire: false,
+};
+
+const container = document.getElementById('canvas');
+const loaderEl = document.getElementById('loader');
+const loadMsg = document.getElementById('load-msg');
+const loadBar = document.getElementById('load-bar');
+
+// ---------- 场景 ----------
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x14171c);
+scene.fog = new THREE.Fog(0x14171c, 200, 600);
+
+const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 2000);
+camera.position.set(90, 70, 120);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+container.appendChild(renderer.domElement);
+
+// 灯光
+const hemi = new THREE.HemisphereLight(0xbfd4ff, 0x3a3a3a, 0.9);
+scene.add(hemi);
+const key = new THREE.DirectionalLight(0xffffff, 2.2);
+key.position.set(120, 200, 80);
+scene.add(key);
+const fill = new THREE.DirectionalLight(0xbcd6ff, 0.7);
+fill.position.set(-80, 40, -120);
+scene.add(fill);
+
+// 地面参考网格（fitCamera 时按模型实际范围自动贴地/缩放）
+const grid = new THREE.GridHelper(200, 40, 0x39424d, 0x232a33);
+scene.add(grid);
+
+// 控制
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.target.set(0, 0, 0);
+controls.maxPolarAngle = Math.PI * 0.98;
+// 触摸设备：单指旋转，双指缩放+平移
+controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
+
+// ---------- 加载 manifest ----------
+let manifest = null;
+async function loadManifest() {
+  const res = await fetch('manifest.json');
+  manifest = await res.json();
+  document.getElementById('model-name').textContent = manifest.modelName || '结构模型';
+  document.getElementById('s-elem').textContent = manifest.stats.elements.toLocaleString();
+  document.getElementById('s-tri').textContent = Math.round(manifest.stats.triangles / 10000) + ' 万';
+  document.getElementById('s-floor').textContent = manifest.floors.length;
+
+  // 类型
+  manifest.types.forEach(t => { state.typeVis.set(t.key, true); state.typeColors[t.key] = t.color; });
+  // 楼层
+  manifest.floors.forEach(f => { state.floorVis.set(f.num, true); });
+
+  buildTypeUI();
+  buildFloorUI();
+  buildLegend();
+}
+
+function buildTypeUI() {
+  const list = document.getElementById('type-list');
+  list.innerHTML = '';
+  manifest.types.forEach(t => {
+    const row = document.createElement('label');
+    row.className = 'type-row';
+    row.innerHTML = `
+      <input type="checkbox" data-type="${t.key}" checked />
+      <span class="swatch" style="background:${t.color}"></span>
+      <span class="type-label">${t.label}</span>
+      <span class="type-count">${t.count.toLocaleString()}</span>`;
+    row.querySelector('input').addEventListener('change', e => {
+      state.typeVis.set(t.key, e.target.checked);
+      applyVisibility();
+    });
+    list.appendChild(row);
+  });
+}
+
+function buildFloorUI() {
+  const list = document.getElementById('floor-list');
+  list.innerHTML = '';
+  // 顶层在上
+  const floors = [...manifest.floors].reverse();
+  floors.forEach(f => {
+    const row = document.createElement('label');
+    row.className = 'floor-row';
+    row.innerHTML = `
+      <input type="checkbox" data-floor="${f.num}" checked />
+      <span class="ftxt"><span class="fname">${/^\d+$/.test(String(f.name)) ? f.name + 'F' : f.name}</span><span class="felev">${fmtElev(f.elevation)}</span></span>`;
+    const input = row.querySelector('input');
+    input.addEventListener('change', e => {
+      state.floorVis.set(f.num, e.target.checked);
+      row.classList.toggle('off', !e.target.checked);
+      applyVisibility();
+    });
+    list.appendChild(row);
+  });
+}
+
+function fmtElev(m) { return (m >= 0 ? '+' : '') + m.toFixed(2) + 'm'; }
+
+function buildLegend() {
+  const el = document.getElementById('legend');
+  el.innerHTML = '';
+  manifest.types.forEach(t => {
+    const row = document.createElement('div');
+    row.className = 'legend-row';
+    row.innerHTML = `<span class="swatch" style="background:${t.color};width:12px;height:12px;border-radius:3px"></span>${t.label}（${t.count}）`;
+    el.appendChild(row);
+  });
+}
+
+// ---------- 加载模型 ----------
+function loadModel() {
+  return new Promise((resolve, reject) => {
+    const loader = new GLTFLoader();
+    loader.load('model.glb',
+      gltf => resolve(gltf),
+      xhr => {
+        if (xhr.total) {
+          const p = Math.round(xhr.loaded / xhr.total * 100);
+          loadBar.style.width = p + '%';
+          loadMsg.textContent = '加载模型 ' + p + '%';
+        }
+      },
+      err => reject(err));
+  });
+}
+
+// ---------- 可见性 ----------
+function applyVisibility() {
+  for (const m of state.meshes) {
+    m.mesh.visible = state.floorVis.get(m.floor) && state.typeVis.get(m.type);
+  }
+}
+
+// ---------- 视图/显示切换 ----------
+function setMono(on) {
+  state.mono = on;
+  for (const mat of state.materials) {
+    if (on) mat.color.setHex(0x9aa7b4);
+    else if (mat.userData.typeColor) mat.color.set(mat.userData.typeColor);
+  }
+}
+function setWire(on) {
+  state.wire = on;
+  for (const mat of state.materials) mat.wireframe = on;
+}
+
+// ---------- 视角 ----------
+function fitCamera() {
+  const box = new THREE.Box3();
+  for (const m of state.meshes) if (m.mesh.visible) box.expandByObject(m.mesh);
+  if (box.isEmpty()) return;
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  const r = size.length() * 0.5;
+  controls.target.copy(center);
+  const dir = new THREE.Vector3(0.8, 0.6, 1).normalize();
+  camera.position.copy(center).addScaledVector(dir, r * 1.8);
+  camera.near = r / 100;
+  camera.far = r * 100;
+  camera.updateProjectionMatrix();
+  // 网格贴地并跟随模型尺度
+  const gs = Math.max(size.x, size.z) * 1.2;
+  grid.scale.set(gs / 200, 1, gs / 200);
+  grid.position.y = box.min.y;
+  controls.update();
+}
+function viewFrom(pos, target) {
+  controls.target.copy(target || new THREE.Vector3(0, 0, 0));
+  camera.position.copy(pos);
+  controls.update();
+}
+
+// ---------- 事件绑定 ----------
+document.getElementById('btn-collapse').addEventListener('click', () => {
+  document.getElementById('panel').classList.toggle('collapsed');
+});
+document.getElementById('toggle-panel').addEventListener('click', () => {
+  document.getElementById('panel').classList.remove('collapsed');
+});
+
+function setAllTypes(v) {
+  manifest.types.forEach(t => {
+    state.typeVis.set(t.key, v);
+    document.querySelector(`#type-list input[data-type="${t.key}"]`).checked = v;
+  });
+  applyVisibility();
+}
+function setAllFloors(v) {
+  manifest.floors.forEach(f => {
+    state.floorVis.set(f.num, v);
+    const inp = document.querySelector(`#floor-list input[data-floor="${f.num}"]`);
+    if (inp) { inp.checked = v; inp.closest('.floor-row').classList.toggle('off', !v); }
+  });
+  applyVisibility();
+}
+document.getElementById('type-all').addEventListener('click', () => setAllTypes(true));
+document.getElementById('type-none').addEventListener('click', () => setAllTypes(false));
+document.getElementById('floor-all').addEventListener('click', () => setAllFloors(true));
+document.getElementById('floor-none').addEventListener('click', () => setAllFloors(false));
+document.getElementById('floor-invert').addEventListener('click', () => {
+  manifest.floors.forEach(f => {
+    const v = !state.floorVis.get(f.num);
+    state.floorVis.set(f.num, v);
+    const inp = document.querySelector(`#floor-list input[data-floor="${f.num}"]`);
+    if (inp) { inp.checked = v; inp.closest('.floor-row').classList.toggle('off', !v); }
+  });
+  applyVisibility();
+});
+
+document.getElementById('v-reset').addEventListener('click', fitCamera);
+document.getElementById('v-top').addEventListener('click', () => viewFrom(new THREE.Vector3(0, 150, 0.01)));
+document.getElementById('v-front').addEventListener('click', () => viewFrom(new THREE.Vector3(0, 0, 150)));
+document.getElementById('v-side').addEventListener('click', () => viewFrom(new THREE.Vector3(150, 0, 0)));
+document.getElementById('v-wire').addEventListener('click', e => {
+  setWire(!state.wire);
+  e.target.textContent = state.wire ? '实体' : '线框';
+});
+document.getElementById('v-mono').addEventListener('click', e => {
+  setMono(!state.mono);
+  e.target.textContent = state.mono ? '按类型着色' : '单色';
+});
+
+// ---------- 主流程 ----------
+// 触摸设备换成触摸操作提示
+if (window.matchMedia('(pointer: coarse)').matches) {
+  const hintEl = document.getElementById('hint');
+  if (hintEl) hintEl.textContent = '单指旋转 · 双指缩放 · 双指拖动平移';
+}
+
+async function init() {
+  await loadManifest();
+  loadMsg.textContent = '加载模型 0%';
+  const gltf = await loadModel();
+
+  gltf.scene.traverse(obj => {
+    if (obj.isMesh) {
+      const name = obj.name || '';
+      const m = name.match(/^F(\d+)_(.+)$/);
+      if (!m) return;
+      const floor = parseInt(m[1], 10), type = m[2];
+      obj.geometry.computeVertexNormals();
+      const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+      mats.forEach(mat => {
+        if (!mat.userData.typeColor) mat.userData.typeColor = mat.color.clone();
+        mat.flatShading = true;
+        mat.side = THREE.DoubleSide;
+        mat.metalness = 0;
+        mat.roughness = 0.85;
+        state.materials.add(mat);
+      });
+      state.meshes.push({ name, mesh: obj, floor, type });
+    }
+  });
+
+  scene.add(gltf.scene);
+  fitCamera();
+  applyVisibility();
+
+  loaderEl.classList.add('hide');
+}
+
+init().then(() => {
+  loadMsg.textContent = '完成';
+  window.__app = { state, camera, scene, controls, manifest };  // 自动化测试/录制调试接口
+}).catch(err => {
+  loadMsg.textContent = '加载失败：' + err.message;
+  console.error(err);
+});
+
+// ---------- 渲染循环 ----------
+function resize() {
+  const w = container.clientWidth, h = container.clientHeight;
+  renderer.setSize(w, h);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize);
+resize();
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update();
+  renderer.render(scene, camera);
+}
+animate();
+</script>
+</body>
+</html>

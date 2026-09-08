@@ -38,8 +38,9 @@ While general-purpose LLMs excel at generic programming, they struggle with civi
 * **`autocad-floor-layout-to-yjk`**: Intelligent CAD architectural/structural floor plan recognition and automatic conversion into structural analytical models.
 * **`multi-floor-dwg-to-ydb-model`**: Multi-story drawing batch parsing, column grid alignment, and upper-lower floor model merging.
 
-### 2. 3D Parametric & Geometry Modeling
+### 2. 3D Parametric & BIM Visualization
 * **`rhinorouter`**: Production-grade skill for Rhinoceros (Rhino 8 / 7 / 6) via Python and RhinoScript COM automation. Features an offline database of 1,245 official APIs across 29 modules, multi-version connection discovery, robust VARIANT data marshaling, and parametric curve/surface modeling.
+* **`ifc-threejs-viewer.skill`**: One-click IFC model to interactive Three.js 3D web viewer with public deployment. Automatically parses IFC geometry, extracts floor levels and structural types (columns, beams, slabs, walls), generates GLB models + manifests, and outputs interactive web viewers with floor/type toggles.
 
 ### 3. Structural Database & Analysis Interfaces
 * **`yjk-database`**: Direct SQLite underlying read/write access to YJK (`.ydb`) structural databases, component geometry queries, and sectional property extraction.
@@ -101,6 +102,7 @@ Visit our official web repository to browse, preview, and download individual sk
 | **`autocad-structural-translation`** | AutoCAD / Global Projects | Intelligent Chinese-to-English DWG drawing translation | Translation engine, glossary, evals |
 | **`pyautocad`** | AutoCAD / Python COM | Batch CAD entity extraction and geometric manipulation | ActiveX wrappers, drafting utilities |
 | **`rhinorouter`** | Rhino 8/7 / Grasshopper | Parametric 3D modeling with 1,245 official COM APIs | SQLite API database, connection manager |
+| **`ifc-threejs-viewer.skill`** | BIM / WebGL / Three.js | One-click IFC model to interactive Three.js web viewer with floor & type toggles | `ifc_to_web.py`, `viewer.html`, `SKILL.md` |
 | **`yjk-database`** | YJK (盈建科) | Direct SQLite read/write access to YJK `.ydb` models | Database baseline, validation scripts |
 | **`sap2000-python`** | CSI SAP2000 | OAPI structural modeling, loading, and force extraction | OAPI reference, extraction scripts |
 | **`matrix-stiffness-2d`** | Structural Mechanics / FEA | 2D Direct Stiffness Method finite element solver kernel | Stiffness solver, internal force engine |
