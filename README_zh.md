@@ -53,6 +53,9 @@
 * **`structure-benchmark-verifier`**: 经典结构力学题库回归验证与基准解自动化比对套件。
 * **`docker-electron-delivery`**: 求解器极简容器私有化部署与跨平台客户端交付模板。
 
+### 5. AI Agent 协作与成本优化
+* **`cheap-agent`**: 低成本外部 Agent 委托工作流。将大代码库探索、初版代码分析与审查、测试用例生成与受限实现委托给基于 Gemini Flash 的 Antigravity CLI，在隔离 Git Worktree 中安全运行，大幅降低主模型 Token 成本。
+
 ---
 
 ## 🚀 快速上手

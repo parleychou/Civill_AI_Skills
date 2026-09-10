@@ -53,6 +53,9 @@ While general-purpose LLMs excel at generic programming, they struggle with civi
 * **`structure-benchmark-verifier`**: Classical structural mechanics benchmark regression suite for rigorous calculation validation.
 * **`docker-electron-delivery`**: Lightweight containerization and desktop packaging templates for civil engineering solver deployment.
 
+### 5. AI Agent Optimization & Cost Delegation
+* **`cheap-agent`**: Delegate bounded software-engineering work (repo exploration, first-pass code review/analysis, test generation, and bounded implementation) to Antigravity CLI with Gemini Flash in an isolated git worktree, significantly reducing primary model token costs.
+
 ---
 
 ## 🚀 Quick Start
