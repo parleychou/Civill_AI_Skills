@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "runtime": {
+    "provider_priority": [
+      "agy-staff",
+      "direct-agy"
+    ],
+    "agy_staff_companion": "auto",
+    "node_executable": "node",
+    "agy_executable": "agy",
+    "default_effort": {
+      "ask": "low",
+      "staffer": "medium",
+      "researcher": "high",
+      "reviewer": "medium",
+      "implementer": "high"
+    },
+    "restricted": false,
+    "dispatch_timeout": "60m",
+    "collect_wait": "10m",
+    "direct_agy_timeout": "10m",
+    "python_timeout_seconds": 3900
+  },
+  "delegation": {
+    "allow_any_caller": true,
+    "allow_recursive": true,
+    "max_depth": null
+  },
+  "isolation": {
+    "all_repo_tasks_use_worktree": true,
+    "write_tasks_must_use_worktree": true
+  },
+  "review": {
+    "require_accept_before_apply": true,
+    "authority": "caller-or-designated-reviewer"
+  }
+}

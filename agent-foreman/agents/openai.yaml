@@ -1,0 +1,6 @@
+interface:
+  display_name: "Agent Foreman"
+  short_description: "Delegate, supervise, review, and integrate multi-agent work"
+  default_prompt: "Use $agent-foreman to route substantial work to suitable agy/Gemini workers, keep edits isolated, and review evidence before integration."
+policy:
+  allow_implicit_invocation: true

@@ -53,8 +53,8 @@ While general-purpose LLMs excel at generic programming, they struggle with civi
 * **`structure-benchmark-verifier`**: Classical structural mechanics benchmark regression suite for rigorous calculation validation.
 * **`docker-electron-delivery`**: Lightweight containerization and desktop packaging templates for civil engineering solver deployment.
 
-### 5. AI Agent Optimization & Cost Delegation
-* **`cheap-agent`**: Delegate bounded software-engineering work (repo exploration, first-pass code review/analysis, test generation, and bounded implementation) to Antigravity CLI with Gemini Flash in an isolated git worktree, significantly reducing primary model token costs.
+### 5. Multi-Agent Collaboration & Delegation
+* **`agent-foreman`**: Multi-agent foreman governance framework (v2.0). Allows any lead agent (Codex, Claude Code, Pi, custom coding agents, or agy) to delegate research, code review, general tasks, and scoped implementation to agy-staff/Gemini workers with isolated Git worktrees, recursive delegation support, and explicit lead verdict gates before merging.
 
 ---
 

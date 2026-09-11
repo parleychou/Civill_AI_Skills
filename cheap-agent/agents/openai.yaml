@@ -1,6 +1,0 @@
-interface:
-  display_name: "Cheap Agent"
-  short_description: "Delegate bounded coding to a reviewed Gemini worker"
-  default_prompt: "Use $cheap-agent to delegate suitable work to Gemini Flash, then review any external code changes before applying them."
-policy:
-  allow_implicit_invocation: true

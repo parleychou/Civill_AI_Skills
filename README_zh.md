@@ -53,8 +53,8 @@
 * **`structure-benchmark-verifier`**: 经典结构力学题库回归验证与基准解自动化比对套件。
 * **`docker-electron-delivery`**: 求解器极简容器私有化部署与跨平台客户端交付模板。
 
-### 5. AI Agent 协作与成本优化
-* **`cheap-agent`**: 低成本外部 Agent 委托工作流。将大代码库探索、初版代码分析与审查、测试用例生成与受限实现委托给基于 Gemini Flash 的 Antigravity CLI，在隔离 Git Worktree 中安全运行，大幅降低主模型 Token 成本。
+### 5. 多智能体协同与工头分流系统
+* **`agent-foreman`**: 多智能体工头协同与分流治理系统（v2.0，原 cheap-agent 升级版）。支持任何主导 Agent（Codex、Claude Code、Pi、通用 Coding Agent 或 Antigravity）将调研、代码审查、通用任务及封闭实现委托给基于 Gemini 的工作者，支持递归分发、Git Worktree 隔离运行、人工/主导者 Verdict 审核卡口与受控合并交付。
 
 ---
 
