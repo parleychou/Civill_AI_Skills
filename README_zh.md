@@ -56,6 +56,9 @@
 ### 5. 多智能体协同与工头分流系统
 * **`agent-foreman`**: 多智能体工头协同与分流治理系统（v2.0，原 cheap-agent 升级版）。支持任何主导 Agent（Codex、Claude Code、Pi、通用 Coding Agent 或 Antigravity）将调研、代码审查、通用任务及封闭实现委托给基于 Gemini 的工作者，支持递归分发、Git Worktree 隔离运行、人工/主导者 Verdict 审核卡口与受控合并交付。
 
+### 6. 视频与多模态工程内容
+* **`video-slice`**: 长视频智能话题切片工具链。包含音频提取、Whisper 语音转录（词级时间戳）、大模型话题切分、ffmpeg 精确切片与语气词/口癖自动静音，将工程直播回放与长视频自动化切片为短视频。
+
 ---
 
 ## 🚀 快速上手

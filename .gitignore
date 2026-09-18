@@ -1,4 +1,5 @@
 *.zip
+*.7z
 __pycache__/
 *.py[cod]
 *.class

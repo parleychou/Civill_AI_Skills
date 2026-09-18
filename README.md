@@ -56,6 +56,9 @@ While general-purpose LLMs excel at generic programming, they struggle with civi
 ### 5. Multi-Agent Collaboration & Delegation
 * **`agent-foreman`**: Multi-agent foreman governance framework (v2.0). Allows any lead agent (Codex, Claude Code, Pi, custom coding agents, or agy) to delegate research, code review, general tasks, and scoped implementation to agy-staff/Gemini workers with isolated Git worktrees, recursive delegation support, and explicit lead verdict gates before merging.
 
+### 6. Video & Multi-modal Engineering Content
+* **`video-slice`**: Intelligent topic-based video slicing toolchain. Automatically extracts audio, performs Whisper word-level transcription, prompts LLM for semantic topic splitting, and precisely slices long engineering lectures/recordings into publication-ready short videos with optional filler muting.
+
 ---
 
 ## 🚀 Quick Start
