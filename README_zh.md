@@ -41,6 +41,7 @@
 ### 2. 三维参数化与 BIM 轻量化浏览
 * **`rhinorouter`**: 面向 Rhino 8/7/6 的工业级 Python COM 自动化技能包，内置 29 个模块、1245 个官方 API 离线知识库，支持跨版本探测、VARIANT 数据类型转换与空间参数化曲面造型。
 * **`ifc-threejs-viewer.skill`**: IFC 一键转 Web 查看器（含公网部署）。输入单个 .ifc 模型，一键提取几何与楼层构件（柱/梁/板/墙），自动导出轻量化 GLB 与动态 Manifest，生成基于 Three.js 的 3D 浏览器，支持按层/构件类型动态开关与公网免装专业软件分享。
+* **`processorcard-builder`**: 盈建科 GAMA 数据处理卡片二次开发与智能代码生成。仿照官方 BasicCards 规范，生成继承自 `ProjectPenguin.Cards.ProcessorCardBase` 的数据处理卡片（支持 OneByOne / ListByList 模式），内置 SDK 风格 csproj 模板、端口声明与防错规范，编译生成 GAMA 可直接加载的 `.crd` 扩展插件。
 
 ### 3. 结构数据库与模型接口
 * **`yjk-database`**: 盈建科 YJK (`.ydb`) SQLite 底层构件批量读写、几何截面查询与模型修改。
@@ -103,6 +104,7 @@
 | **`pyautocad`** | AutoCAD | AutoCAD Python 图元批量提取与绘制 | ActiveX 封装、出图脚本 |
 | **`rhinorouter`** | Rhino / Grasshopper | Rhino 8/7 参数化建模与 1245 个官方 API | SQLite API 库、连接器、算例 |
 | **`ifc-threejs-viewer.skill`** | BIM / WebGL / Three.js | IFC 一键转 Three.js 网页查看器（含分层/构件开关与公网发布） | `ifc_to_web.py`、`viewer.html`、`SKILL.md` |
+| **`processorcard-builder`** | 盈建科 GAMA / C# .NET | GAMA ProcessorCard 数据处理卡片二次开发 | SDK csproj 模板、卡片骨架代码、API 说明与示例集 |
 | **`yjk-database`** | 盈建科 YJK | YJK 结构数据库 SQLite 底层构件读写 | YDB 读取脚本、基准数据库 |
 | **`sap2000-python`** | SAP2000 | SAP2000 OAPI 建模与内力提取 | OAPI 文档、内力提取脚本 |
 | **`matrix-stiffness-2d`** | 结构力学 / 有限元 | 2D 直接刚度法平面有限元求解内核 | 刚度矩阵装配、求解器代码 |

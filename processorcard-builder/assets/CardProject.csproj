@@ -1,0 +1,35 @@
+<!-- SDK 风格 csproj 模板 —— 新建工程时使用。替换 <占位符>：
+     - <RootNamespace>/<AssemblyName>：卡片库名
+     - <HintPath>：Preflight 中拿到的 ProjectPenguin.dll / NSGeo3dm.dll 实际路径
+     生成后事件把产物复制为 .crd 到自定义卡片文件夹（按需修改路径或删除）。 -->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <RootNamespace><卡片库命名空间></RootNamespace>
+    <AssemblyName><卡片库名></AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="ProjectPenguin">
+      <HintPath><ProjectPenguin.dll 的实际路径></HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="NSGeo3dm">
+      <HintPath><NSGeo3dm.dll 的实际路径></HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- 可选：编译后自动复制为 .crd 到自定义卡片文件夹 -->
+  <Target Name="CopyCrd" AfterTargets="Build">
+    <Copy SourceFiles="$(TargetPath)"
+          DestinationFiles="$(AppData)\nonstructure\Penguin\Cards\$(AssemblyName).crd"
+          SkipUnchangedFiles="false" />
+  </Target>
+
+</Project>
