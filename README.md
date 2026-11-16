@@ -44,6 +44,7 @@ While general-purpose LLMs excel at generic programming, they struggle with civi
 * **`processorcard-builder`**: GAMA custom ProcessorCard secondary development and code generation toolkit. Scaffolds C# card classes subclassing `ProjectPenguin.Cards.ProcessorCardBase` following official BasicCards patterns (OneByOne, ListByList), complete with SDK-style csproj templates, port definition rules, and automated `.crd` assembly compilation guidance.
 
 ### 3. Structural Database & Analysis Interfaces
+* **`yjk-gama-restart`**: Automated background lifecycle and headless orchestration for YJK and GAMA. Drives `yjks.exe` process launch, project loading, and GAMA invocation via `pgw_g` using Win32 messaging, with intelligent modal prompt handling and NSMcp daemon reliability.
 * **`yjk-database`**: Direct SQLite underlying read/write access to YJK (`.ydb`) structural databases, component geometry queries, and sectional property extraction.
 * **`sap2000-python`**: SAP2000 OAPI modeling, load case definitions, load combinations, and member internal force extraction.
 * **`structural-plan-layout-workflow`**: Structural framing layout design, column grid synthesis, and preliminary beam/column member dimensioning.
@@ -111,6 +112,7 @@ Visit our official web repository to browse, preview, and download individual sk
 | **`rhinorouter`** | Rhino 8/7 / Grasshopper | Parametric 3D modeling with 1,245 official COM APIs | SQLite API database, connection manager |
 | **`ifc-threejs-viewer.skill`** | BIM / WebGL / Three.js | One-click IFC model to interactive Three.js web viewer with floor & type toggles | `ifc_to_web.py`, `viewer.html`, `SKILL.md` |
 | **`processorcard-builder`** | GAMA (盈建科参数化) / C# .NET | Custom ProcessorCard secondary development and .crd generation | SDK csproj template, ProcessorCardTemplate.cs, API reference |
+| **`yjk-gama-restart`** | YJK / GAMA Lifecycle | Headless Win32 process automation, project opening, and GAMA restart | `yjk-gama.ps1`, `yjk-win.ps1`, `SKILL.md` |
 | **`yjk-database`** | YJK (盈建科) | Direct SQLite read/write access to YJK `.ydb` models | Database baseline, validation scripts |
 | **`sap2000-python`** | CSI SAP2000 | OAPI structural modeling, loading, and force extraction | OAPI reference, extraction scripts |
 | **`matrix-stiffness-2d`** | Structural Mechanics / FEA | 2D Direct Stiffness Method finite element solver kernel | Stiffness solver, internal force engine |

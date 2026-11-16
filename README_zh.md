@@ -44,6 +44,7 @@
 * **`processorcard-builder`**: 盈建科 GAMA 数据处理卡片二次开发与智能代码生成。仿照官方 BasicCards 规范，生成继承自 `ProjectPenguin.Cards.ProcessorCardBase` 的数据处理卡片（支持 OneByOne / ListByList 模式），内置 SDK 风格 csproj 模板、端口声明与防错规范，编译生成 GAMA 可直接加载的 `.crd` 扩展插件。
 
 ### 3. 结构数据库与模型接口
+* **`yjk-gama-restart`**: 盈建科 YJK 与 GAMA 自动化无焦点启闭与运维管理。基于 Win32 消息驱动 `yjks.exe` 进程启动、指定模型打开、通过 `pgw_g` 命令唤起 Y-GAMA，支持弹窗自动化响应识别与 NSMcp 宿主生命周期保活运维。
 * **`yjk-database`**: 盈建科 YJK (`.ydb`) SQLite 底层构件批量读写、几何截面查询与模型修改。
 * **`sap2000-python`**: SAP2000 OAPI 建模、工况组合、荷载定义与构件内力结果自动化提取。
 * **`structural-plan-layout-workflow`**: 结构方案规划、柱网拓扑生成与梁柱构件截面初选。
@@ -105,6 +106,7 @@
 | **`rhinorouter`** | Rhino / Grasshopper | Rhino 8/7 参数化建模与 1245 个官方 API | SQLite API 库、连接器、算例 |
 | **`ifc-threejs-viewer.skill`** | BIM / WebGL / Three.js | IFC 一键转 Three.js 网页查看器（含分层/构件开关与公网发布） | `ifc_to_web.py`、`viewer.html`、`SKILL.md` |
 | **`processorcard-builder`** | 盈建科 GAMA / C# .NET | GAMA ProcessorCard 数据处理卡片二次开发 | SDK csproj 模板、卡片骨架代码、API 说明与示例集 |
+| **`yjk-gama-restart`** | 盈建科 YJK / GAMA | YJK 与 GAMA 无焦点启闭、模型打开与运维自动化 | `yjk-gama.ps1`、`yjk-win.ps1`、`SKILL.md` |
 | **`yjk-database`** | 盈建科 YJK | YJK 结构数据库 SQLite 底层构件读写 | YDB 读取脚本、基准数据库 |
 | **`sap2000-python`** | SAP2000 | SAP2000 OAPI 建模与内力提取 | OAPI 文档、内力提取脚本 |
 | **`matrix-stiffness-2d`** | 结构力学 / 有限元 | 2D 直接刚度法平面有限元求解内核 | 刚度矩阵装配、求解器代码 |
