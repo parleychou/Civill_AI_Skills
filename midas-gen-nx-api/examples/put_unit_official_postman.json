@@ -1,0 +1,10 @@
+{
+  "Assign": {
+    "1": {
+      "FORCE": "KN",
+      "DIST": "M",
+      "HEAT": "KCAL",
+      "TEMPER": "F"
+    }
+  }
+}

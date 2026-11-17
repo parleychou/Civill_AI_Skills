@@ -20,7 +20,7 @@
 `Civill_AI_Skills` 是专为土木工程、结构设计从业者打造的工程级 AI Agent 技能扩展库。
 
 通用大模型虽然擅长编写通用代码，但在土木与结构工程场景中常常面临三大痛点：
-1. **工业软件专属 API 盲区**：工业级软件（AutoCAD、Rhino、盈建科 YJK、SAP2000）的底层 COM、ActiveX 及 SQLite 数据库接口在通用预训练语料中极少覆盖。
+1. **工业软件专属 API 盲区**：工业级软件（AutoCAD、Rhino、盈建科 YJK、SAP2000、midas Civil NX / Gen NX）的底层 COM、ActiveX、SQLite 或 HTTP API 接口在通用预训练语料中极少覆盖。
 2. **缺乏严苛行业规范**：土木工程具有特殊的出图标准（例如弯矩图强制画在受拉侧、图纸图层排版不可打乱、汉译英不可重复翻译等），缺乏规范约束时 AI 极易生成废图。
 3. **力学计算严谨度不足**：有限元刚度装配与位移解算要求极高精度，需要严格的基准算例回归验证。
 
@@ -47,6 +47,8 @@
 * **`yjk-gama-restart`**: 盈建科 YJK 与 GAMA 自动化无焦点启闭与运维管理。基于 Win32 消息驱动 `yjks.exe` 进程启动、指定模型打开、通过 `pgw_g` 命令唤起 Y-GAMA，支持弹窗自动化响应识别与 NSMcp 宿主生命周期保活运维。
 * **`yjk-database`**: 盈建科 YJK (`.ydb`) SQLite 底层构件批量读写、几何截面查询与模型修改。
 * **`sap2000-python`**: SAP2000 OAPI 建模、工况组合、荷载定义与构件内力结果自动化提取。
+* **`midas-civil-nx-api`**: midas Civil NX Open API（HTTP REST + JSON）技能包。从产品会话读取 Base URL 与 `MAPI-Key`，覆盖文档、单位、材料、截面、建模、分析与结果查询，并与 Gen 完全分开。初版，未经实机联调。
+* **`midas-gen-nx-api`**: midas Gen NX Open API 独立技能包。公共连接约定可用，但字段级请求须先按当前会话文档核验后再执行。初版、资料有限。
 * **`structural-plan-layout-workflow`**: 结构方案规划、柱网拓扑生成与梁柱构件截面初选。
 
 ### 4. 有限元力学求解与出图
@@ -109,6 +111,8 @@
 | **`yjk-gama-restart`** | 盈建科 YJK / GAMA | YJK 与 GAMA 无焦点启闭、模型打开与运维自动化 | `yjk-gama.ps1`、`yjk-win.ps1`、`SKILL.md` |
 | **`yjk-database`** | 盈建科 YJK | YJK 结构数据库 SQLite 底层构件读写 | YDB 读取脚本、基准数据库 |
 | **`sap2000-python`** | SAP2000 | SAP2000 OAPI 建模与内力提取 | OAPI 文档、内力提取脚本 |
+| **`midas-civil-nx-api`** | midas Civil NX | Civil NX Open API（HTTP REST + JSON）文档、建模、分析与结果查询 | `SKILL.md`、接口索引、示例 JSON、离线校验脚本 |
+| **`midas-gen-nx-api`** | midas Gen NX | Gen NX Open API 独立技能包（字段须先核验，初版） | `SKILL.md`、限制说明、连接约定、离线校验脚本 |
 | **`matrix-stiffness-2d`** | 结构力学 / 有限元 | 2D 直接刚度法平面有限元求解内核 | 刚度矩阵装配、求解器代码 |
 | **`mechanics-diagram-renderer`** | 结构力学 | 受拉侧内力图出图规范渲染 | Canvas/SVG 渲染器、视口模板 |
 | **`structure-benchmark-verifier`** | 结构力学基准 | 经典力学题库基准回归验证 | 经典算例库、回归测试脚本 |
@@ -124,6 +128,7 @@
 - [x] AutoCAD 基础自动化与 DWG 施工图智能汉译英
 - [x] Rhino 8/7 参数化 COM API 路由与三维几何交互
 - [x] 盈建科 YJK 与 SAP2000 结构数据库接口对接
+- [x] midas Civil NX 与 Gen NX Open API 独立技能包（初版）
 - [x] 2D 平面直接刚度法求解内核与受拉侧出图规范
 - [ ] 空间桁架与 3D 空间结构直接刚度法求解器
 - [ ] 地基基础与桩土相互作用分析模块

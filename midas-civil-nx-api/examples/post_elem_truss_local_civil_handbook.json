@@ -1,0 +1,14 @@
+{
+  "Assign": {
+    "13": {
+      "TYPE": "TRUSS",
+      "MATL": 1,
+      "SECT": 1,
+      "NODE": [
+        24,
+        25
+      ],
+      "ANGLE": 0
+    }
+  }
+}

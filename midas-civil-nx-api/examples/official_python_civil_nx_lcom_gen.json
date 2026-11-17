@@ -1,0 +1,21 @@
+{
+  "Assign": {
+    "1": {
+      "NAME": "Comb1",
+      "ACTIVE": "ACTIVE",
+      "iTYPE": 0,
+      "vCOMB": [
+        {
+          "ANAL": "ST",
+          "LCNAME": "DL",
+          "FACTOR": 1.2
+        },
+        {
+          "ANAL": "ST",
+          "LCNAME": "SIDL",
+          "FACTOR": 1.5
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "Assign": {
+    "1": {
+      "FORCE": "KIPS",
+      "DIST": "FT",
+      "HEAT": "BTU",
+      "TEMPER": "C"
+    }
+  }
+}

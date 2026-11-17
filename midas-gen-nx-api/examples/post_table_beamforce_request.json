@@ -1,0 +1,41 @@
+{
+  "Argument": {
+    "TABLE_NAME": "BeamForce",
+    "TABLE_TYPE": "BEAMFORCE",
+    "EXPORT_PATH": "C:\\MIDAS\\Result\\Output.JSON",
+    "UNIT": {
+      "FORCE": "kN",
+      "DIST": "m"
+    },
+    "STYLES": {
+      "FORMAT": "Fixed",
+      "PLACE": 12
+    },
+    "COMPONENTS": [
+      "Elem",
+      "Load",
+      "Part",
+      "Axial",
+      "Shear-y",
+      "Shear-z",
+      "Torsion",
+      "Moment-y",
+      "Moment-z",
+      "Bi-Moment",
+      "T-Moment",
+      "W-Moment"
+    ],
+    "NODE_ELEMS": {
+      "KEYS": [
+        1
+      ]
+    },
+    "LOAD_CASE_NAMES": [
+      "Selfweight(ST)"
+    ],
+    "PARTS": [
+      "Part I",
+      "Part J"
+    ]
+  }
+}

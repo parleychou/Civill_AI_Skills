@@ -1,0 +1,15 @@
+{
+  "Assign": {
+    "1": {
+      "TYPE": "CONC",
+      "NAME": "C32",
+      "PARAM": [
+        {
+          "P_TYPE": 1,
+          "STANDARD": "AS17(RC)",
+          "DB": "C32"
+        }
+      ]
+    }
+  }
+}

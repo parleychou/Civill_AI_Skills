@@ -1,0 +1,16 @@
+{
+  "Assign": {
+    "1": {
+      "STYP": 0,
+      "MASS": 2,
+      "bMASSOFFSET": false,
+      "bSELFWEIGHT": true,
+      "SMASS": 2,
+      "GRAV": 9.806,
+      "TEMP": 0,
+      "bALIGNBEAM": false,
+      "bALIGNSLAB": false,
+      "bROTRIGID": true
+    }
+  }
+}

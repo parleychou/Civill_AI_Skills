@@ -20,7 +20,7 @@
 **Civill_AI_Skills** is a specialized, open-source AI Agent skill repository tailored for civil and structural engineering workflows.
 
 While general-purpose LLMs excel at generic programming, they struggle with civil engineering tasks due to:
-1. **Lack of Industrial Software APIs**: Proprietary or legacy COM/ActiveX interfaces (AutoCAD, Rhino 8/7, SAP2000 OAPI, YJK SQLite `.ydb`) are rarely covered in general pretraining data.
+1. **Lack of Industrial Software APIs**: Proprietary or legacy COM/ActiveX interfaces (AutoCAD, Rhino 8/7, SAP2000 OAPI, YJK SQLite `.ydb`) and midas Civil NX / Gen NX HTTP APIs are rarely covered in general pretraining data.
 2. **Missing Engineering Drafting Rules**: Standard conventions (such as drawing bending moment diagrams strictly on the tension side, preserving DWG layer hierarchies, preventing duplicate translation tags) require explicit domain constraints.
 3. **Rigorous Mechanics Accuracy**: Finite element algorithms and stiffness matrix assembly demand exact mathematical formulation and benchmark verification.
 
@@ -47,6 +47,8 @@ While general-purpose LLMs excel at generic programming, they struggle with civi
 * **`yjk-gama-restart`**: Automated background lifecycle and headless orchestration for YJK and GAMA. Drives `yjks.exe` process launch, project loading, and GAMA invocation via `pgw_g` using Win32 messaging, with intelligent modal prompt handling and NSMcp daemon reliability.
 * **`yjk-database`**: Direct SQLite underlying read/write access to YJK (`.ydb`) structural databases, component geometry queries, and sectional property extraction.
 * **`sap2000-python`**: SAP2000 OAPI modeling, load case definitions, load combinations, and member internal force extraction.
+* **`midas-civil-nx-api`**: First-edition midas Civil NX Open API skill (HTTP REST + JSON). Uses the session Base URL and `MAPI-Key`, covering documents, units, materials, sections, modeling, analysis, and results, kept separate from Gen. Not yet runtime-tested.
+* **`midas-gen-nx-api`**: Independent midas Gen NX Open API skill. Shared connection conventions apply, but field-level requests must be verified against the current session docs before execution. First edition with limited source data.
 * **`structural-plan-layout-workflow`**: Structural framing layout design, column grid synthesis, and preliminary beam/column member dimensioning.
 
 ### 4. Finite Element Mechanics & Standardization
@@ -115,6 +117,8 @@ Visit our official web repository to browse, preview, and download individual sk
 | **`yjk-gama-restart`** | YJK / GAMA Lifecycle | Headless Win32 process automation, project opening, and GAMA restart | `yjk-gama.ps1`, `yjk-win.ps1`, `SKILL.md` |
 | **`yjk-database`** | YJK (盈建科) | Direct SQLite read/write access to YJK `.ydb` models | Database baseline, validation scripts |
 | **`sap2000-python`** | CSI SAP2000 | OAPI structural modeling, loading, and force extraction | OAPI reference, extraction scripts |
+| **`midas-civil-nx-api`** | midas Civil NX | Civil NX Open API (HTTP REST + JSON) for documents, modeling, analysis, and results | `SKILL.md`, endpoint index, example JSON, offline verifier |
+| **`midas-gen-nx-api`** | midas Gen NX | Independent Gen NX Open API skill (verify fields first; first edition) | `SKILL.md`, limitations, connection conventions, offline verifier |
 | **`matrix-stiffness-2d`** | Structural Mechanics / FEA | 2D Direct Stiffness Method finite element solver kernel | Stiffness solver, internal force engine |
 | **`mechanics-diagram-renderer`** | Structural Mechanics | Tension-side bending moment diagram renderer | Canvas/SVG renderers, viewport templates |
 | **`structure-benchmark-verifier`** | Benchmark Verification | Automated regression test suite against classic problems | 100+ benchmark cases, runner scripts |
@@ -130,6 +134,7 @@ Visit our official web repository to browse, preview, and download individual sk
 - [x] AutoCAD drafting automation and DWG structural drawing translation
 - [x] Rhino 8/7 parametric COM API router with offline knowledge base
 - [x] YJK (`.ydb`) and SAP2000 structural database integration
+- [x] midas Civil NX and Gen NX Open API skill packs (first edition)
 - [x] 2D Direct Stiffness Method solver and tension-side diagram rendering
 - [ ] 3D space frame & truss Direct Stiffness Method solver
 - [ ] Foundation & soil-structure interaction analysis skills

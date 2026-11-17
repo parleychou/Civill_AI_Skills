@@ -1,0 +1,19 @@
+{
+  "Assign": {
+    "1": {
+      "SECTTYPE": "DBUSER",
+      "SECT_NAME": "Rectangular",
+      "SECT_BEFORE": {
+        "USE_SHEAR_DEFORM": true,
+        "SHAPE": "SB",
+        "DATATYPE": 2,
+        "SECT_I": {
+          "vSIZE": [
+            1.0,
+            0.8
+          ]
+        }
+      }
+    }
+  }
+}
