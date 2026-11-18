@@ -19,7 +19,7 @@ examples_en:
   - "Look up Civil NX NODE and ELEM fields and draft a small frame"
   - "Check UNIT / TEMPER keys and the official vs handbook requiredness conflict"
   - "Draft a post/TABLE BEAMFORCE request from the packaged catalog"
-version: "0.2.1"
+version: "0.2.2"
 author: 周文琪
 ---
 # MIDAS Civil NX Open API

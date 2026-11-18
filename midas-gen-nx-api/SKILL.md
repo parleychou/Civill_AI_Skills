@@ -21,7 +21,7 @@ examples_en:
   - "Confirm the product is Gen NX and walk through API Settings without exposing the key"
   - "Look up shared official UNIT, NODE, or MATL fields and flag them as untested on Gen"
   - "If Civil examples are requested, mark them unverified cross-product and do not execute writes"
-version: "0.2.1"
+version: "0.2.2"
 author: 周文琪
 ---
 # MIDAS Gen NX Open API

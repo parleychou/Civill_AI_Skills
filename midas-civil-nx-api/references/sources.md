@@ -34,7 +34,7 @@ https://www.wolai.com/midasit/snbusAxfpoirfTh6663jAV — 公开 HTML 壳可访�
 未在真实 Civil NX 运行时实测；未读取或写入任何真实 MAPI-Key、Base URL 或模型文件。
 
 
-## 本包内可离线检索的整理资料（0.2.1）
+## 本包内可离线检索的整理资料（0.2.2）
 
 - `references/civil-field-catalog.jsonl`：从本地 Civil NX JSON 手册（430 个 `.md`，抓取 2025-12-23）只读抽取的 URI、方法、字段表、短示例与 wolai 来源 URL。不是原手册镜像。
 - `references/official-shared.jsonl`：本次成功读取正文的官方公开字段页（Unit System、Node、Element、Material Properties、Section Properties - Common、Section Table、POST/TABLE 说明）。官方总目录 HTML 直接抓取会遇到 Cloudflare 挑战，未能重建全部 ↗ 深链；未读到的官方分页不得编造正文。

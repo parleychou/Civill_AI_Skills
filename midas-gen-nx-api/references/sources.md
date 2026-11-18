@@ -28,7 +28,7 @@
 未在真实 Gen NX 或经典 Gen 上实测；未保存任何真实密钥或 Base URL。
 
 
-## 本包 0.2.1 的可离线检索资料
+## 本包 0.2.2 的可离线检索资料
 
 - `references/verified-gen.jsonl`：已读正文的 GEN NX 连接/产品页事实与明确缺口（不含编造的 Gen 专用字段表）。
 - `references/official-shared.jsonl`：官方 NX 系列 JSON Manual 中本次成功读取的 UNIT / NODE / ELEM / MATL / SECT-Common / Section Table / POST/TABLE 字段。证据级别为 **shared**，不是 Gen 实机验证。
