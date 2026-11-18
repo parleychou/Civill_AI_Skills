@@ -1,4 +1,4 @@
-# MIDAS Civil NX API Skill（初版）
+# MIDAS Civil NX API Skill
 
 面向 **MIDAS Civil NX** Open API（REST/JSON）的通用可复用技能包。中文说明为主。本包是已交叉核验资料后的**初版（0.2.1）**，官方手册与本地 Civil NX JSON 手册已对照，但**尚未在真实 Civil NX 会话中实测**。
 

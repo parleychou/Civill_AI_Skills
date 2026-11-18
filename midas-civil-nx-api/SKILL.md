@@ -1,7 +1,7 @@
 ---
 name: midas-civil-nx-api
-display_name: MIDAS Civil NX API（初版）
-display_name_en: MIDAS Civil NX API (Draft)
+display_name: MIDAS Civil NX API
+display_name_en: MIDAS Civil NX API
 description: >-
   当用户要通过 MIDAS Civil NX Open API（REST/JSON）建模、修改模型、运行分析或提取结果时使用。先核对产品版本；不适用于经典
   Civil，也不混用 Gen 接口。本包为初版，包内可离线检索接口与字段，但尚未在真实 Civil NX 会话中实测。

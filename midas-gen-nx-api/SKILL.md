@@ -1,7 +1,7 @@
 ---
 name: midas-gen-nx-api
-display_name: MIDAS Gen NX API（资料受限初版）
-display_name_en: MIDAS Gen NX API (Limited Draft)
+display_name: MIDAS Gen NX API
+display_name_en: MIDAS Gen NX API
 description: >-
   当用户要通过 MIDAS Gen NX Open API 连接、查阅官方 NX 共享目录或核验字段时使用。不适用于经典 Gen，也不混用 Civil
   接口。本包为资料受限初版：没有完整 Gen 专用字段手册，默认检索只返回已证实的 Gen 连接资料与官方 NX 共享字段；Civil
@@ -24,7 +24,7 @@ examples_en:
 version: "0.2.1"
 author: 周文琪
 ---
-# MIDAS Gen NX Open API（初版）
+# MIDAS Gen NX Open API
 
 ## 范围与证据限制
 用于 MIDAS Gen NX，先确认实际产品与版本。不要把 Gen NX 默认当成经典 Gen，也不要混用 Civil NX。本包**未在真实 Gen NX 会话中实测**。已读资料确认 Gen NX 连接说明和 NX 总目录，但**没有完整读取 Gen 专用字段手册**。

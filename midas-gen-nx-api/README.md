@@ -1,4 +1,4 @@
-# MIDAS Gen NX API Skill（资料受限 / 待验证初版）
+# MIDAS Gen NX API Skill
 
 面向 **MIDAS Gen NX** Open API（REST/JSON）的技能包。中文说明为主。
 
