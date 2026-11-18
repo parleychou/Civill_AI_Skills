@@ -1,3 +1,5 @@
+本页的 `/doc` 约定来自官方 NX 总目录与 Civil NX 手册对照，**不是** Gen 实机验证。用于 Gen 前须在当前 Gen NX 接口页核对路径、方法和 Argument。`SAVE` 不是备份；`SAVEAS` 会切换当前文件。
+
 # 文档级接口（/doc）
 
 官方写明：全部为 POST，Body 从 `Argument` 起；空参数可用 `{}`。

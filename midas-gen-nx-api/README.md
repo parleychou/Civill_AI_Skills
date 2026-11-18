@@ -23,6 +23,18 @@ your-project/skills/midas-gen-nx-api/
 
 也可使用 `midas-gen-nx-api.zip` 上传到技能平台（保持包内该结构）。
 
+## 离线检索
+
+默认只搜已证实的 Gen 连接资料和官方 NX 共享字段，不依赖本机 Civil 手册：
+
+```bash
+python3 scripts/search_index.py NODE
+python3 scripts/search_index.py 材料
+python3 scripts/search_index.py 结果 TABLE_TYPE
+```
+
+若要对照 Civil 示例，必须显式加上 `--include-cross-product`，并把命中项视为未验证对照，而不是可执行契约。
+
 ## 使用前
 
 1. 确认产品是 Gen NX。在 Apps → API → API Settings 中确认已 Connect，从当前会话取得 Base URL。密钥只通过安全输入或运行环境提供，不要在聊天中索要明文，也不要写入仓库。

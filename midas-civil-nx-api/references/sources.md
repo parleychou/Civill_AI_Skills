@@ -32,3 +32,21 @@ https://www.wolai.com/midasit/snbusAxfpoirfTh6663jAV — 公开 HTML 壳可访�
 ## 未做的事
 
 未在真实 Civil NX 运行时实测；未读取或写入任何真实 MAPI-Key、Base URL 或模型文件。
+
+
+## 本包内可离线检索的整理资料（0.2.1）
+
+- `references/civil-field-catalog.jsonl`：从本地 Civil NX JSON 手册（430 个 `.md`，抓取 2025-12-23）只读抽取的 URI、方法、字段表、短示例与 wolai 来源 URL。不是原手册镜像。
+- `references/official-shared.jsonl`：本次成功读取正文的官方公开字段页（Unit System、Node、Element、Material Properties、Section Properties - Common、Section Table、POST/TABLE 说明）。官方总目录 HTML 直接抓取会遇到 Cloudflare 挑战，未能重建全部 ↗ 深链；未读到的官方分页不得编造正文。
+- 检索脚本：`scripts/search_index.py`（标准库，可离线）。
+
+本次新读取的官方字段页：
+
+| 资料 | URL | 页面元数据 |
+| --- | --- | --- |
+| Unit System | https://support.midasuser.com/hc/en-us/articles/35802155483801-Unit-System | Created/Edited 2024-08-01 |
+| Node | https://support.midasuser.com/hc/en-us/articles/35806845654169-Node | Created/Edited 2024-08-01 |
+| Element | https://support.midasuser.com/hc/en-us/articles/35806934300825-Element | Created 2024-08-01；Edited 2025-11-04 |
+| Material Properties | https://support.midasuser.com/hc/en-us/articles/35807411331993-Material-Properties | Created 2024-08-01；Edited 2025-11-04 |
+| Section Properties - Common | https://support.midasuser.com/hc/en-us/articles/35808653964185-Section-Properties-Common | Created 2024-08-01；Edited 2025-11-04 |
+| Section Table | https://support.midasuser.com/hc/en-us/articles/43835398107801-Section-Table | Created/Edited 2025-02-25 |

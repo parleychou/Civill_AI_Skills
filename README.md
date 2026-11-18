@@ -47,8 +47,8 @@ While general-purpose LLMs excel at generic programming, they struggle with civi
 * **`yjk-gama-restart`**: Automated background lifecycle and headless orchestration for YJK and GAMA. Drives `yjks.exe` process launch, project loading, and GAMA invocation via `pgw_g` using Win32 messaging, with intelligent modal prompt handling and NSMcp daemon reliability.
 * **`yjk-database`**: Direct SQLite underlying read/write access to YJK (`.ydb`) structural databases, component geometry queries, and sectional property extraction.
 * **`sap2000-python`**: SAP2000 OAPI modeling, load case definitions, load combinations, and member internal force extraction.
-* **`midas-civil-nx-api`**: First-edition midas Civil NX Open API skill (HTTP REST + JSON). Uses the session Base URL and `MAPI-Key`, covering documents, units, materials, sections, modeling, analysis, and results, kept separate from Gen. Not yet runtime-tested.
-* **`midas-gen-nx-api`**: Independent midas Gen NX Open API skill. Shared connection conventions apply, but field-level requests must be verified against the current session docs before execution. First edition with limited source data.
+* **`midas-civil-nx-api`**: First-edition midas Civil NX Open API skill (HTTP REST + JSON). Uses the session Base URL and `MAPI-Key`, covering documents, units, materials, sections, modeling, analysis, and results, kept separate from Gen. Ships an offline-searchable field and endpoint catalog so it works without the original local handbook. Not yet runtime-tested.
+* **`midas-gen-nx-api`**: Independent midas Gen NX Open API skill. Default offline search only returns verified connection facts and official NX-series shared field pages; there is no complete Gen-specific field manual. Civil material is opt-in and is never a Gen write contract. Not yet runtime-tested.
 * **`structural-plan-layout-workflow`**: Structural framing layout design, column grid synthesis, and preliminary beam/column member dimensioning.
 
 ### 4. Finite Element Mechanics & Standardization
@@ -117,8 +117,8 @@ Visit our official web repository to browse, preview, and download individual sk
 | **`yjk-gama-restart`** | YJK / GAMA Lifecycle | Headless Win32 process automation, project opening, and GAMA restart | `yjk-gama.ps1`, `yjk-win.ps1`, `SKILL.md` |
 | **`yjk-database`** | YJK (盈建科) | Direct SQLite read/write access to YJK `.ydb` models | Database baseline, validation scripts |
 | **`sap2000-python`** | CSI SAP2000 | OAPI structural modeling, loading, and force extraction | OAPI reference, extraction scripts |
-| **`midas-civil-nx-api`** | midas Civil NX | Civil NX Open API (HTTP REST + JSON) for documents, modeling, analysis, and results | `SKILL.md`, endpoint index, example JSON, offline verifier |
-| **`midas-gen-nx-api`** | midas Gen NX | Independent Gen NX Open API skill (verify fields first; first edition) | `SKILL.md`, limitations, connection conventions, offline verifier |
+| **`midas-civil-nx-api`** | midas Civil NX | Civil NX Open API (HTTP REST + JSON) for documents, modeling, analysis, and results; offline-searchable field catalog | `SKILL.md`, field catalog, official shared pages, example JSON, offline search/verifier |
+| **`midas-gen-nx-api`** | midas Gen NX | Independent Gen NX Open API skill (verified + official shared fields only by default; first edition) | `SKILL.md`, official shared pages, limitations, offline search/verifier |
 | **`matrix-stiffness-2d`** | Structural Mechanics / FEA | 2D Direct Stiffness Method finite element solver kernel | Stiffness solver, internal force engine |
 | **`mechanics-diagram-renderer`** | Structural Mechanics | Tension-side bending moment diagram renderer | Canvas/SVG renderers, viewport templates |
 | **`structure-benchmark-verifier`** | Benchmark Verification | Automated regression test suite against classic problems | 100+ benchmark cases, runner scripts |
@@ -134,7 +134,7 @@ Visit our official web repository to browse, preview, and download individual sk
 - [x] AutoCAD drafting automation and DWG structural drawing translation
 - [x] Rhino 8/7 parametric COM API router with offline knowledge base
 - [x] YJK (`.ydb`) and SAP2000 structural database integration
-- [x] midas Civil NX and Gen NX Open API skill packs (first edition)
+- [x] midas Civil NX and Gen NX Open API skill packs (offline-searchable first edition)
 - [x] 2D Direct Stiffness Method solver and tension-side diagram rendering
 - [ ] 3D space frame & truss Direct Stiffness Method solver
 - [ ] Foundation & soil-structure interaction analysis skills

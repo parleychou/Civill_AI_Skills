@@ -1,5 +1,7 @@
 # 建模：项目设置、节点单元、特性、边界与荷载
 
+完整字段请先运行 `python scripts/search_index.py <关键词>` 或打开 `references/civil-field-catalog.jsonl`。下面只保留常用接口的提要。
+
 ## 项目设置
 
 本地 Civil NX 手册（同时出现在官方目录）：

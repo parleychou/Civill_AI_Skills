@@ -12,3 +12,8 @@
 - 示例路径 `C:\\MIDAS\\...` 来自手册，不是用户环境路径。
 - `/doc/SAVE` 只保存当前文件，不等于备份；需要备份时应保留独立的原始模型副本。`/doc/SAVEAS` 会切换当前文件，路径和覆盖范围必须明确。
 - 404 应同时检查连接状态、Base URL 和路由/方法，不能一概解释为未连接。本地手册对 404 的表述只是原因之一。
+
+- `/db/UNIT` 的必填性：官方 Unit System 页把 FORCE/DIST/HEAT/TEMPER 列为 Optional；本地 Civil NX 手册列为 Required。不得擅自统一，须按所调用的当前接口页填写。
+- 官方 Element / Material / Section 页末尾有 “MIDAS CIVIL NX only / GEN NX only” 脚注，公开页转换后未能绑定到具体字段行，不能猜测哪些键属于某一产品。
+- JSON Schema 未能从全部手册页解析出来（覆盖见 `references/COVERAGE.md`）；缺 schema 时以字段表和短示例为准，不补造属性。
+- 本包不包含整本第三方手册原文。字段目录是独立整理的可检索事实与必要短例。

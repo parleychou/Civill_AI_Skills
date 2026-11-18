@@ -1,0 +1,38 @@
+{
+  "product": "civil-nx",
+  "default_levels": [
+    "verified",
+    "shared",
+    "civil-handbook",
+    "package-docs"
+  ],
+  "corpora": [
+    {
+      "path": "references/civil-field-catalog.jsonl",
+      "level": "civil-handbook",
+      "default": true
+    },
+    {
+      "path": "references/official-shared.jsonl",
+      "level": "shared",
+      "default": true
+    },
+    {
+      "path": "references",
+      "glob": "*.md",
+      "level": "package-docs",
+      "default": true
+    },
+    {
+      "path": "examples",
+      "glob": "*.json",
+      "level": "civil-handbook",
+      "default": true
+    },
+    {
+      "path": "examples/PROVENANCE.md",
+      "level": "package-docs",
+      "default": true
+    }
+  ]
+}

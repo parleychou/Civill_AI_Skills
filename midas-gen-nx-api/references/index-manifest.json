@@ -1,0 +1,40 @@
+{
+  "product": "gen-nx",
+  "default_levels": [
+    "verified",
+    "shared"
+  ],
+  "corpora": [
+    {
+      "path": "references/verified-gen.jsonl",
+      "level": "verified",
+      "default": true
+    },
+    {
+      "path": "references/official-shared.jsonl",
+      "level": "shared",
+      "default": true
+    },
+    {
+      "path": "references",
+      "glob": "*.md",
+      "level": "package-docs",
+      "default": true,
+      "exclude": [
+        "unverified-cross-product"
+      ]
+    },
+    {
+      "path": "examples",
+      "glob": "*",
+      "level": "unverified-cross-product",
+      "default": false
+    },
+    {
+      "path": "references/unverified-cross-product.md",
+      "level": "unverified-cross-product",
+      "default": false,
+      "missing_note": "Optional Civil cross-product notes. Excluded from default Gen search."
+    }
+  ]
+}

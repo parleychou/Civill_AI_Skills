@@ -26,3 +26,11 @@
 ## 未做的事
 
 未在真实 Gen NX 或经典 Gen 上实测；未保存任何真实密钥或 Base URL。
+
+
+## 本包 0.2.1 的可离线检索资料
+
+- `references/verified-gen.jsonl`：已读正文的 GEN NX 连接/产品页事实与明确缺口（不含编造的 Gen 专用字段表）。
+- `references/official-shared.jsonl`：官方 NX 系列 JSON Manual 中本次成功读取的 UNIT / NODE / ELEM / MATL / SECT-Common / Section Table / POST/TABLE 字段。证据级别为 **shared**，不是 Gen 实机验证。
+- 默认检索不包含 Civil 手册字段目录，也不把 `examples/` 中的 Civil JSON 当作 Gen 契约。`--include-cross-product` 只会显示包内已有的 Civil 示例与 `references/unverified-cross-product.md`。
+- wolai《midas Gen API 使用手册》仍未能读到正文，不能填补 Gen 专用字段。
