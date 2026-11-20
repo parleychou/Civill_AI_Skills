@@ -49,6 +49,12 @@ While general-purpose LLMs excel at generic programming, they struggle with civi
 * **`sap2000-python`**: SAP2000 OAPI modeling, load case definitions, load combinations, and member internal force extraction.
 * **`midas-civil-nx-api`**: First-edition midas Civil NX Open API skill (HTTP REST + JSON). Uses the session Base URL and `MAPI-Key`, covering documents, units, materials, sections, modeling, analysis, and results, kept separate from Gen. Ships an offline-searchable field and endpoint catalog so it works without the original local handbook. Not yet runtime-tested.
 * **`midas-gen-nx-api`**: Independent midas Gen NX Open API skill. Default offline search only returns verified connection facts and official NX-series shared field pages; there is no complete Gen-specific field manual. Civil material is opt-in and is never a Gen write contract. Not yet runtime-tested.
+* **`abaqus-router`**: Comprehensive automation for SIMULIA Abaqus finite element analysis, covering geometry modeling, nonlinear materials, meshing, contact interactions, load steps, and ODB post-processing with schema validation.
+* **`etabs-router`**: Drives CSI ETABS via COM automation for multistory and high-rise structural modeling, property assignment, load combinations, solver execution, and internal force/drift extraction.
+* **`sketchup-router`**: Controls Trimble SketchUp in real time via Python bridge for 3D architectural massing, BIM geometry, element modeling, and viewport rendering, featuring 18 silent-failure prevention rules.
+* **`staadpro-router`**: Automates Bentley STAAD.Pro for spatial structural modeling, load application, finite element analysis, and internal force extraction across 39 OpenSTAAD functional modules.
+* **`tekla-router`**: Programmatic control and model interaction with active Trimble Tekla Structures 2020–2026 instances via pure CLR, supporting structural framing, connection detailing, and automated drawings.
+* **`plants-router`**: Controls 3D industrial structural engineering environments via MCP channels, supporting framing members, foundations, and automated conveyor corridor assembly.
 * **`structural-plan-layout-workflow`**: Structural framing layout design, column grid synthesis, and preliminary beam/column member dimensioning.
 
 ### 4. Finite Element Mechanics & Standardization
@@ -119,6 +125,12 @@ Visit our official web repository to browse, preview, and download individual sk
 | **`sap2000-python`** | CSI SAP2000 | OAPI structural modeling, loading, and force extraction | OAPI reference, extraction scripts |
 | **`midas-civil-nx-api`** | midas Civil NX | Civil NX Open API (HTTP REST + JSON) for documents, modeling, analysis, and results; offline-searchable field catalog | `SKILL.md`, field catalog, official shared pages, example JSON, offline search/verifier |
 | **`midas-gen-nx-api`** | midas Gen NX | Independent Gen NX Open API skill (verified + official shared fields only by default; first edition) | `SKILL.md`, official shared pages, limitations, offline search/verifier |
+| **`abaqus-router`** | SIMULIA Abaqus / CAE | Abaqus geometry, meshing, materials, nonlinear contact, step solver, and ODB post-processing automation | `SKILL.md`, 18 specialized references, schema checkers, extractor scripts |
+| **`etabs-router`** | CSI ETABS / Structural Analysis | ETABS high-rise & multistory COM structural modeling, load combinations, and internal forces | `SKILL.md`, portal frame script, unit conversion table |
+| **`sketchup-router`** | Trimble SketchUp / Architecture | SketchUp Python bridge 3D massing, element modeling, and rendering | `SKILL.md`, 18 failure prevention rules, common examples, interior layout |
+| **`staadpro-router`** | Bentley STAAD.Pro / Spatial Frames | STAAD.Pro spatial frame modeling, load application, solver, and OpenSTAAD API | `SKILL.md`, 39 module mappings, code tables, frame example |
+| **`tekla-router`** | Trimble Tekla Structures / Steel Detailing | Tekla 2020–2026 structural framing, connection detailing, and automated drawings | `SKILL.md`, install discovery, probe script, component references |
+| **`plants-router`** | PlantS / Industrial Structural 3D | MCP-driven industrial structure modeling, isolated foundations, and conveyor trestles | `SKILL.md`, 12-bay conveyor corridor topology generator |
 | **`matrix-stiffness-2d`** | Structural Mechanics / FEA | 2D Direct Stiffness Method finite element solver kernel | Stiffness solver, internal force engine |
 | **`mechanics-diagram-renderer`** | Structural Mechanics | Tension-side bending moment diagram renderer | Canvas/SVG renderers, viewport templates |
 | **`structure-benchmark-verifier`** | Benchmark Verification | Automated regression test suite against classic problems | 100+ benchmark cases, runner scripts |

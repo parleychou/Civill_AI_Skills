@@ -1,0 +1,303 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.org/engineering/abaqus-analysis-spec-1.0.json",
+  "title": "Abaqus analysis_spec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "analysis_type",
+    "units",
+    "materials",
+    "geometry",
+    "steps",
+    "boundary_conditions",
+    "connections",
+    "loads",
+    "mesh",
+    "outputs",
+    "acceptance_criteria"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "job_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "analysis_type": {
+      "type": "string",
+      "enum": [
+        "static",
+        "modal",
+        "dynamic_implicit",
+        "dynamic_explicit",
+        "heat_transfer_steady",
+        "heat_transfer_transient",
+        "coupled_temp_displacement"
+      ],
+      "x-aliases": {
+        "静力": "static",
+        "静力分析": "static",
+        "static_general": "static",
+        "模态": "modal",
+        "模态分析": "modal",
+        "frequency": "modal",
+        "隐式动力": "dynamic_implicit",
+        "implicit_dynamic": "dynamic_implicit",
+        "显式": "dynamic_explicit",
+        "显式动力": "dynamic_explicit",
+        "explicit": "dynamic_explicit",
+        "稳态热": "heat_transfer_steady",
+        "steady_heat_transfer": "heat_transfer_steady",
+        "瞬态热": "heat_transfer_transient",
+        "transient_heat_transfer": "heat_transfer_transient",
+        "温度位移耦合": "coupled_temp_displacement",
+        "温度-位移耦合": "coupled_temp_displacement",
+        "coupled_temperature_displacement": "coupled_temp_displacement"
+      }
+    },
+    "units": {
+      "$ref": "#/$defs/units"
+    },
+    "materials": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/material"
+      }
+    },
+    "geometry": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/geometry"
+      }
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/step"
+      }
+    },
+    "boundary_conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/boundaryCondition"
+      }
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/connection"
+      }
+    },
+    "loads": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/load"
+      }
+    },
+    "mesh": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mesh"
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/output"
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/acceptanceCriterion"
+      }
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "units": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "length", "force", "mass", "time", "temperature"],
+      "properties": {
+        "system": {"type": "string", "minLength": 1},
+        "length": {"type": "string", "minLength": 1},
+        "force": {"type": "string", "minLength": 1},
+        "mass": {"type": "string", "minLength": 1},
+        "time": {"type": "string", "minLength": 1},
+        "temperature": {"type": "string", "minLength": 1},
+        "notes": {"type": "string"}
+      }
+    },
+    "material": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "properties"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "maxLength": 38},
+        "kind": {"type": "string", "minLength": 1},
+        "properties": {"type": "object"},
+        "assignments": {"type": "array"},
+        "notes": {"type": "string"}
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "source"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "maxLength": 80},
+        "kind": {"type": "string", "minLength": 1},
+        "source": {"type": "string", "minLength": 1},
+        "parameters": {"type": "object"},
+        "regions": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 80}
+        },
+        "notes": {"type": "string"}
+      }
+    },
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "previous"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "maxLength": 38},
+        "kind": {"type": "string", "minLength": 1},
+        "previous": {"type": "string", "minLength": 1},
+        "parameters": {"type": "object"},
+        "notes": {"type": "string"}
+      }
+    },
+    "boundaryCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "step", "region"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "maxLength": 38},
+        "kind": {"type": "string", "minLength": 1},
+        "step": {"type": "string", "minLength": 1},
+        "region": {"type": "string", "minLength": 1},
+        "components": {"type": "object"},
+        "parameters": {"type": "object"},
+        "notes": {"type": "string"}
+      }
+    },
+    "connection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "maxLength": 38},
+        "kind": {"type": "string", "minLength": 1},
+        "regions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/connectionRegion"}
+        },
+        "properties": {"type": "object"},
+        "notes": {"type": "string"}
+      }
+    },
+    "connectionRegion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "role"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1, "maxLength": 80},
+        "role": {"type": "string", "minLength": 1}
+      }
+    },
+    "load": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "step", "region"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "maxLength": 38},
+        "kind": {"type": "string", "minLength": 1},
+        "step": {"type": "string", "minLength": 1},
+        "region": {"type": "string", "minLength": 1},
+        "components": {"type": "object"},
+        "amplitude": {"type": ["string", "object", "null"]},
+        "parameters": {"type": "object"},
+        "notes": {"type": "string"}
+      }
+    },
+    "mesh": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "geometry", "element_library", "element_types"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "geometry": {"type": "string", "minLength": 1},
+        "element_library": {
+          "type": "string",
+          "enum": ["STANDARD", "EXPLICIT", "NONE"]
+        },
+        "element_types": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "seed": {"type": ["number", "object", "null"]},
+        "controls": {"type": "object"},
+        "notes": {"type": "string"}
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "variables"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1, "maxLength": 38},
+        "kind": {"type": "string", "minLength": 1},
+        "variables": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "step": {"type": "string"},
+        "region": {"type": "string"},
+        "position": {"type": "string"},
+        "frequency": {"type": ["string", "number", "object"]},
+        "notes": {"type": "string"}
+      }
+    },
+    "acceptanceCriterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "metric", "operator", "limit"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "metric": {"type": "string", "minLength": 1},
+        "operator": {
+          "type": "string",
+          "enum": ["<", "<=", "==", ">=", ">", "between", "approximately", "review"]
+        },
+        "limit": {},
+        "unit": {"type": "string"},
+        "region": {"type": "string"},
+        "required": {"type": "boolean"},
+        "source": {"type": "string"},
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}

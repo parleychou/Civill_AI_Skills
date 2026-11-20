@@ -49,6 +49,12 @@
 * **`sap2000-python`**: SAP2000 OAPI 建模、工况组合、荷载定义与构件内力结果自动化提取。
 * **`midas-civil-nx-api`**: midas Civil NX Open API（HTTP REST + JSON）技能包。从产品会话读取 Base URL 与 `MAPI-Key`，覆盖文档、单位、材料、截面、建模、分析与结果查询，并与 Gen 完全分开。包内含可离线检索的接口与字段目录，不依赖本机原始手册。初版，未经实机联调。
 * **`midas-gen-nx-api`**: midas Gen NX Open API 独立技能包。默认离线检索只返回已证实的连接方法与官方 NX 共享字段；没有完整 Gen 专用字段手册。Civil 对照需显式开启且不得当作 Gen 可执行契约。初版，未经实机联调。
+* **`abaqus-router`**: 提供对 Abaqus/SIMULIA 有限元分析全流程的自动化控制能力，涵盖几何建模、非线性材料、网格剖分、接触设定、分析步工况与求解计算及 ODB 后处理，内置强类型契约校验。
+* **`etabs-router`**: 基于 COM 自动化接口驱动 ETABS 开展高层与多层建筑结构有限元建模、构件属性分配、荷载组合配置、求解计算及内力位移提取，内置安全进程挂载与单位换算。
+* **`sketchup-router`**: 通过 Python 桥接实时驱动 SketchUp 执行三维建筑方案推敲、体块推演、构件建模与效果出图，内置 18 项静默失败防护规则与单步 Undo 事务隔离。
+* **`staadpro-router`**: 自动化控制 STAAD.Pro 进行空间结构建模、荷载施加、有限元计算与响应结果提取，覆盖 39 个 OpenSTAAD 功能模块与完整单位代码映射。
+* **`tekla-router`**: 实现对活动状态下 Tekla Structures 2020–2026 实例的编程控制与模型交互，支持梁柱板构件建模、节点细部连接及工程出图，纯 CLR 驱动无外部依赖。
+* **`plants-router`**: 基于 MCP 通信通道操控工业建筑及工厂结构三维设计环境，支持梁柱斜撑建模、独立基础及工业通廊栈桥自动化装配，内置多跨通廊拓扑自检生成器。
 * **`structural-plan-layout-workflow`**: 结构方案规划、柱网拓扑生成与梁柱构件截面初选。
 
 ### 4. 有限元力学求解与出图
@@ -113,6 +119,12 @@
 | **`sap2000-python`** | SAP2000 | SAP2000 OAPI 建模与内力提取 | OAPI 文档、内力提取脚本 |
 | **`midas-civil-nx-api`** | midas Civil NX | Civil NX Open API（HTTP REST + JSON）文档、建模、分析与结果查询；包内可离线检索字段 | `SKILL.md`、字段目录、官方共享页、示例 JSON、离线检索与校验脚本 |
 | **`midas-gen-nx-api`** | midas Gen NX | Gen NX Open API 独立技能包（默认仅已证实连接资料与官方共享字段，初版） | `SKILL.md`、官方共享页、限制说明、离线检索与校验脚本 |
+| **`abaqus-router`** | SIMULIA Abaqus / CAE | Abaqus 有限元几何、网格、材料、非线性接触、分析步与 ODB 后处理自动化 | `SKILL.md`、18篇专篇分册、Schema 校验与提取脚本 |
+| **`etabs-router`** | CSI ETABS / 结构分析 | ETABS 高层与多层结构 COM 建模、荷载组合与内力位移提取 | `SKILL.md`、门式刚架脚本、单位表 |
+| **`sketchup-router`** | Trimble SketchUp / 建筑方案 | SketchUp Python 桥接三维体块推演、构件建模与出图 | `SKILL.md`、18条防护规则、公共算例库、室内布局 |
+| **`staadpro-router`** | Bentley STAAD.Pro / 空间结构 | STAAD.Pro 空间结构建模、荷载施加、求解与 OpenSTAAD 接口 | `SKILL.md`、39个功能模块映射、常数表、刚架算例 |
+| **`tekla-router`** | Trimble Tekla Structures / 钢结构 | Tekla 2020–2026 构件建模、节点细部深化与工程出图 | `SKILL.md`、安装探测、探针脚本、通用构件与连接专篇 |
+| **`plants-router`** | PlantS / 工业建筑三维 | MCP 驱动工业建筑空间构架、独立基础与通廊栈桥建模 | `SKILL.md`、12跨工业通廊拓扑自检生成器 |
 | **`matrix-stiffness-2d`** | 结构力学 / 有限元 | 2D 直接刚度法平面有限元求解内核 | 刚度矩阵装配、求解器代码 |
 | **`mechanics-diagram-renderer`** | 结构力学 | 受拉侧内力图出图规范渲染 | Canvas/SVG 渲染器、视口模板 |
 | **`structure-benchmark-verifier`** | 结构力学基准 | 经典力学题库基准回归验证 | 经典算例库、回归测试脚本 |
