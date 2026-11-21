@@ -181,3 +181,19 @@ def connect_tekla(*, force_detect: bool = False, bin_path: str | None = None) ->
         api_year=api_year,
         loaded_assemblies=tuple(assemblies),
     )
+
+
+if __name__ == "__main__":
+    import json
+
+    status_info = {
+        "status": "ready",
+        "self_check": True,
+        "module": "session",
+        "supported_years": list(supported_years()),
+        "assemblies": list(ASSEMBLIES),
+        "required_assemblies": list(REQUIRED_ASSEMBLIES),
+        "description": "Tekla Open API CLR session manager and assembly loader.",
+    }
+    print(json.dumps(status_info, ensure_ascii=False))
+

@@ -228,3 +228,140 @@ members = create_beam_column_and_brace(
 ```
 
 这里的“斜杆”是结构语义，不是独立的 Open API 类型。若需要折线斜杆，应另外查询并使用 `PolyBeam`；截面朝向、偏心或旋转有要求时，还必须查询并设置 `Position`，提交后通过实体几何验证实际方向。
+
+---
+
+## 创建轮廓板（ContourPlate）与倒角
+
+轮廓板用于节点连接板、加劲肋、基底承压板及预埋钢板。通过顺时针或逆时针闭合的点集定义多边形轮廓。
+
+```python
+from Tekla.Structures.Model import ContourPlate, ContourPoint, Chamfer
+from Tekla.Structures.Geometry3d import Point
+
+
+def create_contour_plate(name, profile_str, material_str, points, chamfer_radius=0.0):
+    """
+    创建轮廓板（例如节点板或加劲肋）。
+    :param points: 顶点坐标列表 [(x1,y1,z1), (x2,y2,z2), ...]
+    :param profile_str: 板厚截面（如 PL16, PL20）
+    :param chamfer_radius: 倒角半径（默认 0，直角）
+    """
+    if len(points) < 3:
+        raise ValueError("轮廓板至少需要 3 个顶点定义闭合区域")
+
+    plate = ContourPlate()
+    plate.Name = name
+    plate.Profile.ProfileString = _validated_profile_string("板截面", profile_str)
+    plate.Material.MaterialString = _required_catalog_value("材质", material_str)
+
+    chamfer = Chamfer()
+    if chamfer_radius > 0:
+        chamfer.Type = Chamfer.ChamferTypeEnum.CHAMFER_ROUNDING
+        chamfer.X = chamfer_radius
+
+    for pt in points:
+        cp = ContourPoint(Point(float(pt[0]), float(pt[1]), float(pt[2])), chamfer if chamfer_radius > 0 else None)
+        plate.AddContourPoint(cp)
+
+    if not plate.Insert():
+        raise RuntimeError(f"轮廓板 {name!r} 创建失败：Insert() 返回 False")
+    return plate
+```
+
+---
+
+## 创建螺栓群（BoltArray）
+
+螺栓群通过主构件（PartToBeBolted）、次构件（PartToBoltTo）以及基准参考点与间距数组定义。
+
+```python
+from Tekla.Structures.Model import BoltArray
+from Tekla.Structures.Geometry3d import Point
+
+
+def create_bolt_array(primary_part, secondary_part, ref_pt1, ref_pt2, bolt_size, bolt_standard, dx_list, dy_list):
+    """
+    在两个构件之间插入标准螺栓群。
+    :param dx_list: X 向螺栓间距列表，如 [80.0, 80.0]
+    :param dy_list: Y 向螺栓间距列表，如 [100.0]
+    """
+    bolt_array = BoltArray()
+    bolt_array.PartToBeBoltedThrough = primary_part
+    bolt_array.AddOtherPartner(secondary_part)
+
+    bolt_array.FirstPosition = Point(float(ref_pt1[0]), float(ref_pt1[1]), float(ref_pt1[2]))
+    bolt_array.SecondPosition = Point(float(ref_pt2[0]), float(ref_pt2[1]), float(ref_pt2[2]))
+
+    bolt_array.BoltSize = float(bolt_size)
+    bolt_array.BoltStandard = _required_catalog_value("螺栓标准", bolt_standard)
+    bolt_array.CutLength = 100.0  # 穿透有效握裹厚度
+    bolt_array.Tolerance = 2.0    # 螺栓孔径公差（如孔径 = 螺栓直径 + 2mm）
+
+    for dx in dx_list:
+        bolt_array.AddBoltDistX(float(dx))
+    for dy in dy_list:
+        bolt_array.AddBoltDistY(float(dy))
+
+    if not bolt_array.Insert():
+        raise RuntimeError(f"螺栓群创建失败：Insert() 返回 False")
+    return bolt_array
+```
+
+---
+
+## 创建焊缝（Weld）
+
+焊缝将两个构件装配为单一装配体（Assembly）或现场拼接焊接。
+
+```python
+from Tekla.Structures.Model import Weld
+
+
+def create_shop_weld(main_part, secondary_part, size_above=6.0, size_below=6.0, weld_type=Weld.WeldTypeEnum.WELD_TYPE_FILLET):
+    """
+    创建车间角焊缝，将次构件焊接到主构件。
+    """
+    weld = Weld()
+    weld.MainObject = main_part
+    weld.SecondaryObject = secondary_part
+    weld.TypeAbove = weld_type
+    weld.TypeBelow = weld_type
+    weld.SizeAbove = float(size_above)
+    weld.SizeBelow = float(size_below)
+    weld.AroundWeld = False
+    weld.ShopWeld = True  # True 为车间焊，False 为工地焊
+
+    if not weld.Insert():
+        raise RuntimeError("焊缝创建失败：Insert() 返回 False")
+    return weld
+```
+
+---
+
+## 构件贴合与切割（Fitting & CutPlane）
+
+使用 `Fitting` 对梁端或柱端进行平齐斜切，使用 `CutPlane` 对构件多边形边界进行面切割。
+
+```python
+from Tekla.Structures.Model import Fitting, CutPlane, Plane
+from Tekla.Structures.Geometry3d import Point, Vector
+
+
+def fit_member_end(part, plane_origin, plane_normal):
+    """
+    沿指定平面斜切并贴合构件端部。
+    """
+    fitting = Fitting()
+    fitting.Father = part
+    cut_plane = Plane()
+    cut_plane.Origin = Point(float(plane_origin[0]), float(plane_origin[1]), float(plane_origin[2]))
+    cut_plane.AxisX = Vector(1000.0, 0.0, 0.0)
+    cut_plane.AxisY = Vector(0.0, 1000.0, 0.0)
+    fitting.Plane = cut_plane
+
+    if not fitting.Insert():
+        raise RuntimeError("构件端部贴合 (Fitting) 失败：Insert() 返回 False")
+    return fitting
+```
+

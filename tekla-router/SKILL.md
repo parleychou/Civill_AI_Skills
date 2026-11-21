@@ -1,10 +1,11 @@
 ---
 name: tekla
-version: 1.0.5
+version: 1.0.6
 display_name: Tekla
 display_name_en: Tekla
-description_zh: 实现对活动状态下 Tekla Structures 实例的编程控制与模型交互，支持结构构件建模、节点细部连接及工程出图。
-description_en: Provides programmatic control and model interaction with active Tekla Structures instances, supporting structural modeling, steel detailing, and automated drawings.
+description: 实现对活动状态下 Tekla Structures 实例的编程控制与模型交互，支持结构构件建模（梁、柱、斜撑、板）、节点细部连接（加劲肋、螺栓群、焊缝）、官方标准组件参数化调用及图纸自动化。
+description_zh: 实现对活动状态下 Tekla Structures 实例的编程控制与模型交互，支持结构构件建模（梁、柱、斜撑、板）、节点细部连接（加劲肋、螺栓群、焊缝）、官方标准组件参数化调用及图纸自动化。
+description_en: Provides programmatic control and model interaction with active Tekla Structures instances, supporting structural modeling (beams, columns, braces, plates), steel detailing (stiffeners, bolt arrays, welds), official standard component workflows, and drawing automation.
 license: Apache-2.0
 ---
 # Tekla Structures Automation Guide (Tekla Router)
@@ -17,16 +18,29 @@ Attach to Running Tekla Instance -> Detect Active Release Year -> Consult Verifi
 ```
 
 1. **Verified Code Patterns**:
-   - For general structural modeling (beams, columns, slabs, contour plates): read `references/common_examples.md`.
+   - For general structural modeling (beams, columns, braces, contour plates, bolt arrays, welds, and fittings): read `references/common_examples.md`.
    - For steel detailing, connections, macros, and custom components: read `references/component_workflow.md`.
 2. **API Specification Verification**:
    - For specialized methods, events, or overload signatures, refer directly to the [Tekla Developer Center Open API Reference](https://developer.tekla.com/tekla-structures/api-reference).
+
+## Primary Functional Assemblies & Namespaces Reference
+
+The Tekla Open API (CLR/.NET) is partitioned into clear assemblies and namespaces:
+
+| Assembly / Namespace | Core Types & Responsibilities | Practical Usage Scope |
+|---|---|---|
+| **Tekla.Structures.Model** | `Model`, `Beam`, `PolyBeam`, `ContourPlate`, `BoltArray`, `Weld`, `Fitting`, `CutPlane` | 3D structural model objects, parts, fasteners, cuts, and modifications |
+| **Tekla.Structures.Catalogs** | `CatalogHandler`, `LibraryProfileItem`, `ParametricProfileItem`, `MaterialItem` | Querying verified profiles, parametric dimensions, and material grades |
+| **Tekla.Structures.Geometry3d** | `Point`, `Vector`, `Line`, `Plane`, `Matrix`, `CoordinateSystem` | 3D geometric math, coordinate transforms, and work plane alignment |
+| **Tekla.Structures.Plugins** | `Connection`, `Detail`, `Component`, `Seam`, `ComponentInput` | Official macros, automated joints, parametric connection details |
+| **Tekla.Structures.Drawing** | `DrawingHandler`, `Drawing`, `Sheet`, `View`, `Part`, `Dimension` | Fabrication and erection drawing automation, view generation, dimensioning |
 
 ## 1. Connecting to the Tekla Process
 
 Communication with the Tekla process is established within the execution environment (`python_executor`). The worker process persists across calls within the same session; loaded CLR runtimes, referenced assemblies, and connection handles remain valid for subsequent calls.
 
 ```python
+# Mode A: Via agent environment runner
 from Agent.software_link_kit.tekla import connect_tekla
 
 tekla = connect_tekla()
@@ -37,6 +51,18 @@ print({
     "api_year": tekla.api_year
 })
 ```
+
+Or when running self-contained scripts directly within the skill workspace:
+
+```python
+# Mode B: Via local session script
+from scripts.session import connect_tekla
+
+session = connect_tekla()
+model = session.model
+print(f"Connected to Tekla {session.api_year} ({session.program_version})")
+```
+
 
 **Connection Management Guidelines**:
 - **Attach to Running Instances Only**: The system connects exclusively to an already running Tekla process with an open model; it does not launch new software instances automatically.
