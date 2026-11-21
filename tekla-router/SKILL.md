@@ -1,6 +1,6 @@
 ---
 name: tekla
-version: 1.0.4
+version: 1.0.5
 display_name: Tekla
 display_name_en: Tekla
 description_zh: 实现对活动状态下 Tekla Structures 实例的编程控制与模型交互，支持结构构件建模、节点细部连接及工程出图。
@@ -17,8 +17,8 @@ Attach to Running Tekla Instance -> Detect Active Release Year -> Consult Verifi
 ```
 
 1. **Verified Code Patterns**:
-   - For general structural modeling (beams, columns, slabs, contour plates): read `use_skill('tekla-router', file='references/common_examples.md')`.
-   - For steel detailing, connections, macros, and custom components: read `use_skill('tekla-router', file='references/component_workflow.md')`.
+   - For general structural modeling (beams, columns, slabs, contour plates): read `references/common_examples.md`.
+   - For steel detailing, connections, macros, and custom components: read `references/component_workflow.md`.
 2. **API Specification Verification**:
    - For specialized methods, events, or overload signatures, refer directly to the [Tekla Developer Center Open API Reference](https://developer.tekla.com/tekla-structures/api-reference).
 
