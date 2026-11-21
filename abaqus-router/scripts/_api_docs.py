@@ -24,18 +24,8 @@ if str(_BACKEND_DIR) not in sys.path:
 import sqlite3
 
 def connect_db(path):
-    """Connect to SQLite database with standard sqlite3 or fallback to vault."""
-    try:
-        conn = sqlite3.connect(path)
-        cur = conn.cursor()
-        cur.execute("SELECT 1 FROM sqlite_master LIMIT 1")
-        return conn
-    except Exception:
-        try:
-            from PKPMAgent.skill_kit.vault import connect_db as v_connect
-            return v_connect(path)
-        except Exception as e:
-            raise RuntimeError(f"Could not open database at {path}: {e}")
+    """Connect to SQLite database."""
+    return sqlite3.connect(str(path))
   # noqa: E402
 
 

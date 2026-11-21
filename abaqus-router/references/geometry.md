@@ -16,7 +16,7 @@
 from abaqus import mdb
 from abaqusConstants import *
 
-model_name = 'PKPM-Geometry-Example'
+model_name = 'FEA-Geometry-Example'
 if model_name in mdb.models:
     raise ValueError('模型已存在，拒绝覆盖: %s' % model_name)
 model = mdb.Model(name=model_name)

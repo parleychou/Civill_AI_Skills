@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://pkpm.example/schemas/abaqus-result-evidence-1.0.json",
+  "$id": "https://schema.org/fea-standards/abaqus-result-evidence-1.0.json",
   "title": "Abaqus result evidence",
   "type": "object",
   "additionalProperties": false,

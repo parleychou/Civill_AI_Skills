@@ -22,7 +22,7 @@ license: Apache-2.0
 连接必须发生在 `python_executor` 内。它按会话保留一个常驻子进程，CLR、导入的 Tekla 类型、`tekla` 和 `model` 会在后续调用中继续存在。
 
 ```python
-from PKPMAgent.software_link_kit.tekla import connect_tekla
+# 导入自动化控制接口
 
 tekla = connect_tekla()
 model = tekla.model

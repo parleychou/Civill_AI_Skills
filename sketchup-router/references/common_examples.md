@@ -36,12 +36,12 @@ grid = {"xs": [0, 8400, 16800, 25200], "ys": [0, 6600, 13200], "b": 600, "h": 60
 su.run("""
 model = Sketchup.active_model
 batch = "柱网"
-marked = ->(e) { e.get_attribute("pkpm", "batch") == batch }
+marked = ->(e) { e.get_attribute("cad_bridge", "batch") == batch }
 model.entities.erase_entities(model.entities.select(&marked))
 model.definitions.select(&marked).each { |d| model.definitions.remove(d) }   # 实例一并删除
 
 column = model.definitions.add("KZ #{grid['b']}x#{grid['h']}")
-column.set_attribute("pkpm", "batch", batch)
+column.set_attribute("cad_bridge", "batch", batch)
 b, h = grid["b"].mm, grid["h"].mm
 face = column.entities.add_face([-b / 2, -h / 2, 0], [b / 2, -h / 2, 0], [b / 2, h / 2, 0], [-b / 2, h / 2, 0])
 face.reverse! if face.normal.z < 0
@@ -49,7 +49,7 @@ face.pushpull(grid["height"].mm)     # 组件原点在柱底中心，实例直�
 
 group = model.entities.add_group
 group.name = batch
-group.set_attribute("pkpm", "batch", batch)
+group.set_attribute("cad_bridge", "batch", batch)
 tag = model.layers["结构-柱"] || model.layers.add("结构-柱")
 grid["xs"].product(grid["ys"]).each do |x, y|
   group.entities.add_instance(column, Geom::Transformation.translation([x.mm, y.mm, 0])).layer = tag
@@ -299,11 +299,11 @@ move = ->(x, y, z) { Geom::Transformation.translation([(ox + x).mm, (oy + y).mm,
 
 floors.map do |i|
   batch = "框架-#{i + 1}F"
-  old = model.entities.grep(Sketchup::Group).select { |g| g.get_attribute("pkpm", "batch") == batch }
+  old = model.entities.grep(Sketchup::Group).select { |g| g.get_attribute("cad_bridge", "batch") == batch }
   model.entities.erase_entities(old) unless old.empty?
   group = model.entities.add_group
   group.name = "#{i + 1}F 框架"
-  group.set_attribute("pkpm", "batch", batch)
+  group.set_attribute("cad_bridge", "batch", batch)
   ents = group.entities
   z, top = i * h, (i + 1) * h
   xs.product(ys).each { |x, y| ents.add_instance(column, move.(x, y, z) * Geom::Transformation.translation([-cb / 2, -ch / 2, 0])) }
@@ -412,7 +412,7 @@ area.transform_values { |v| (v * 0.0254**2).round(2) }   # 平方英寸换算成
 su.run("""
 model = Sketchup.active_model
 save_scene = lambda do |name, **camera|
-  PKPM::SU.set_camera(**camera)
+  SketchupBridge::SU.set_camera(**camera)
   page = model.pages[name] || model.pages.add(name)
   page.update                                 # 只更新这一个场景：存当前相机、剖切、样式、标签可见性
 end
@@ -425,7 +425,7 @@ model.pages.map(&:name)
 print([su.capture(scene=name) for name in ("01 鸟瞰", "02 总平面", "03 南立面", "04 人视")])
 ```
 
-`capture(scene=...)` 截图后停在那个场景。代码里要把模型切到某个场景交给用户，用 `PKPM::SU.show_scene("01 鸟瞰")`。
+`capture(scene=...)` 截图后停在那个场景。代码里要把模型切到某个场景交给用户，用 `SketchupBridge::SU.show_scene("01 鸟瞰")`。
 
 ## 14. 剖切面
 
@@ -436,7 +436,7 @@ model = Sketchup.active_model
 section = model.entities.add_section_plane([0, 0, 1200.mm], [0, 0, -1])   # 1.2 m 高的水平剖切面，保留下方
 section.name = "1F 平面剖切"
 section.activate
-PKPM::SU.set_camera(view: "top")
+SketchupBridge::SU.set_camera(view: "top")
 page = model.pages["03 一层平面"] || model.pages.add("03 一层平面")
 page.update                                   # 场景记下“这个剖切面激活”
 model.entities.active_section_plane = nil     # 取消激活：其他截图和场景不受影响

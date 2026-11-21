@@ -25,7 +25,7 @@ license: Apache-2.0
 
 ```python
 import os
-from PKPMAgent.software_link_kit.sketchup import get_sketchup
+# 导入自动化控制接口
 
 su = get_sketchup(os.path.join(WORKSPACE_DIR, "办公楼方案体块.skp"))
 print(su)   # <SketchUp 26.0.429 pid=… 文件=…>，26 即 SketchUp 2026
@@ -167,12 +167,12 @@ xs.product(ys).each { |x, y| ... }
 ### 4.4 跨次操作
 
 12. **找回上次建的对象**：建对象时返回 `entity.persistent_id`，以后用 `model.find_entity_by_persistent_id(id)` 找回；或者给对象起名字、写属性，再按名字或属性查找。不要依赖 `entityID` 或上一次 `run` 的变量。
-13. **可以重跑**：给每批生成的组和这一批专用的组件定义写批次标记（`set_attribute("pkpm", "batch", "柱网")`），重建前先删掉带同一标记的旧对象：组用 `erase_entities`，组件定义用 `model.definitions.remove(d)`，它的实例会一并删除（示例 1）。否则改了参数重跑，模型里会叠出两份，同名定义也会沿用旧几何。
+13. **可以重跑**：给每批生成的组和这一批专用的组件定义写批次标记（`set_attribute("cad_bridge", "batch", "柱网")`），重建前先删掉带同一标记的旧对象：组用 `erase_entities`，组件定义用 `model.definitions.remove(d)`，它的实例会一并删除（示例 1）。否则改了参数重跑，模型里会叠出两份，同名定义也会沿用旧几何。
 
 ### 4.5 剖切面、场景与显示设置
 
 14. **剖切面激活后一直生效**：之后所有截图都是剖开的，画面像是模型建坏了（截图时会打印提醒）。用完就取消激活：`entities.active_section_plane = nil`（剖切面在哪个组里，就用那个组的 `entities`）；不再需要就删掉。不要在远处建一个空剖切面来“顶替”：它会撑大模型包围盒，缩放和构图都跟着跑偏。要长期保留的剖切状态存进场景（示例 14）。
-15. **场景存的是 `page.update` 那一刻的视图**（相机、样式、阴影、标签可见性、剖切）：先用 `PKPM::SU.set_camera(...)` 设好相机（参数同 `capture`，自动取景），再 `page = pages[名称] || pages.add(名称)`、`page.update`（示例 13）。`page.update` 只对正在存的这个场景调：不带参数会把当前视图全部写进去，`pages.each(&:update)` 会把所有场景的相机都换成当前这一个。前面步骤隐藏的标签、激活的剖切面也会一起存进去，存之前确认视图里只有这个场景该有的。不要用 `pages.selected_page =` 切场景：它播放过渡动画，执行结束后才慢慢切过去，这期间设相机、截图、`update` 都会打断动画。代码里切场景用 `PKPM::SU.show_scene("名称")`，立即生效。
+15. **场景存的是 `page.update` 那一刻的视图**（相机、样式、阴影、标签可见性、剖切）：先用 `SketchupBridge::SU.set_camera(...)` 设好相机（参数同 `capture`，自动取景），再 `page = pages[名称] || pages.add(名称)`、`page.update`（示例 13）。`page.update` 只对正在存的这个场景调：不带参数会把当前视图全部写进去，`pages.each(&:update)` 会把所有场景的相机都换成当前这一个。前面步骤隐藏的标签、激活的剖切面也会一起存进去，存之前确认视图里只有这个场景该有的。不要用 `pages.selected_page =` 切场景：它播放过渡动画，执行结束后才慢慢切过去，这期间设相机、截图、`update` 都会打断动画。代码里切场景用 `SketchupBridge::SU.show_scene("名称")`，立即生效。
 16. **有了场景，改显示设置要存进去**：切场景（`show_scene`、`capture(scene=)`）会换成场景存的样式、阴影和标签可见性，当前视图上的改动随之丢失，`page.update` 也不保存样式的改动。边线、平面样式、背景这类 `rendering_options` 改完调 `model.styles.update_selected_style`，所有场景一起生效；阴影逐个场景写 `page.shadow_info["DisplayShadows"] = true`；标签可见性设好后逐个场景 `page.update(PAGE_USE_LAYER_VISIBILITY)`，必须带这个参数，否则相机也被换成当前的。切场景时有没存进样式的改动会打印提醒。
 
 ### 4.6 不要和用户交互
@@ -229,7 +229,7 @@ xs.product(ys).each { |x, y| ... }
 | 显示阴影 | `shadow_info["DisplayShadows"] = true`。地点三项一起设：`"Latitude"`、`"Longitude"`、`"TZOffset"`（当地时区，如上海 8），只改经纬度，太阳位置会错 |
 | 日照时刻 | `shadow_info["ShadowTime"] = Time.utc(2026, 6, 22, 15)`，填当地钟点；不要用 `Time.local`，会差几个小时 |
 
-模型里有场景时，改完还要存进场景（第 16 条）。效果图的完整做法见示例 15。Ruby 代码里也能直接调用 `PKPM::SU.summary`、`PKPM::SU.capture(path: ..., view: "top")`、`PKPM::SU.set_camera(view: "front")` 和 `PKPM::SU.show_scene("名称")`。
+模型里有场景时，改完还要存进场景（第 16 条）。效果图的完整做法见示例 15。Ruby 代码里也能直接调用 `SketchupBridge::SU.summary`、`SketchupBridge::SU.capture(path: ..., view: "top")`、`SketchupBridge::SU.set_camera(view: "front")` 和 `SketchupBridge::SU.show_scene("名称")`。
 
 ## 8. 其他接口
 
@@ -239,4 +239,4 @@ xs.product(ys).each { |x, y| ... }
 | `su.wait(job_id)` | 接着等之前超时的任务 |
 | `su.document` | 当前文档：标题、路径、是否已修改、显示单位 |
 | `su.dialog_titles()` | SketchUp 主窗口以外打开着的窗口标题，通常是对话框 |
-| `list_sketchup_instances()` | 所有运行中的 SketchUp 及连接状态（从 `PKPMAgent.software_link_kit.sketchup` 导入） |
+| `list_sketchup_instances()` | 所有运行中的 SketchUp 及连接状态（从 `CADAgent.software_link_kit.sketchup` 导入） |

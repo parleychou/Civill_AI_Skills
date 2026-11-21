@@ -2,7 +2,7 @@
 """
 PlantS corridor truss generator.
 
-Run this script inside pkpmagent's python_executor after PlantS is running.
+Run this script inside cadagent's python_executor after PlantS is running.
 It creates a sloped rectangular corridor made from four planar trusses:
 - two side trusses
 - top-plane X bracing
@@ -18,7 +18,7 @@ Coordinates:
 
 import math
 
-from PKPMAgent.software_link_kit.plants import connect_to_plants
+# 导入工业结构自动化通信模块
 
 
 # ============================================================

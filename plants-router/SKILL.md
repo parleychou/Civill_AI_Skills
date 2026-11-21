@@ -22,7 +22,7 @@ license: Apache-2.0
 在执行任何 PlantS 操作前，先用 `python_executor` 连接 MCP：
 
 ```python
-from PKPMAgent.software_link_kit.plants import connect_to_plants
+# 导入自动化控制接口
 
 result = connect_to_plants()
 print(result)
@@ -33,7 +33,7 @@ print(result)
 如果用户指定了 PlantS 主程序路径或 `.p3d` 工程文件路径，用 `python_executor` 连接 MCP：
 
 ```python
-from PKPMAgent.software_link_kit.plants import connect_to_plants
+# 导入自动化控制接口
 
 result = connect_to_plants(
     exe_path=r"F:\software\GYP\BIMBase.exe",
@@ -152,7 +152,7 @@ print(is_server_connected("plantsmcp"))
 
 ```python
 from pathlib import Path
-import PKPMAgent
+import CADAgent
 
 INDUSTRY_CORRIDOR_PARAMS = {
     "length": 36000,
@@ -163,7 +163,7 @@ INDUSTRY_CORRIDOR_PARAMS = {
 }
 
 script_path = (
-    Path(PKPMAgent.__file__).resolve().parent
+    Path(CADAgent.__file__).resolve().parent
     / "skills"
     / "PlantS-Link"
     / "scripts"

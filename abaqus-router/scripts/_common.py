@@ -14,18 +14,16 @@ import _api_docs as docs
 
 
 def connected_abaqus_version() -> str | None:
-    """探测现有 Abaqus 桥接连接，并返回其中的四位版本年份。"""
+    """探测现有 Abaqus 连接，并返回其中的四位版本年份。"""
     try:
-        from PKPMAgent import abaqus
-
+        import abaqus
         state = abaqus.connection_state(probe=True)
+        if not state.get("bridge_ready"):
+            return None
+        match = re.search(r"\b(20\d{2})\b", str(state.get("abaqus_version") or ""))
+        return match.group(1) if match else None
     except Exception:
         return None
-    if not state.get("bridge_ready"):
-        return None
-    match = re.search(r"\b(20\d{2})\b", str(state.get("abaqus_version") or ""))
-    return match.group(1) if match else None
-
 
 def configure_version(version: str | None) -> Path:
     """选择显式版本或当前连接版本的 API 数据库，禁止猜测版本。"""

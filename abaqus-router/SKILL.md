@@ -22,7 +22,7 @@ license: Apache-2.0
 ```python
 import json
 import os
-from PKPMAgent import abaqus
+# 导入自动化控制接口
 
 connection = abaqus.connect(workspace_dir=os.getcwd())
 print(json.dumps(connection, ensure_ascii=False, default=str))
@@ -79,7 +79,7 @@ print(json.dumps(connection, ensure_ascii=False, default=str))
 ```python
 import json
 import os
-from PKPMAgent import abaqus
+# 导入自动化控制接口
 
 abaqus_script = r'''
 from abaqus import mdb, session

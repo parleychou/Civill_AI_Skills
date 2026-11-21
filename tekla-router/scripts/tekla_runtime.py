@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Tekla pythonnet runtime used inside a PKPMAgent per-thread exec worker."""
+"""Tekla pythonnet runtime used inside a CADAgent per-thread exec worker."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ SKILL_DIR = SCRIPT_DIR.parent
 DB_PATH = SKILL_DIR / "references" / "tekla_api.db"
 
 _DETECT_SPEC = importlib.util.spec_from_file_location(
-    "_pkpmagent_detect_tekla", SCRIPT_DIR / "detect_tekla.py"
+    "_detect_tekla", SCRIPT_DIR / "detect_tekla.py"
 )
 if _DETECT_SPEC is None or _DETECT_SPEC.loader is None:  # pragma: no cover
     raise RuntimeError("无法加载 Tekla 检测模块")
@@ -66,18 +66,8 @@ def _connect_db() -> sqlite3.Connection:
         import sqlite3
 
 def connect_db(path):
-    """Connect to SQLite database with standard sqlite3 or fallback to vault."""
-    try:
-        conn = sqlite3.connect(path)
-        cur = conn.cursor()
-        cur.execute("SELECT 1 FROM sqlite_master LIMIT 1")
-        return conn
-    except Exception:
-        try:
-            from PKPMAgent.skill_kit.vault import connect_db as v_connect
-            return v_connect(path)
-        except Exception as e:
-            raise RuntimeError(f"Could not open database at {path}: {e}")
+    """Connect to SQLite database."""
+    return sqlite3.connect(str(path))
 
     except ImportError:
         uri = DB_PATH.resolve().as_uri() + "?mode=ro"

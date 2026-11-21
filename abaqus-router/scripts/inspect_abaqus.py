@@ -56,13 +56,15 @@ def main() -> None:
     except ValueError as error:
         parser.error(str(error))
 
-    backend_dir = str(Path(__file__).parents[4])
-    if backend_dir not in sys.path:
-        sys.path.insert(0, backend_dir)
-    from PKPMAgent import abaqus
-
-    response = abaqus.execute(
-        code=build_kernel_code(request),
+    try:
+        import abaqus
+        response = abaqus.execute(
+            code=build_kernel_code(request),
+            timeout=args.timeout,
+            workspace_dir=request["workspace_dir"],
+        )
+    except Exception as e:
+        response = {"ok": False, "error": f"Abaqus not connected: {e}", "request": request},
         timeout=args.timeout,
         workspace_dir=request["workspace_dir"],
     )
