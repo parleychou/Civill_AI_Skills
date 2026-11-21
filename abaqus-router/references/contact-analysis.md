@@ -24,9 +24,9 @@ contact 不应被错误要求提供 main/secondary 对。
 - 用户已明确允许分离、滑移形式、摩擦数据来源和预期接触状态。
 - 接触体的整体刚体运动仍由 BC、连接或惯性条件控制。
 
-## Scripting calls to confirm
+## 版本化 API 路径
 
-Before writing the script, open the installed Abaqus Scripting Reference with `abaqus doc`, or the same guide on https://help.3ds.com/. Confirm these symbols there:
+写脚本前查询本机版本的精确契约。Abaqus API 数据库（`references/abaqus_api_2024.db`）中应核对：
 
 - `Model.ContactProperty`
 - `NormalBehavior.NormalBehavior`，实际访问路径为
@@ -38,8 +38,8 @@ Before writing the script, open the installed Abaqus Scripting Reference with `a
 - `Model.ContactStd` / `Model.ContactExp`（general contact）
 
 接触对 API 的必需参数包括 `name/createStepName/main/secondary/sliding/interactionProperty`。
-Standard 与 Explicit 方法不能互换。General contact 的参数随版本和重载变化，以当前安装的
-Scripting Reference 为准，不能从 contact pair 参数猜写。
+Standard 与 Explicit 方法不能互换。General contact 的参数结构随版本和重载变化较大，必须
+读取当前版本完整契约，不能从 contact pair 参数猜写。
 
 ## 接触属性
 

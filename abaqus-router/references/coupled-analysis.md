@@ -26,7 +26,7 @@
 
 ## 完全耦合
 
-在 Scripting Reference（`abaqus doc` 或 https://help.3ds.com/）中核对的主入口为：
+版本化 API 主入口为：
 
 - `Model.CoupledTempDisplacementStep(name, previous, response=..., ...)`
 - `Material.Expansion(type=..., zero=..., table=...)`
@@ -39,7 +39,7 @@ C3D8R 替代。
 
 1. 热模型使用 `HeatTransferStep` 和热单元求解。
 2. 确认热 ODB 的温度字段、Step、Frame 和时间点。
-3. 在结构模型中创建来自结果文件的温度预定义场；写代码前在 Scripting Reference 中核对温度场方法。
+3. 在结构模型中创建来自结果文件的温度预定义场；写代码前查询当前版本的温度场 API。
 4. 相同网格映射与不同网格插值要分别验证节点/区域覆盖率。
 5. 结构模型使用结构单元、力学 BC 和结构分析步。
 

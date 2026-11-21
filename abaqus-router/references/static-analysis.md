@@ -14,8 +14,8 @@
 from abaqus import mdb
 from abaqusConstants import *
 
-model_name = 'EngineeringAgent-Static-Example'
-job_name = 'EngineeringAgent-Static-Job'
+model_name = 'PKPM-Static-Example'
+job_name = 'PKPM-Static-Job'
 if model_name in mdb.models or job_name in mdb.jobs:
     raise ValueError('示例模型或作业已存在，拒绝覆盖')
 
@@ -129,7 +129,7 @@ result = {
 from abaqus import mdb
 from abaqusConstants import COMPLETED
 
-job_name = 'EngineeringAgent-Static-Job'
+job_name = 'PKPM-Static-Job'
 if job_name not in mdb.jobs:
     raise KeyError('当前受管 CAE 中不存在作业: %s' % job_name)
 job = mdb.jobs[job_name]
@@ -151,7 +151,7 @@ from abaqusConstants import COMPLETED
 from odbAccess import openOdb
 import os
 
-job_name = 'EngineeringAgent-Static-Job'
+job_name = 'PKPM-Static-Job'
 odb_path = os.path.abspath(job_name + '.odb')  # 使用与提交时相同的 workspace_dir
 job = mdb.jobs[job_name]
 if job.status != COMPLETED:

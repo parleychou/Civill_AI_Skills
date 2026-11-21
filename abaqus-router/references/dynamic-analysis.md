@@ -22,16 +22,14 @@
 - 网格单元库与求解器匹配：Implicit 使用 `STANDARD`，Explicit 使用 `EXPLICIT`。
 - 接触问题同时读取 `contact-analysis.md`。
 
-## Scripting calls to confirm
-
-Confirm these calls in the installed Abaqus Scripting Reference (`abaqus doc` or https://help.3ds.com/) before use:
+## 版本化 API 路径
 
 - `Model.ImplicitDynamicsStep(name, previous, ...)`
 - `Model.ExplicitDynamicsStep(name, previous, ...)`
 - `Model.Velocity(name, region, velocity1, velocity2, velocity3, omega, axisBegin, axisEnd, ...)`
 
-`Model.Velocity` 是初始预定义场。Scripting Reference 中的 `Velocity` 页没有 `createStepName`。不要把 BC/FieldOutputRequest
-的参数迁移到 Velocity。旋转速度不使用时，仍按该页列出的参数提供 `omega/axisBegin/axisEnd`
+`Model.Velocity` 是初始预定义场，契约中没有 `createStepName`。不要把 BC/FieldOutputRequest
+的参数迁移到 Velocity。旋转速度不使用时也要按当前版本契约提供 `omega/axisBegin/axisEnd`
 所需值，而不是猜测它们可省略。
 
 ## 隐式动力检查

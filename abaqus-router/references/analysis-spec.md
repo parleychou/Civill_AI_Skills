@@ -1,7 +1,7 @@
-# `analysis_spec` 分析任务规格
+# `analysis_spec` 分析任务契约
 
 在创建分析步、提交 Job 或解释结果前，用一个结构化 `analysis_spec` 固定用户要求。
-它是任务规格，不是 Abaqus 输入文件，也不代替安装目录里的 Abaqus Scripting Reference（`abaqus doc` 或 https://help.3ds.com/）。
+它是任务契约，不是 Abaqus 输入文件，也不能代替后续的版本化 API 契约查询。
 
 ## 使用时机
 
@@ -13,11 +13,7 @@
 机器可读约束见 `references/analysis-spec.schema.json`。将规格保存为 JSON 后运行：
 
 ```text
-use_skill(
-  "abaqus-router",
-  run="scripts/spec_check.py",
-  run_args="analysis_spec.json"
-)
+`python scripts/validate_analysis_spec.py analysis_spec.json`
 ```
 
 该调用一次完成结构规范化和按分析类型的工程语义检查。分析配置完成后、首次提交 Job 前
@@ -35,7 +31,7 @@ JSON 顶层 `status`，不能仅依赖退出码。
 
 | 字段 | 含义 | 关键约束 |
 |---|---|---|
-| `schema_version` | 规格版本 | 当前固定为 `1.0` |
+| `schema_version` | 契约版本 | 当前固定为 `1.0` |
 | `analysis_type` | 求解过程 | 使用 schema 中的规范值 |
 | `units` | 一致单位约定 | 明确长度、力、质量、时间和温度单位 |
 | `materials` | 材料与指派意图 | 分析允许无材料时显式写 `[]`，不能省略 |

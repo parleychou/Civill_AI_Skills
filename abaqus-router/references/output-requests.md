@@ -10,13 +10,13 @@
 | Field output | 云图、空间分布、区域极值 | 全模型或有限区域的多个 Frame |
 | History output | 时间/频率序列、能量、监测点 | 指定 Set、Surface、Interaction 或 MODEL |
 
-在 Scripting Reference（`abaqus doc` 或 https://help.3ds.com/）中核对：
+版本化入口：
 
 - `Model.FieldOutputRequest(name, createStepName, ...)`
 - `Model.HistoryOutputRequest(name, createStepName, ...)`
 
 两者的 `variables/region/frequency/timeInterval/numIntervals` 含义相近但不是任意组合。写入前
-打开对应的 Scripting Reference 页，且不要把一个方法的专用参数搬到另一个方法。
+读取当前版本契约，且不要把一个 API 的专用参数搬到另一个 API。
 
 ## 变量按分析规划
 

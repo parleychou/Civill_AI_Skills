@@ -6,9 +6,9 @@
 
 创建前必须同时取得：
 
-1. **Open API reference for the connected release** at https://developer.tekla.com/tekla-structures/api-reference, plus `<TEKLA_DIR>\bin\Tekla.Structures.Model.xml`: confirm the class, members, and call order.
-2. **Live Tekla component catalog**: confirm the component exists and read its `Name / Number / Type`.
-3. **Project attribute files already stored in the open model**: confirm the component parameters.
+1. **当前年度 API 文档**：确认类、成员和调用顺序；
+2. **当前 Tekla 组件目录**：确认组件实际存在及其 `Name / Number / Type`；
+3. **当前项目属性模板**：确认组件参数。
 
 禁止凭界面文字、其他版本或历史经验猜编号、类型和属性键。
 
@@ -82,15 +82,15 @@ def find_components(query="", component_type=None, limit=50):
 
 ## 官方调用范式
 
-> Names, numbers, and attribute keys below are placeholders that show call order only. Read `Name`, `Number`, and `Type` from the live component catalog before inserting anything.
+> 下列编号和属性键来自 Tekla 2026 官方示例，只用于说明调用顺序。实际执行必须以当前组件目录和项目模板为准。
 
 ### Connection：梁柱节点
 
 ```csharp
 Connection c = new Connection
 {
-    Name = "catalog-connection-name",
-    Number = 0,
+    Name = "Test End Plate",
+    Number = 144,
     UpVector = new Vector(0, 0, 1000),
     PositionType = PositionTypeEnum.COLLISION_PLANE,
     AutoDirectionType = AutoDirectionTypeEnum.AUTODIR_FROM_ATTRIBUTE_FILE
@@ -112,8 +112,8 @@ bool ok = c.Insert();
 ```csharp
 Detail d = new Detail
 {
-    Name = "catalog-detail-name",
-    Number = 0,
+    Name = "Test End Plate Detail",
+    Number = 1002,
     PositionType = PositionTypeEnum.MIDDLE_PLANE,
     AutoDirectionType = AutoDirectionTypeEnum.AUTODIR_DETAIL,
     DetailType = DetailTypeEnum.END
@@ -134,8 +134,8 @@ input.AddInputObject(beam);
 
 Component c = new Component
 {
-    Name = "catalog-component-name",
-    Number = 0
+    Name = "Beam Reinforcement",
+    Number = 30000063
 };
 
 c.SetComponentInput(input);

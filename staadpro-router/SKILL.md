@@ -1,149 +1,168 @@
 ---
 name: staadpro
-version: 1.0.4
+version: 1.0.5
 display_name: STAADPro
 display_name_en: STAADPro
-description_zh: 自动化控制 STAAD.Pro 进行空间结构建模、荷载施加、有限元计算与响应结果提取。
-description_en: Automates STAAD.Pro for spatial structural modeling, load application, finite element analysis, and response extraction.
+description: 基于 Bentley 官方 openstaadpy 库操控 STAAD.Pro 完成空间结构有限元建模、荷载组合定义、求解分析及位移内力与钢结构规范校核结果提取，配备完整的 OpenSTAAD 39 个模块渐进式检索系统与全函数离线库。
+description_zh: 基于 Bentley 官方 openstaadpy 库操控 STAAD.Pro 完成空间结构有限元建模、荷载组合定义、求解分析及位移内力与钢结构规范校核结果提取，配备完整的 OpenSTAAD 39 个模块渐进式检索系统与全函数离线库。
+description_en: Controls STAAD.Pro via official openstaadpy for structural modeling, load combinations, finite element analysis, and member design checks, equipped with a progressive OpenSTAAD 39-module query system and complete offline API database.
 license: Apache-2.0
 ---
-# STAAD.Pro Automation Guide (OpenSTAAD Router)
 
-Automate STAAD.Pro model geometry, loading, finite element analysis, force extraction, and design verification through the `openstaadpy` interface within `python_executor`.
+# STAAD.Pro 操作技能(OpenSTAAD)
 
-## 1. Instance Attachment and Session Management
+通过 Bentley 官方 `openstaadpy` 库操控 STAAD.Pro 完成建模、分析、查询和数据交互。全部 708 个 API 已从官方源码结构化至 `references/openstaad_api.db`,通过 `scripts/` 下的脚本渐进式检索。
 
-Call `os_analytical.connect()` to establish communication with the active model and obtain the control session:
+## 1. 连接 STAAD.Pro(强制规范)
+
+`os_analytical.connect()` 连接到**当前活动的** STAAD.Pro 模型,返回会话对象:
 
 ```python
 from openstaadpy import os_analytical
 
-s = os_analytical.connect()   # Connect to currently active STAAD.Pro model
-print(s.GetSTAADFile())       # Verify model file path and context
+s = os_analytical.connect()   # 连接当前活动的 STAAD.Pro 模型
+print(s.GetSTAADFile())       # 当前 .std 完整路径,确认连上的是哪个模型
 ```
 
-**Session Management Rules**:
-- **Attachment Precondition**: STAAD.Pro must already be running with a structural model opened. `connect()` attaches to the running instance and does not launch software or open files silently. If no process is found, an `OsErrorBase` exception is raised; stop execution and instruct the user to open the target model in STAAD.Pro.
-- **In-Place Persistence**: Engineering models reside in established directory structures; subsequent saves must call `s.SaveModel(True)` in-place. Never save models to arbitrary temporary paths, which breaks relative links and downstream deliverables.
-- **Multi-Model Disambiguation**: When multiple models are open simultaneously, specify the exact path: `s = os_analytical.connect(r"C:/path/to/model.std")`.
+要点:
 
-## 2. OpenSTAAD Primary Functional Modules Reference Table
+- **前提:STAAD.Pro 必须已经在运行且打开了模型。** `connect()` 只挂接已运行的实例,**不会启动软件、不会打开文件**;连不上会抛 `OsErrorBase("StaadPro Application not found!! ERROR with COM")`——此时结束执行,在回复中请用户先打开 STAAD.Pro 和目标模型。
+- **存盘只能就地,严禁另存到别处。** 工程文件夹通常已由前置流程建好并在此打开,`connect()` 才挂得上;此后一律用 `s.SaveModel(True)` 就地写回,绝不要另存或改路径把 .std 挪走——一旦脱离既定目录,后续链接与产物路径都会断。
+- 打开了多个模型、要连接特定的一个:传入其文件路径 `s = os_analytical.connect(r"C:\path\to\model.std")`(该文件必须已在某实例中打开)。要同时控制多个打开的模型,为每个模型各建一个会话。
+- `connect()` 有一定开销,请利用 python_executor 的环境持久化特性**复用会话变量 `s`**,不要每段代码都重连。
+- **API 按对象分组,不是平面的**:会话级函数直接挂在 `s` 上(单位/文件/分析/任务信息,对应模块 `Session/File (Root)`),其余都通过 9 个子对象调用:`s.Geometry`、`s.Property`、`s.Load`、`s.Support`、`s.Output`、`s.Command`、`s.Design`、`s.Table`、`s.View`。**模块名冒号前就是入口对象**(如模块 `Property: Materials` 的函数经 `s.Property.X()` 调用);无冒号的模块(Command/Design/Support/Table/View)模块名即入口。db 的 syntax 列一律给出完整调用路径,照抄即可。
 
-The OpenSTAAD library is organized into 39 primary functional modules:
+## 2. OpenSTAAD API 渐进式检索
 
-| Module Category (Short Name) | Functional Scope & Responsibilities |
+### 必须按照以下步骤先渐进式检索获取 OpenSTAAD 函数,再执行任务
+**绝对禁止凭印象写函数签名**,严禁自己瞎猜任何的函数以及其入参和返回值,写代码前必须先渐进式检索获取准确无误的调用方法。
+
+### Step 1:确定模块
+
+```bash
+python scripts/list_top_modules.py    # 列出所有模块(全名 + 短名 + 函数数)
+```
+
+39 个模块概览(检索时全名、短名均可用):
+
+| 模块(短名) | 用途 |
 |---|---|
-| Session/File (Root) `session-file-root` | Session & file management: open/save .std, global units, status checks, solve triggers |
-| Geometry: Node `geometry_node` | Nodal geometry: creation, query, coordinate editing, merging, and selection sets |
-| Geometry: Member `geometry_member` | Member geometry: creation, split/merge/intersect, renumbering, connectivity |
-| Geometry: Plate `geometry_plate` | Plate/shell elements: 3-node/4-node generation, geometric properties, areas |
-| Geometry: Solid `geometry_solid` | 8-node brick solids: 3D solid elements, connectivity, and queries |
-| Geometry: Group `geometry_group` | Named entity groups: grouped collections of nodes, members, plates, and solids |
-| Geometry: Physical Member `geometry_physical-member` | Physical members: merging multiple analytical members into a single design unit |
-| Geometry: Parametric Surface `geometry_parametric-surface` | Parametric surfaces: surface boundary definition and automated plate meshing |
-| Geometry: Misc `geometry_misc` | Geometric utilities: vertical axis detection, translation/mirroring, duplicate checks |
-| Load: Cases & Combinations `load_cases-combinations` | Primary load cases & combinations: definition, load factors, and activation |
-| Load: Nodal `load_nodal` | Nodal loads: concentrated forces, moments, and enforced settlements |
-| Load: Member Loads `load_member-loads` | Member loads: uniform, concentrated, trapezoidal, thermal, and distributed moments |
-| Load: Plate Loads `load_plate-loads` | Plate loads: surface pressure, hydrostatic pressure distributions, concentrated forces |
-| Load: Self-weight & Floor `load_self-weight-floor` | Structural self-weight and one-way/two-way floor load distributions |
-| Load: Wind `load_wind` | Wind loading: wind intensity profiles, exposure factors, and wind load generation |
-| Load: Seismic `load_seismic` | Seismic definitions: response spectrum parameters, mass sources, and equivalent lateral forces |
-| Load: Spectrum & Direct Analysis `load_spectrum-direct-analysis` | Dynamic response spectrum, notional horizontal forces, and direct analysis parameters |
-| Load: Reference Loads `load_reference-loads` | Reference load definitions and container management |
-| Load: Lists & Envelopes `load_lists-envelopes` | Load case filtering and extreme internal force envelopes |
-| Property: Standard Table Sections `property_standard-table-sections` | Standard steel catalogs: profile names come from the open model through `GetProfileSectionNameList` |
-| Property: Prismatic & Tapered `property_prismatic-tapered` | Parametric custom sections (rectangles, circles, tapered) and section properties |
-| Property: UPT User Tables `property_upt-user-tables` | User-defined profile tables (UPT) and section binding |
-| Property: Assign & Query Sections `property_assign-query-sections` | Section assignment, property queries, and material beta angle orientation |
-| Property: Materials `property_materials` | Material definitions (modulus E, Poisson's ratio, density) and member assignments |
-| Property: Member Specs `property_member-specs` | Member specifications: end releases, partial fixity, tension/compression-only, master-slave |
-| Property: Plate Thickness & Element Specs `property_plate-thickness-element-specs` | Plate thicknesses, plane stress assumptions, in-plane rotational releases, offsets |
-| Property: Fireproofing `property_fireproofing` | Fireproofing coating thickness and added self-weight (stiffness excluded) |
-| Property: Custom Attributes `property_custom-attributes` | Custom metadata tags and entity attributes |
-| Support `support` | Supports & foundations: fixed, pinned, spring releases, inclined supports, elastic footings |
-| Output: Units & Status `output_units-status` | Output unit verification and analysis results availability checks |
-| Output: Node & Support Results `output_node-support-results` | Nodal displacements, support reactions, base shears, and soil pressure checks |
-| Output: Member Results `output_member-results` | Member end forces, section forces along length, local deformations, and stresses |
-| Output: Plate & Solid Results `output_plate-solid-results` | Plate/solid stresses, membrane forces, bending moments, and von Mises stresses |
-| Output: Dynamic & Buckling `output_dynamic-buckling` | Natural frequencies, modal shapes, mass participation factors, buckling factors |
-| Output: Steel Design Results `output_steel-design-results` | Steel design check results: stress ratios, governing load combinations, design blocks |
-| Command `command` | Solver commands: linear static, P-Delta, non-linear analysis, rigid floor diaphragms |
-| Design `design` | Code design parameters and design group definitions |
-| Table `table` | Reporting system: structure reports and cell read/write operations |
-| View `view` | 3D viewport control: display modes (wireframe/render), force diagrams, programmatic selections |
+| Session/File (Root) `session-file-root` | 会话级:打开/保存 .std、**单位设置**、任务信息、**运行分析与状态查询**(直接挂 `s`) |
+| Geometry: Node `geometry_node` | 节点:增删改查、坐标、合并、选择读取 |
+| Geometry: Member `geometry_member` | 杆件本体:增删、切分/合并/相交/打断、重编号、两端节点、选择 |
+| Geometry: Plate `geometry_plate` | 板/壳单元:三四节点板增删查、面积、选择 |
+| Geometry: Solid `geometry_solid` | 八节点实体单元:增删查、选择 |
+| Geometry: Group `geometry_group` | 命名组:节点/杆件/板/实体的批量集合 |
+| Geometry: Physical Member `geometry_physical-member` | 物理杆件:多段分析杆件合并为一根设计单元 |
+| Geometry: Parametric Surface `geometry_parametric-surface` | 参数化曲面:定义/网格化生成板单元 |
+| Geometry: Misc `geometry_misc` | 几何杂项:Z 轴向上判断、平移复制、重合检查开关、隐藏实体标志 |
+| Load: Cases & Combinations `load_cases-combinations` | **主荷载工况与组合**:一切荷载的容器,先建工况、再激活、后加载;组合系数对 |
+| Load: Nodal `load_nodal` | 节点荷载、支座强制位移 |
+| Load: Member Loads `load_member-loads` | 杆件荷载:均布/集中/梯形/线变/温度/应变/面荷载/固端、集中与均布弯矩、杆上荷载拆分合并 |
+| Load: Plate Loads `load_plate-loads` | 板上荷载:压力、静水压、梯形压力、集中 |
+| Load: Self-weight & Floor `load_self-weight-floor` | **自重**与楼面荷载 |
+| Load: Wind `load_wind` | 风荷载定义/强度/暴露面/加载 |
+| Load: Seismic `load_seismic` | 地震荷载定义/重量源/加载 |
+| Load: Spectrum & Direct Analysis `load_spectrum-direct-analysis` | 反应谱、Notional 荷载、直接分析参数 |
+| Load: Reference Loads `load_reference-loads` | 参考荷载定义与查询 |
+| Load: Lists & Envelopes `load_lists-envelopes` | 荷载列表与包络(下一命令/查询作用的工况集) |
+| Property: Standard Table Sections `property_standard-table-sections` | 国家型钢库截面(含国家代码表)、**本地枚举有效截面名**(GetProfileSectionNameList,不依赖 STAAD 运行) |
+| Property: Prismatic & Tapered `property_prismatic-tapered` | 自定义参数截面(A、Iy、Iz…)与变截面 |
+| Property: UPT User Tables `property_upt-user-tables` | 用户表(UPT)截面 |
+| Property: Assign & Query Sections `property_assign-query-sections` | 截面指派/移除与属性查询、β 角 |
+| Property: Materials `property_materials` | 材料定义/指派/查询(E、ρ、ν 等) |
+| Property: Member Specs `property_member-specs` | 杆件与节点规格:端部释放/半刚接、桁架/仅拉/仅压/索、偏移、失效杆件(Inactive)、忽略刚度(Ignore Stiffness)、主从节点约束(Control-Dependent) |
+| Property: Plate Thickness & Element Specs `property_plate-thickness-element-specs` | 板厚、板单元规格(平面应力/忽略面内转动/节点释放)与偏移 |
+| Property: Fireproofing `property_fireproofing` | 杆件防火涂层(算自重,不改刚度) |
+| Property: Custom Attributes `property_custom-attributes` | 杆件/板自定义属性(标签) |
+| Support `support` | 支座:固定/铰接/自定义释放/倾斜、弹性地基 |
+| Output: Units & Status `output_units-status` | 输出单位查询、结果可用性检查 |
+| Output: Node & Support Results `output_node-support-results` | 节点位移(含非线性)、**支座反力**、静力校核、基底压力、弹性地基影响面积(只读,需分析完成) |
+| Output: Member Results `output_member-results` | 杆件结果:端力、截面内力、位移、应力(含物理杆件) |
+| Output: Plate & Solid Results `output_plate-solid-results` | 板/实体应力、弯矩剪力、Von Mises、沿线合力 |
+| Output: Dynamic & Buckling `output_dynamic-buckling` | 频率振型、质量参与系数、屈曲因子、时程 |
+| Output: Steel Design Results `output_steel-design-results` | 钢设计校核结果:应力比、控制截面、设计参数块 |
+| Command `command` | 分析/设计命令:静力/PDelta/屈曲/索/非线性/直接分析、钢设计命令、软弱层与不规则检查、楼板隔板 |
+| Design `design` | 通用设计 Brief/参数/分组(**中国规范校核官方库暂未提供,待补齐**) |
+| Table `table` | 报表:建报告、读写单元格 |
+| View `view` | 视图:显示模式切换(线框↔实体截面渲染 Full Section、内力/应力/位移图)、显示/隐藏构件、标注、缩放、**程序化选择**(按方向/按组/按连接)、导出图片、剖切视图、比例尺、视口窗口 |
 
-## 3. Programming Rules & Type Mapping
+### Step 2:列出模块的函数
 
-`openstaadpy` encapsulates underlying COM interop marshalling; manual VARIANT handling is unnecessary:
-- **Parameter Inputs**: Pass standard Python native types (integers, floats, lists such as `[1, 2, 3]`).
-- **Return Values**: Returns native Python data structures (`list`, `tuple`, `int`, `float`, `str`, `dict`).
-- **Case Sensitivity**: Function names must match official PascalCase naming exactly.
-- **Typed Exceptions**: Negative error codes become `OsErrorBase` subclasses in `openstaadpy.os_analytical.oserrors`, including `OsNodeNotFound`, `OsInvalidArgument`, and `OsGroupAlreadyExists`. Some paths still raise `COMError`. Wrap a batch with `except (OsErrorBase, COMError)` and include the member or load case in the message. `View.CreateNewViewForSelections` and `View.SetLabel` do not have a confirmed return value. Try them on one object before using the return.
+```bash
+python scripts/list_module_functions.py geometry_node
+python scripts/list_module_functions.py "Load: Member Loads" --limit 20
+```
 
-## 4. Engineering Units and Vertical Axis Conventions
+输出按 Create/Get/Set 等动词分类给出函数名 + 一行 purpose,据此判断该用哪个。
 
-OpenSTAAD interprets all numerical input according to the **current model input unit system**. Incorrect unit assignments result in severe calculation errors. Furthermore, the global vertical axis (Y-up vs Z-up) governs gravity direction and coordinate orientation.
+### Step 3:获取函数详情
+
+```bash
+python scripts/get_function_detail.py CreatePlateThicknessProperty        # 直接按函数名查(推荐)
+python scripts/get_function_detail.py geometry_node GetNodeCount          # 同名多处时用模块限定
+python scripts/get_function_detail.py --search reaction                   # 只知道大概时全文搜索
+```
+
+返回 syntax、purpose、parameters、returns、example(Python)。**写代码前必须确认 syntax 和 parameters**;国家代码、方向码等枚举表就在 parameters 里。注意模块限定必须用 Step 1 列表里的全名或短名(没有叫 "Property" 的模块)。
+
+## 3. 调用规范
+
+openstaadpy 已在内部完成全部 COM marshalling,不需要任何 VARIANT 辅助函数。
+
+- **参数直接传原生 Python 类型**:数字传 int/float,ID 列表直接传 `[1, 2, 3]`。
+- **返回值也是原生类型**:list / tuple / int / float / str / dict,可直接迭代、切片。
+- **函数名大小写必须与 db 完全一致**(PascalCase 镜像官方),调用路径照抄 syntax 列。
+- **错误以类型化异常抛出**:底层负错误码会被库自动转成 `OsErrorBase` 子类(如 OsNodeNotFound、OsInvalidArgument、OsGroupAlreadyExists,均在 `openstaadpy.os_analytical.oserrors`);个别路径仍可能抛 `comtypes.COMError`;函数在当前 STAAD 版本不可用时抛 OsErrorBase 提示升级。批量操作时用 `except (OsErrorBase, COMError)` 包住并打印上下文(哪个构件、哪个工况),便于定位。
+- returns 写着"未标注返回值…先小范围验证"的条目(全库仅 2 个:View.CreateNewViewForSelections、View.SetLabel)返回值语义未核实;returns 为 `None` 的条目系按官方实现推断的无返回值。
+- 极少数函数可能在不同模块同名:`get_function_detail.py <函数名>` 会把所有模块的版本都列出来,按 syntax 的调用路径甄别是哪一个。
+
+## 4. 单位铁律
+
+OpenSTAAD 的一切数值输入输出都按**模型当前输入单位制**解释,单位错了数值全错且不报错;
+全局竖向轴方向(Y-up 还是 Z-up)决定了重力方向与坐标体系,建模前也务必确认。
 
 ```python
-s.GetBaseUnit()               # 'English' or 'Metric'
-s.GetInputUnitForLength()     # 'Meter', 'MilliMeter', 'Feet', etc.
-s.GetInputUnitForForce()      # 'KiloNewton', 'Kilopound', etc.
-s.Geometry.IsZUp()            # True = Z-up, False = Y-up
+s.GetBaseUnit()               # 'English' 或 'Metric'
+s.GetInputUnitForLength()     # 'Meter' / 'MilliMeter' / 'Feet' ...
+s.GetInputUnitForForce()      # 'KiloNewton' / 'Kilopound' ...
+s.Geometry.IsZUp()            # True=Z轴向上, False=Y轴向上
+```
+**注意：** 在 STAAD.Pro 中，同时有全局基本单位（Base Unit）和输入单位（InputUnitForLength/InputUnitForForce）两处控制单位制。当两者不一致时, 会导致材料特性（如弹性模量、密度等）、几何坐标、荷载数值都发生巨大的混乱，会带来很多极其严重的问题。
+发现这种情况务必提醒用户按照以下步骤进行手动修正(BaseUnit无法通过API修改)：
+1. 保存并关闭当前模型。
+2. 在 STAAD.Pro 启动界面的配置（Configuration）选项中，找到 Base Unit。
+3. 将其修改为您项目实际使用的单位制（如模型坐标和荷载是公制，就必须在此处选择 Metric）。
+
+- **建模/加载/读结果之前,先跑上面四行确认单位与竖向轴**,再决定数值与方向。
+- 竖向轴不要求必须为某一方向,但必须与建模逻辑一致:`IsZUp()=True` 时竖向坐标用 Z、自重方向码用 3;`IsZUp()=False` 时竖向坐标用 Y、自重方向码用 2;荷载方向码同理。
+- 需要改单位用 `s.SetInputUnits(lengthUnit, forceUnit)`(长度/力代码各 0~7,完整映射查 `get_function_detail.py SetInputUnits`;常用 `(4, 5)` = 米+千牛)。
+- 用户口头说的"kN、米"与模型单位不一致时,在 Python 侧换算后再传入。
+
+## 5. 典型工作流
+
+建模到出结果的标准顺序(乱序会失败或结果为空):
+
+```
+连接 → 确认单位 → 先查后建(枚举已有材料/截面/工况) → 几何(节点→杆件/板) → 截面/材料 → 支座
+     → 荷载工况(先建、再激活、后加载) → 组合(可选) → Command.PerformAnalysis(0) → SaveModel → AnalyzeEx(1,0,1) → 状态检查 → 读结果
 ```
 
-**Unit System Principles**:
-- Models have a global base unit and separate input units. When they disagree, modulus, density, coordinates, and loads are all wrong and the API does not say so. `SetInputUnits` changes only the input units. The base unit is changed by the user in the STAAD.Pro startup Configuration, after the model is saved and closed. Tell the user that. Do not try to set the base unit from Python.
-- Run the four checks above before geometry, loads, or results. If the user says kilonewtons and metres and the model is not that system, convert in Python before the call.
-- When `IsZUp() == True`, vertical coordinates use Z and gravity direction code is 3; when `IsZUp() == False`, vertical coordinates use Y and gravity direction code is 2.
-- Switch input units via `s.SetInputUnits(lengthUnit, forceUnit)` (e.g. `(4, 5)` represents meters and kiloNewtons).
+- **先查后建——撞名/撞号是各类静默失败的根源。** 材料、截面、工况与模型已有对象撞名时 API 不报错:创建变成更新、赋值返回 `True` 实未生效,直到分析才暴雷(如 `DENSITY NOT PROVIDED`)。故建前一律先枚举同类已有对象,**能复用就复用,要新建就避开已有命名/编号**。查法:材料 `s.Property.GetIsotropicMaterialCount()` + `GetIsotropicMaterialProperties(i)`(元组首项即材料名),新名加唯一前缀如 `MY_STEEL_01`;截面 `s.Property.GetSectionPropertyList()` + `GetSectionPropertyName(id)`,复用时编号直接交给 `AssignBeamProperty(beams, id)`;工况 `s.Load.GetPrimaryLoadCaseNumbers()`,新建号一律用 `CreateNewPrimaryLoad` 返回值、别硬编码 1/2/3,清场用 `DeletePrimaryLoadCases(existing, False)`(第二参 varIsReferenceLoads)。关键赋值后仍要抽查——如 `s.Property.GetBeamMaterialName(bid)` 返回空串即未生效,先 `s.SaveModel(True)` 再重赋一次。
+- **几何编号:STAAD 里杆件(member)、板/壳(element)、实体(Solid)共用同一编号空间。** 一律用 `AddNode`/`AddBeam`/`AddPlate`/`AddSolid` 自动编号(取其返回值)作为新对象编号;如果撞号时 STAAD 静默通过、分析时才报 `MEMBER/ELEM. NO. n IS DUPLICATED`, Add系列函数可以规避此问题。
+- **分析前必须先插入分析命令**:全部荷载工况和组合都建完后,调用一次 `s.Command.PerformAnalysis(0)` 把 `PERFORM ANALYSIS` 写在所有荷载之后。`AnalyzeEx`/`Analyze` 只启动求解器、不会补这条命令;漏掉它或提前(建组合之前)调用,STAAD 报 `FINISH COMMAND IN LOAD DATA … ANALYSIS COMMAND … MISSING IN CASE NO. n`。**每调一次都追加一条**:修模后重新分析前先 `s.Command.DeleteAllAnalysisCommands()` 清除旧命令,否则 .std 里会堆出多条 `PERFORM ANALYSIS`。
+- 运行分析用 `s.AnalyzeEx(1, 0, 1)`:silentMode=1 抑制输入弹窗、hiddenMode=0 显示分析框(设 1 隐藏时一旦报错易卡死)、waitTillComplete=1 等完成。它**返回 int 状态码**:2/3=完成可读结果,4=有错误,5=尚未分析,负值/0=异常;官方示例还会跟 `while s.IsAnalyzing(): pass` 兜底等待。
+- 读结果前先 `s.GetAnalysisStatus()`(返回 dict,含 ReturnValue/ReturnString/NoOfErrors 等),`ReturnValue` 为 2/3 才可读。
+- **分析报错(`AnalyzeEx` 返回 4 或 `NoOfErrors` > 0)的排查链**:`GetAnalysisStatus()` 确认错误数 → 读同名 `.ANL` 分析输出文件、搜 `*** ERROR MESSAGE ***` 定位具体错误 → 对读 `.std` 核实际写出的命令 → 修复后重分析。常见:材料未赋(`DENSITY NOT PROVIDED`)、工况缺分析命令。
+- 读结果都在 `s.Output.*`(杆件端力、支座反力、位移、振型等)。
+- `references/common_examples.md` 的章节按**建模 → 分析 → 取结果**标准顺序排列,内容取自官方示例,连起来即完整流程,写代码前先查阅。
 
-## 5. Standard Structural Calculation Pipeline
+## 6. 使用注意事项
 
-Recommended workflow order:
-```
-Session Connect -> Verify Units & Vertical Axis -> Consult references/common_examples.md
-  -> Build Geometry (Nodes & Members) -> Assign Sections & Materials -> Define Supports
-  -> Define Load Cases & Combinations -> Insert Analysis Command (PerformAnalysis)
-  -> Save Model (SaveModel) -> Execute Analysis (AnalyzeEx) -> Validate Solver Convergence
-  -> Extract Internal Forces, Displacements & Code Check Ratios
-```
-
-**Key Execution Rules**:
-- **Conflict Prevention**: A repeated material, section, or load-case name does not raise. The create call can become an update, and an assign call can return success without taking effect. That shows up later as `DENSITY NOT PROVIDED`. List what is already there. Reuse it, or pick a new name such as `MY_STEEL_01`. Materials: `GetIsotropicMaterialCount` and `GetIsotropicMaterialProperties` (the material name is the first item). Sections: `GetSectionPropertyList` and `GetSectionPropertyName`, then pass that id to `AssignBeamProperty`. Load cases: `GetPrimaryLoadCaseNumbers`. Use the id returned by `CreateNewPrimaryLoad` or `CreateNewPrimaryLoadEx2`. Do not hard-code 1, 2, and 3. `DeletePrimaryLoadCases(existing, False)` clears primary cases. The second argument is reference-load mode. After assigning a material, `GetBeamMaterialName(beam_id)` must be non-empty. If it is empty, `SaveModel(True)` and assign again.
-- **Unified Geometric Index Space**: Members, plates, and solids share one id space. Use the ids returned by `AddNode`, `AddBeam`, `AddPlate`, and `AddSolid`. A chosen id that already exists is accepted and later reported as `MEMBER/ELEM. NO. n IS DUPLICATED`.
-- **Insert Analysis Commands Explicitly**: After all load cases and combinations are constructed, invoke `s.Command.PerformAnalysis(0)` to write the analysis instruction; clear prior instructions with `s.Command.DeleteAllAnalysisCommands()` when re-running after model edits.
-- **Solver Execution**: `s.AnalyzeEx(1, 0, 1)` starts the solver. It does not write `PERFORM ANALYSIS`. `silentMode=1` suppresses input dialogs. `hiddenMode=0` keeps the progress window visible. Hiding it can stall on an error. `waitTillComplete=1` blocks until the solver finishes. Codes: negative or 0 is a failure, 1 is still running, 2 is finished clean, 3 is finished with warnings, 4 has errors, 5 has not been analyzed. Follow it with `while s.IsAnalyzing(): pass` when the call can return before the solver is idle.
-- **Status Verification**: `GetAnalysisStatus()` returns `ReturnValue`, `ReturnString`, and `NoOfErrors`. Read results only when `ReturnValue` is 2 or 3. On code 4 or `NoOfErrors > 0`, read the `.ANL` file for `*** ERROR MESSAGE ***`, then the commands that were actually written. `GetAnalysisErrorMessages()` is not available from STAAD 2024 onward.
-- **Empty Results**: If a result is empty or zero, check analysis status, whether the load-case number is in `GetPrimaryLoadCaseNumbers()`, and whether the input units match the numbers you sent.
-
-## 6. Operational Precautions
-
-1. **Non-Interactive Batch Automation**: Agent scripts must run fully unattended without modal popups; save models using `s.SaveModel(True)`.
-2. **Access Pre-Selected Entities**: Read user-selected entities via `s.Geometry.GetSelectedBeams()` or `s.Geometry.GetSelectedNodes()`; if empty, prompt the user to make a selection rather than hanging.
-3. **Optimize COM Invocations**: Minimize per-call COM overhead by avoiding element-by-element loops. Retrieve full entity lists via `GetNodeList()` or `GetBeamList()`, and pass lists to batch assignment interfaces where supported.
-4. **Output File Locations**: Write generated charts, CSV tables, and reports to `WORKSPACE_DIR` using absolute paths.
-5. **Do Not Edit Raw .std Files Directly**: Edit the `.std` text only when the user asks for that edit and states the exact change. The order is `SaveModel(True)`, `CloseSTAADFile()`, `time.sleep(2)`, edit the file, `connect()` again, `OpenSTAADFile()`, then read a load case or a geometry query. The COM session from before the close is invalid. The sequence is in `references/common_examples.md`.
-
-## 7. Workflow Automation Script
-
-[scripts/code_tables.py](scripts/code_tables.py) records the unit, load-type, direction, group, country, and analysis-status codes used below. [scripts/staad_frame.py](scripts/staad_frame.py) builds a portal frame on an already-open model: metre and kilonewton units, nodes and beams, fixed bases (`CreateSupportFixed` then `AssignSupportToNode`), one dead-load case, and optional analysis (`PerformAnalysis` then `AnalyzeEx`). Running either file with no arguments is a local self-check and does not start STAAD.Pro. Pass `--run` to `staad_frame.py` only when a model is already open. Section names are assigned from the live catalog, as shown in [references/common_examples.md](references/common_examples.md).
-
----
-
-## Official Documentation & Upstream API Sources
-
-When verifying specific OpenSTAAD function return codes, COM syntax variations, or advanced analysis cards, consult the official Bentley OpenSTAAD reference resources:
-
-- **Bentley OpenSTAAD Documentation Wiki**: [https://communities.bentley.com/products/ram-staad/w/structural_analysis_and_design__wiki/8568/openstaad-documentation](https://communities.bentley.com/products/ram-staad/w/structural_analysis_and_design__wiki/8568/openstaad-documentation)
-- **Bentley Systems Documentation Portal**: [https://docs.bentley.com/](https://docs.bentley.com/)
-- **openstaadpy Python Package Documentation**: [https://pypi.org/project/openstaadpy/](https://pypi.org/project/openstaadpy/)
-- **Local Installed Primary Material**: COM Type Libraries and Interop assemblies located in the STAAD.Pro program directory:
-  - `<STAAD_DIR>\STAAD\OpenSTAAD\OpenSTAAD.tlb`
-  - `<STAAD_DIR>\STAAD\OpenSTAAD\Bentley.Interop.Staad.dll`
-
----
-
-## Intellectual Property & Interoperability Notice
-
-This skill provides open procedural automation workflows, interface scripts, and reference documentation for structural engineering and computational design. All third-party product names, software titles, registered trademarks, and logos referenced herein are the intellectual property of their respective owners. Mention of these systems is made solely for technical interoperability, compatibility identification, and execution routing. Use of this skill implies no affiliation, endorsement, sponsorship, or intellectual property rights claim.
+1. **无人值守,严禁任何交互**:agent 的脚本必须自己跑完。分析用 `s.AnalyzeEx(1, 0, 1)`——silentMode=1 抑制所有需用户输入的弹窗,分析进度框会自动关闭,不阻塞;保存用 `s.SaveModel(True)`;不要调用任何会弹对话框等用户确认的路径。
+2. **用户预选必须支持,方式是"读"而不是"等"**:用 `s.Geometry.GetSelectedBeams()` / `s.Geometry.GetSelectedNodes()`(非阻塞,未选中返回空 list)读取用户在 STAAD.Pro 里已选好的对象;为空则结束本次执行并请用户先选好,不要原地等待。
+3. **批量操作注意跨进程开销**:每次函数调用都是一次 COM 往返。取清单用 `s.Geometry.GetNodeList()` / `s.Geometry.GetBeamList()` 一次拿全,不要 `for i in range(...)` 里逐个试探;能传 list 的函数(`s.Property.AssignBeamProperty`、`s.Load.AddNodalLoad` 等)一次传一批。
+4. **修改类操作完成后 `s.SaveModel(True)`**,否则改动只在内存里;分析前 STAAD 也要求模型已保存。
+5. **所有输出文件一律落到会话工作目录**:python_executor 已注入 `WORKSPACE_DIR`,导出 CSV/报告用 `os.path.join(WORKSPACE_DIR, "文件名")` 拼绝对路径——STAAD.Pro 是独立进程,相对路径不会解析到工作目录。
+6. **结果为空/为零先查三件事**:分析是否成功(`s.GetAnalysisStatus()`)、工况号是否存在(`s.Load.GetPrimaryLoadCaseNumbers()`)、单位制是否与预期一致(第 4 节)。
+7. **严禁直接`.std` 文本文件**:除非用户明确要求可以编辑`.std`，并且明确告诉了你应该如何编辑，否则严禁通过编辑`.std`来达成目标。你不可能清楚知道这个文件的格式，错误编辑将会带来无法挽回的大崩溃，导致任务彻底失败。如确实被授权可以编辑并清楚的知道如何编辑，务必按 `SaveModel(True)` → `CloseSTAADFile()`(释放文件锁,之后 COM 会话失效)→ `time.sleep(2)` → 读写文件 → 重新 `connect()` + `OpenSTAADFile()` → 读关键数据验证 的顺序。

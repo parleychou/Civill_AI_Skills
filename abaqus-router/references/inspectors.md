@@ -4,17 +4,12 @@
 字段。检查器不会写模型、等待作业、删除 `.lck` 或覆盖文件。
 
 ```text
-use_skill(
-  "abaqus-router",
-  run="scripts/model_reader.py",
-  run_args='--workspace-dir "D:/work" --model "Model-1" --job "Job-1" --odb "Job-1.odb"'
-)
+`python scripts/inspect_abaqus.py --workspace-dir `
 ```
 
 三个参数都可选：省略 `--model` 或 `--job` 时只列出可用名称；省略 `--odb` 时不打开
 ODB。相对 ODB 路径按 `--workspace-dir` 解析。只有作业已确认 `COMPLETED` 后才能在聊天
-工作流中传 `--odb`。阅读器把 `scripts/model_reader_kernel.py` 整段送进 Abaqus 内核，
-不要在宿主 Python 里单独运行内核文件。
+工作流中传 `--odb`。
 
 ## 返回内容
 

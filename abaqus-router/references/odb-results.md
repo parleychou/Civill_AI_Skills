@@ -8,7 +8,7 @@
 
 ## 先检查后提取
 
-先运行 `scripts/model_reader.py --odb PATH`，确认：
+先运行 `scripts/inspect_abaqus.py --odb PATH`，确认：
 
 - 实际 Step 名和 Frame 数。
 - Frame 的 `frameValue/mode/frequency`。
@@ -28,7 +28,7 @@
 
 ## FieldOutput 选择
 
-Scripting Reference 中的 `FieldOutput` 页（`abaqus doc` 或 https://help.3ds.com/）区分这些重载：
+版本化 API：
 
 - `FieldOutput.getSubset(...)` 有 region、position、elementType、sectionPoint 等不同重载。
 - `FieldOutput.getScalarField(invariant=...)` 或
@@ -67,4 +67,4 @@ History region 名称由模型和求解过程产生，不能猜。先列出 repo
 
 每项最终数值至少携带：ODB 路径、Job、Step、Frame/时间、region、变量、component 或
 invariant、position、坐标系、平均方式和提取方法。需要声称可信/合格时，把这些数据交给
-`scripts/evidence_check.py`，不能仅凭脚本执行成功下结论。
+`scripts/evaluate_result_evidence.py`，不能仅凭脚本执行成功下结论。

@@ -4,11 +4,7 @@
 字段，再把确定性提取所得的数值整理成 `result-evidence.schema.json`，运行：
 
 ```text
-use_skill(
-  "abaqus-router",
-  run="scripts/evidence_check.py",
-  run_args="analysis_spec.json result_evidence.json"
-)
+`python scripts/evaluate_result_evidence.py analysis_spec.json result_evidence.json`
 ```
 
 门禁会从原始向量/序列/网格样本重新计算指标，不接受“已平衡”“已收敛”之类的文本结论。

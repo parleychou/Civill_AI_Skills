@@ -25,14 +25,14 @@ Abaqus 不做单位换算。必须独立核对：
 例如 N-mm-s-tonne 制中 `1 J = 1000 N·mm`。把 J/(kg·K) 换到 N·mm/(tonne·K)
 时必须同时处理能量和质量换算；不要复制来源不明的比热数量级。
 
-在 Scripting Reference（`abaqus doc` 或 https://help.3ds.com/）中核对：
+版本化 API 路径：
 
 - `Material.Conductivity(table=...)`
 - `Material.SpecificHeat(table=...)`
 - `Material.Density(table=...)`
 - `Model.HeatTransferStep(name, previous, response=..., ...)`
 
-温度依赖数据的表列顺序以当前安装的 Scripting Reference 材料页为准。
+温度依赖数据的表列顺序必须按当前版本契约核对。
 
 ## 热边界与载荷
 
